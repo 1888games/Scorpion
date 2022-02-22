@@ -1,0 +1,19 @@
+parsing
+flex pass 1
+flex pass 2
+flex pass 3
+Output pass
+Writing prg file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg
+
+Memory Map
+----------
+Default-segment:
+  $1201-$120d Unnamed
+  $a00c-$af99 Program Start
+  $af9a-$b571 IRQ
+  $b572-$baff After Defaults
+  $bb00-$bf7f Chars
+  $bf80-$bfff Chars2
+
+Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs
+Writing Symbol file: scorpion.sym

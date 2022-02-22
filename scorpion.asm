@@ -1,39 +1,14 @@
+  
 
- .macro BASICStub(Entry) 
-     {
-    
+#import "labels.asm"
 
-            .pc = $1000
-            .byte 0                                    // start of BASIC program
-            .word nextline                          // Pointer to next BASIC line (Lo/Hi)
-            .word 0                                 // Line number
-            .byte $9e                               // "    SYS"    
-            .fill 5, toIntString(Entry,5).charAt(i) // Address of " begin"   as numeric string
-
-            .byte 0 
-                                            // End of BASIC line
-        nextline:   .word 0                                 // End of BASIC program
-        begin:      .pc = * "Entry"                     // start of 6502 code
-    
-    }
 
 GAME: {
 
-    //Potential screen buffer locations
-    .label SCREEN_BUFFER_0 = $0400
-
-    .label CHAR_SET_P1 = $BB00
-    .label CHAR_SET_P2 = $BF80
-
-    .label INTERRUPT_ENABLE = $911E
-    .label LAST_KEY_PRESSED = $D7
-    .label CHAR_RAM = $1C00
-    .label IRQ_VECTOR_MSB = $315
-    .label IRQ_VECTOR_LSB = $314
-
-    .label SYS   = $9E 
-
   //  BASICStub(Entry2)
+
+    *=$1201
+    BasicUpstart(GAME.Entry2)
 
      * = $a00C "Program Start"
     Entry2:
@@ -42,7 +17,8 @@ GAME: {
 
         lda #%01111111
         sta INTERRUPT_ENABLE
-        sta LAST_KEY_PRESSED
+        sta ZP.LastKeyPressed
+
 
         ldx #255
 
@@ -64,22 +40,29 @@ GAME: {
         lda #>IRQ
         sta IRQ_VECTOR_MSB
 
-        lda #$b1
-        sta $9126
-        lda #$01
-        sta $9127
-        lda #$2d
-        sta $9f
-        lda #$22
-        sta $ca
-        lda #$6d
-        sta $cc
-        jsr L_b432
-    L_a049:
-        lda $9004
-        bmi L_a049
+        lda Timer_LSB
+        sta TIMER_1_LSB
+        lda Timer_MSB
+        sta TIMER_1_MSB
+
+        lda #RASTER_SPLIT_1
+        sta ZP.Raster_Split_1
+
+        lda #RASTER_SPLIT_2
+        sta ZP.Raster_Split_2
+
+        lda #INVERTED + GREEN_BORDER + BLUE_BG
+        sta ZP.DefaultColours
+
+        jsr WaitRaster128
+
+    WaitRaster0:
+        lda RASTER_Y
+        bmi WaitRaster0
         cli 
-        jsr L_b510
+
+        jsr InitialiseRegistersLookups
+    
         ldx #$01
         stx $d0
         inx 
@@ -2015,7 +1998,7 @@ GAME: {
         bne L_aec5
         lda #$0c
         sta $51
-        jsr L_b432
+        jsr WaitRaster128
         dec $50
         bne L_af0b
         lda #$03
@@ -2126,23 +2109,19 @@ GAME: {
 
     IRQ:
       
-        lda $CC
-        ldx $9004
-        cpx $9F
+        lda ZP.DefaultColours
+        ldx RASTER_Y
+        cpx ZP.Raster_Split_1
         bcs L_afab
 
-        lda #13
-        cpx $CA
+        lda #INVERTED + BLACK_BORDER + LIGHT_BLUE_BG
+        cpx ZP.Raster_Split_2
         bcs L_afab
 
-        lda #237
-       // sta $900F
-
-      // .byte $a5,$cc,$ae,$04,$90,$e4,$9f,$b0,$08,$a9,$0d
-      //  .byte $e4,$ca,$b0,$02,$a9,$ed
+        lda #INVERTED + GREEN_BORDER + LIGHT_BLUE_BG
 
     L_afab:
-        sta $900f
+        sta COLOUR_REG
         bit $9124
         pla 
         tay 
@@ -2315,7 +2294,7 @@ GAME: {
         ldy #$21
         jsr L_b0dc
         pla 
-        sta $cc
+        sta ZP.DefaultColours
         ldy #$00
     L_b0dc:
         sty $8d
@@ -2723,27 +2702,29 @@ GAME: {
         bne L_b40e
         inc $9000
     L_b40e:
-        lda $9001
+
+        lda VERTICAL_TOP_LOCATION
         beq L_b41e
         ldx $0d
         bne L_b41e
-        dec $9001
-        dec $9f
-        dec $ca
+        dec VERTICAL_TOP_LOCATION
+        dec ZP.Raster_Split_1
+        dec ZP.Raster_Split_2
     L_b41e:
         cmp #$30
         bcs L_b42d
         ldx $0f
         bne L_b42d
-        inc $9001
-        inc $9f
-        inc $ca
+        inc VERTICAL_TOP_LOCATION
+        inc ZP.Raster_Split_1
+        inc ZP.Raster_Split_2
     L_b42d:
         lda #$40
         jsr L_b504
-    L_b432:
-        lda $9004
-        bpl L_b432
+   // L_b432:
+    WaitRaster128:
+        lda RASTER_Y
+        bpl WaitRaster128
         rts 
 
 
@@ -2863,18 +2844,12 @@ GAME: {
 
 
 
-    L_b4ed:
-         .byte $a1,$45,$f7
+    ZP_Defaults:
+        .byte $a1,$45,$f7
         .byte $81,$08,$10,$04,$80,$10,$04,$80
-
-    L_b4f8:
-        php 
-
+        .byte $08 
         .byte $30,$31
-
-    L_b4fb:
-        bmi L_b52d
-
+        .byte $30, $30
         .byte $30,$30,$20,$20,$0a,$09,$0d
 
     L_b504:
@@ -2890,60 +2865,95 @@ GAME: {
         rts 
 
 
-    L_b510:
-        ldx #$0f
-    L_b512:
-        lda L_b562,x
-        sta $9000,x
+    //L_b510:
+    InitialiseRegistersLookups: 
+
+        ldx #15
+
+    SetVICDefaults:
+ 
+    ResetLoop:
+
+        lda VIC_Defaults, x
+        sta VIC_REGISTER_START,x
         dex 
-        bpl L_b512
-    L_b51b:
-        ldx #$16
-    L_b51d:
-        lda L_b4ed,x
-        sta $b0,x
+        bpl ResetLoop
+
+    InitialiseZP:
+
+        ldx #22
+
+    InitialiseLoop:
+
+        lda ZP_Defaults,x
+        sta ZP.Table_B0,x
         dex 
-        bpl L_b51d
-        ldx #$00
-        stx $00
-        lda #$1e
-    L_b52b:
-        sta $01
-    L_b52d:
-        sta $03e0,x
-        lda $00
-        sta $03c0,x
+        bpl InitialiseLoop
+
+    SetupScreenLookup:
+
+        ldx #<SCREEN_RAM
+        stx ZP.ScreenAddress
+
+        lda #>SCREEN_RAM
+
+    ScreenLoop:
+
+        sta ZP.ScreenAddress + 1    
+        sta SCREEN_MSB_LOOKUP,x
+
+        lda ZP.ScreenAddress
+        sta SCREEN_LSB_LOOKUP,x
+
         clc 
-        adc #$16
-        sta $00
-        lda $01
-        adc #$00
+        adc #COLUMNS
+        sta ZP.ScreenAddress
+
+        lda ZP.ScreenAddress + 1
+        adc #0
+
         inx 
-        cpx #$20
-        bne L_b52b
-        ldx #$00
-        stx $00
-        lda #$10
-    L_b549:
-        sta $01
-        sta $0380,x
-        lda $00
-        sta $0340,x
+        cpx #ROWS
+        bne ScreenLoop
+
+    SetupMapLookup:
+
+        ldx #<MAP_DATA
+        stx ZP.ScreenAddress
+
+        lda #>MAP_DATA
+
+    MapLoop:
+
+        sta ZP.ScreenAddress + 1
+        sta MAP_LOOKUP_MSB,x
+
+        lda ZP.ScreenAddress
+        sta MAP_LOOKUP_LSB,x
         clc 
-        adc #$30
-        sta $00
-        lda $01
-        adc #$00
+        adc #MAP_COLUMNS
+        sta ZP.ScreenAddress
+
+        lda ZP.ScreenAddress + 1
+        adc #0
+        
         inx 
-        cpx #$40
-        bne L_b549
+        cpx #MAP_ROWS
+        bne MapLoop
         rts 
 
+    
 
 
-    L_b562:
+
+    VIC_Defaults:
          .byte $0c
-        .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d,$78
+        .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d
+
+    L_b572:
+    * = * "After Defaults"
+
+        .byte $78
         .byte $a9,$8d,$8d,$0f,$90,$a2,$16,$20,$6d,$a2,$a0,$15,$a9,$21,$e0,$07
         .byte $f0,$0a,$c0,$00,$f0,$06,$c0,$15,$f0,$02,$a9,$00
 
@@ -3074,8 +3084,8 @@ GAME: {
         ldx #$00
         jsr L_a6df
     L_b6fe:
-        lda $9004
-        cmp $9f
+        lda RASTER_Y
+        cmp ZP.Raster_Split_1
         bcc L_b6fe
         jsr L_b7a1
         inc $02
