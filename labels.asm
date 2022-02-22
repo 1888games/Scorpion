@@ -7,6 +7,13 @@ ZP: {
     .label Table_B0 = $B0
     .label ScreenAddress = $00
     .label ScreenAddress_MSB = $01
+    .label INPUT_FLAG = $D0
+    .label UNKNOWN_1D_2 = $1D
+    .label ColourAddress = $0A
+    .label ColourAddress_MSB = $0B
+    .label ReturnAddress = $10
+    .label ColourTemp = $12
+    .label Temp07 = $07
 
 }
 
@@ -35,6 +42,9 @@ ZP: {
 
 .label MAP_DATA = $1000
 
+.label CHAR_EOR_TABLE = $bf70
+.label CHAR_EDIT_ADDRESS = $1C90
+
 
 .label Timer_LSB = 177
 .label Timer_MSB = 1
@@ -44,6 +54,11 @@ ZP: {
 .label ROWS = 32
 .label MAP_ROWS = 64
 .label MAP_COLUMNS = 48
+
+.label SOLID_CHAR = 33
+
+.label SCREEN_ROWS = 23
+.label SCREEN_COLS = 22
 
 .label BLACK_BORDER = 0
 .label WHITE_BORDER = 1

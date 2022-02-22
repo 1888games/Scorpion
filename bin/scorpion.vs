@@ -12,6 +12,7 @@ al C:b38b .L_b38b
 al C:ba40 .L_ba40
 al C:aa5b .L_aa5b
 al C:b397 .L_b397
+al C:b49e .NullTerminate
 al C:b9ea .L_b9ea
 al C:b562 .VIC_Defaults
 al C:b0 .Table_B0
@@ -48,6 +49,7 @@ al C:b28c .L_b28c
 al C:0 .ScreenAddress
 al C:a19e .L_a19e
 al C:b055 .L_b055
+al C:b58f .SkipBlank
 al C:b299 .L_b299
 al C:a6df .L_a6df
 al C:b8ea .L_b8ea
@@ -74,8 +76,8 @@ al C:afe4 .L_afe4
 al C:b6bb .L_b6bb
 al C:adaf .L_adaf
 al C:b6e9 .L_b6e9
-al C:b4a8 .L_b4a8
 al C:a4d0 .L_a4d0
+al C:b48b .MoveToNextData
 al C:afea .L_afea
 al C:adb5 .L_adb5
 al C:a5db .L_a5db
@@ -86,6 +88,7 @@ al C:a09a .L_a09a
 al C:a4be .L_a4be
 al C:afff .L_afff
 al C:b091 .L_b091
+al C:b493 .PositiveIsChar
 al C:a3c3 .L_a3c3
 al C:b6f9 .L_b6f9
 al C:a3c1 .L_a3c1
@@ -105,17 +108,17 @@ al C:a3d0 .L_a3d0
 al C:a2b8 .L_a2b8
 al C:acaa .L_acaa
 al C:b3a2 .L_b3a2
+al C:10 .ReturnAddress
+al C:a052 .SetupSomeValues
 al C:acab .L_acab
 al C:b432 .WaitRaster128
 al C:a4de .L_a4de
-al C:b4af .L_b4af
 al C:a4db .L_a4db
+al C:b5a1 .CopyrightMessage
 al C:22 .RASTER_SPLIT_2
 al C:2d .RASTER_SPLIT_1
 al C:16 .COLUMNS
 al C:add1 .L_add1
-al C:b6ea .L_b6ea
-al C:b6ec .L_b6ec
 al C:b4ab .L_b4ab
 al C:9004 .RASTER_Y
 al C:b4d7 .L_b4d7
@@ -127,6 +130,7 @@ al C:acc1 .L_acc1
 al C:b6fe .L_b6fe
 al C:ae78 .L_ae78
 al C:ae70 .L_ae70
+al C:b487 .ChangeColour
 al C:20 .RED_BG
 al C:ae71 .L_ae71
 al C:b66b .L_b66b
@@ -134,6 +138,7 @@ al C:b42d .L_b42d
 al C:b438 .L_b438
 al C:bd0e .L_bd0e
 al C:a582 .L_a582
+al C:a26d .GetScreenColourAddress
 al C:b794 .L_b794
 al C:bd0b .L_bd0b
 al C:a589 .L_a589
@@ -153,6 +158,7 @@ al C:b67e .L_b67e
 al C:a10f .L_a10f
 al C:a8a0 .L_a8a0
 al C:a355 .L_a355
+al C:1d .UNKNOWN_1D_2
 al C:a230 .L_a230
 al C:30 .CYAN_BG
 al C:90 .LIGHT_ORANGE_BG
@@ -208,13 +214,11 @@ al C:a13e .L_a13e
 al C:b8a2 .L_b8a2
 al C:a37f .L_a37f
 al C:ba08 .L_ba08
-al C:b481 .L_b481
 al C:ac72 .L_ac72
 al C:a7b7 .L_a7b7
 al C:ab52 .L_ab52
 al C:a7b4 .L_a7b4
 al C:ab55 .L_ab55
-al C:b58f .L_b58f
 al C:a9f0 .L_a9f0
 al C:a9f1 .L_a9f1
 al C:ad99 .L_ad99
@@ -225,16 +229,15 @@ al C:a146 .L_a146
 al C:a8c9 .L_a8c9
 al C:b231 .L_b231
 al C:b111 .L_b111
+al C:16 .SCREEN_COLS
 al C:b233 .L_b233
 al C:ac5f .L_ac5f
 al C:a015 .CopyCharset
 al C:b51b .InitialiseZP
-al C:a26d .L_a26d
 al C:b250 .L_b250
 al C:be8a .L_be8a
 al C:ac7a .L_ac7a
 al C:b372 .L_b372
-al C:b493 .L_b493
 al C:b35a .L_b35a
 al C:ac85 .L_ac85
 al C:b35c .L_b35c
@@ -255,6 +258,7 @@ al C:b8c3 .L_b8c3
 al C:50 .GREEN_BG
 al C:a27f .L_a27f
 al C:b7a6 .L_b7a6
+al C:b .ColourAddress_MSB
 al C:b8c8 .L_b8c8
 al C:b141 .L_b141
 al C:b383 .L_b383
@@ -271,14 +275,16 @@ al C:ab5a .L_ab5a
 al C:ab5b .L_ab5b
 al C:b374 .L_b374
 al C:b134 .L_b134
+al C:b476 .MoveToData
 al C:b9f4 .L_b9f4
 al C:1 .Timer_MSB
 al C:a6c1 .L_a6c1
+al C:7 .Temp07
 al C:b7b5 .L_b7b5
 al C:f0 .LIGHT_YELLOW_BG
+al C:b4af .GetScreenAddressCol_X_Row_Y
 al C:b7b9 .L_b7b9
 al C:40 .MAP_ROWS
-al C:b49e .L_b49e
 al C:a6c7 .L_a6c7
 al C:b13d .L_b13d
 al C:ba36 .L_ba36
@@ -310,6 +316,7 @@ al C:b71a .L_b71a
 al C:a00c .Entry2
 al C:b0ec .L_b0ec
 al C:c0 .LIGHT_PURPLE_BG
+al C:12 .ColourTemp
 al C:a86f .L_a86f
 al C:b844 .L_b844
 al C:af0b .L_af0b
@@ -327,6 +334,7 @@ al C:a87b .L_a87b
 al C:b72e .L_b72e
 al C:a99a .L_a99a
 al C:9127 .TIMER_1_MSB
+al C:17 .SCREEN_ROWS
 al C:bf00 .L_bf00
 al C:af32 .L_af32
 al C:a401 .L_a401
@@ -338,8 +346,10 @@ al C:af1c .L_af1c
 al C:b738 .L_b738
 al C:bf80 .CART_CHARSET_2
 al C:b0ee .L_b0ee
+al C:21 .SOLID_CHAR
 al C:a406 .L_a406
 al C:b4ed .ZP_Defaults
+al C:b6ec .CharLoop
 al C:a887 .L_a887
 al C:a52b .L_a52b
 al C:a76c .L_a76c
@@ -349,6 +359,7 @@ al C:b504 .L_b504
 al C:b505 .L_b505
 al C:b506 .L_b506
 al C:1 .WHITE_BORDER
+al C:b57f .ColumnLoop
 al C:a015 .CopyLoop
 al C:b981 .L_b981
 al C:a536 .L_a536
@@ -375,11 +386,13 @@ al C:b996 .L_b996
 al C:ae45 .L_ae45
 al C:ac05 .L_ac05
 al C:a78b .L_a78b
+al C:b57a .RowLoop
 al C:a313 .L_a313
 al C:a434 .L_a434
 al C:b403 .L_b403
 al C:ad0c .L_ad0c
 al C:b648 .L_b648
+al C:b6ea .EditTwoChars
 al C:a558 .L_a558
 al C:a315 .L_a315
 al C:ae2a .L_ae2a
@@ -448,6 +461,7 @@ al C:ace9 .L_ace9
 al C:a2cc .L_a2cc
 al C:a1aa .L_a1aa
 al C:2000 .ZP
+al C:1c90 .CHAR_EDIT_ADDRESS
 al C:b3bc .L_b3bc
 al C:b4de .L_b4de
 al C:a1af .L_a1af
@@ -456,6 +470,8 @@ al C:a2f7 .L_a2f7
 al C:abe0 .L_abe0
 al C:b2c0 .L_b2c0
 al C:b3e1 .L_b3e1
+al C:b4a8 .NoWrap2
+al C:b481 .NoWrap1
 al C:acec .L_acec
 al C:b3e4 .L_b3e4
 al C:b1a4 .L_b1a4
@@ -469,6 +485,7 @@ al C:a921 .L_a921
 al C:abd7 .L_abd7
 al C:a0c1 .L_a0c1
 al C:a92f .L_a92f
+al C:a .ColourAddress
 al C:acfb .L_acfb
 al C:b1b2 .L_b1b2
 al C:a80b .L_a80b
@@ -513,6 +530,7 @@ al C:a700 .L_a700
 al C:10 .WHITE_BG
 al C:b91f .L_b91f
 al C:b0b1 .L_b0b1
+al C:d0 .INPUT_FLAG
 al C:aadf .L_aadf
 al C:b1d8 .L_b1d8
 al C:a94a .L_a94a
@@ -541,6 +559,7 @@ al C:aaea .L_aaea
 al C:aaf6 .L_aaf6
 al C:1c00 .CHAR_RAM
 al C:a84a .L_a84a
+al C:bf70 .CHAR_EOR_TABLE
 al C:5 .GREEN_BORDER
 al C:b1eb .L_b1eb
 al C:aafc .L_aafc
@@ -558,3 +577,4 @@ al C:a979 .L_a979
 al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
+break b5b5 

@@ -1,4 +1,4 @@
-  
+
 
 #import "labels.asm"
 
@@ -62,11 +62,15 @@ GAME: {
         cli 
 
         jsr InitialiseRegistersLookups
+
+    SetupSomeValues:
     
-        ldx #$01
-        stx $d0
+        ldx #1
+        stx ZP.INPUT_FLAG
         inx 
-        stx $1d
+        stx ZP.UNKNOWN_1D_2
+
+
     L_a059:
         jsr $b572
         jsr L_b1e9
@@ -311,15 +315,20 @@ GAME: {
         rts 
 
 
-    L_a26d:
-        lda $03c0,x
-        sta $00
-        sta $0a
-        lda $03e0,x
-        sta $01
+    //GetScreenColourAddress:
+    GetScreenColourAddress:
+
+        lda SCREEN_LSB_LOOKUP,x
+        sta ZP.ScreenAddress
+        sta ZP.ColourAddress
+
+        lda SCREEN_MSB_LOOKUP,x
+        sta ZP.ScreenAddress + 1
+
         clc 
         adc #$78
-        sta $0b
+        sta ZP.ColourAddress + 1
+        
         rts 
 
 
@@ -2425,7 +2434,7 @@ GAME: {
     L_b1e9:
         ldx #$16
     L_b1eb:
-        jsr L_a26d
+        jsr GetScreenColourAddress
         ldy #$15
     L_b1f0:
         lda #$21
@@ -2451,7 +2460,7 @@ GAME: {
     L_b231:
         ldx #$06
     L_b233:
-        jsr L_a26d
+        jsr GetScreenColourAddress
         ldy #$10
     L_b238:
         lda #$00
@@ -2470,7 +2479,7 @@ GAME: {
         sty $06
         ldx #$0c
     L_b24d:
-        jsr L_a26d
+        jsr GetScreenColourAddress
 
     L_b250:
          .byte $8a,$18,$69,$30,$85,$05,$a0,$15,$a5,$06,$f0,$03
@@ -2754,68 +2763,99 @@ GAME: {
     L_b45b:
          .byte $01,$03,$07,$0f,$1f,$3f,$7f,$ff
 
+       // .byte $03,$15,$83,$28,$03
+      //  .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
+      //  .byte $00,$85,$07,$20,$2b,$a1
+
     L_b463:
         pla 
-        sta $10
+        sta ZP.ReturnAddress
         pla 
-        sta $11
-        ldy #$01
-        lda ($10),y
+        sta ZP.ReturnAddress + 1
+
+        ldy #1
+        lda (ZP.ReturnAddress),y  // 03
         pha 
         iny 
-        lda ($10),y
-        tay 
-        pla 
-        jsr L_b4af
-        lda $10
+        lda (ZP.ReturnAddress),y  // 15 to Y
+        tay             // y = 15, a = 15
+        pla            // a = 3
+        jsr GetScreenAddressCol_X_Row_Y  // row 15 column 3
+
+
+    MoveToData:
+
+        lda ZP.ReturnAddress
         clc 
         adc #$03
-        sta $10
-        bcc L_b481
-        inc $11
-    L_b481:
-        lda ($10),y
-        beq L_b49e
-        bpl L_b493
-        and #$7f
-        sta $12
-        inc $10
-        bne L_b481
-        inc $11
-        bne L_b481
-    L_b493:
-        ora #$80
-        sta ($00),y
-        lda $12
-        sta ($0a),y
+        sta ZP.ReturnAddress 
+
+        bcc NoWrap1
+
+        inc ZP.ReturnAddress + 1
+
+    NoWrap1:
+
+        lda (ZP.ReturnAddress),y
+        beq NullTerminate
+        bpl PositiveIsChar
+
+    ChangeColour:
+
+        and #%01111111
+        sta ZP.ColourTemp
+
+    MoveToNextData:
+
+        inc ZP.ReturnAddress
+        bne NoWrap1
+        inc ZP.ReturnAddress + 1
+        bne NoWrap1
+
+    PositiveIsChar:
+
+        ora #%10000000
+        sta (ZP.ScreenAddress),y
+
+        lda ZP.ColourTemp
+        sta (ZP.ColourAddress),y
         iny 
-        bne L_b481
-    L_b49e:
+        bne NoWrap1
+
+   NullTerminate:
+
         tya 
         sec 
-        adc $10
-        sta $10
-        bcc L_b4a8
-        inc $11
+        adc ZP.ReturnAddress
+        sta ZP.ReturnAddress
+        bcc NoWrap2
+        inc ZP.ReturnAddress + 1
 
-    L_b4a8:
-         .byte $6c,$10,$00
+    NoWrap2:
+ 
+        jmp (ZP.ReturnAddress)
+         //`.byte $6c,$10,$00
+
+
 
     L_b4ab:
+
         lda $02
         ldy $03
-    L_b4af:
+
+    GetScreenAddressCol_X_Row_Y:
+  // AddScr
         clc 
-        adc $03c0,y
-        sta $00
-        sta $0a
-        lda $03e0,y
-        adc #$00
-        sta $01
+        adc SCREEN_LSB_LOOKUP,y
+        sta ZP.ScreenAddress
+        sta ZP.ColourAddress
+        lda SCREEN_MSB_LOOKUP,y
+        adc #0
+        sta ZP.ScreenAddress + 1
         clc 
         adc #$78
-        sta $0b
-        ldy #$00
+        sta ZP.ColourAddress + 1
+        ldy #0
         rts 
 
 
@@ -2936,7 +2976,7 @@ GAME: {
 
         lda ZP.ScreenAddress + 1
         adc #0
-        
+
         inx 
         cpx #MAP_ROWS
         bne MapLoop
@@ -2953,21 +2993,65 @@ GAME: {
     L_b572:
     * = * "After Defaults"
 
-        .byte $78
-        .byte $a9,$8d,$8d,$0f,$90,$a2,$16,$20,$6d,$a2,$a0,$15,$a9,$21,$e0,$07
-        .byte $f0,$0a,$c0,$00,$f0,$06,$c0,$15,$f0,$02,$a9,$00
+        sei
+        lda #$8D
+        sta COLOUR_REG
 
-    L_b58f:
-        sta ($00),y
-        lda #$05
-        sta ($0a),y
+        ldx #SCREEN_ROWS - 1
+
+    RowLoop:
+
+        jsr GetScreenColourAddress
+
+        ldy #SCREEN_COLS - 1
+
+    ColumnLoop:
+
+        lda #SOLID_CHAR
+
+        cpx #$07
+        beq SkipBlank
+
+        cpy #0
+        beq SkipBlank
+
+        cpy #$15
+        beq SkipBlank
+
+        lda #0
+
+    SkipBlank:
+
+        sta (ZP.ScreenAddress),y
+
+        lda #GREEN
+        sta (ZP.ColourAddress),y
         dey 
+        bpl ColumnLoop
 
-        .byte $10,$e7,$ca,$10,$df,$20,$ea,$b6,$20,$63,$b4,$03,$15,$83,$28,$03
-        .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
-        .byte $00,$85,$07,$20,$2b,$a1
+        dex
+        bpl RowLoop
+
+        jsr EditTwoChars
+
+        jsr L_b463
+
+
+    CopyrightMessage: // x, y, colour, chars, null term, return
+
+        .byte $03,$15,$83,$28,$03
+        .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00
+
+        * = * "Return2"
+        .break
+
+        lda #0
+        sta ZP.Temp07
+
+        jsr L_a12b
 
     L_b5bc:
+
         lda #$40
         sta $51
         lda #$14
@@ -2976,9 +3060,9 @@ GAME: {
         stx $02
         jsr L_ad63
         jsr $b9e8
-        lda $07
+        lda ZP.Temp07
         eor #$01
-        sta $07
+        sta ZP.Temp07
         jsr L_b463
 
         .byte $03,$01,$83,$14,$12,$0f,$0e,$09,$18,$20,$20,$10,$12,$05,$13,$05
@@ -3069,14 +3153,19 @@ GAME: {
         jmp L_b6be
     L_b6e9:
         cli 
-    L_b6ea:
-        ldx #$0f
-    L_b6ec:
-        lda $bf70,x
-        eor $1c90,x
-        sta $1c90,x
+   // L_b6ea:
+    EditTwoChars:
+
+        ldx #15
+
+    CharLoop:
+
+        lda CHAR_EOR_TABLE,x
+        eor CHAR_EDIT_ADDRESS,x
+        sta CHAR_EDIT_ADDRESS,x
         dex 
-        bpl L_b6ec
+        bpl CharLoop
+
         rts 
 
 
@@ -3203,7 +3292,7 @@ GAME: {
         lsr 
         lsr 
         lsr 
-        jmp L_b4af
+        jmp GetScreenAddressCol_X_Row_Y
 
     L_b7c7:
          .byte $00
@@ -3257,7 +3346,7 @@ GAME: {
     L_b896:
         jsr L_af32
         ldx #$07
-        jsr L_a26d
+        jsr GetScreenColourAddress
         ldx #$08
         ldy #$04
     L_b8a2:
@@ -3305,7 +3394,7 @@ GAME: {
         jsr L_b911
         jsr L_b4e7
         bne L_b896
-        lda $d0
+        lda ZP.INPUT_FLAG 
         and #$03
         cmp #$03
         bne L_b90e
@@ -3413,7 +3502,7 @@ GAME: {
 
     L_b9b2:
         ldx #$11
-        jsr L_a26d
+        jsr GetScreenColourAddress
         ldx #$0a
         ldy #$0d
     L_b9bb:
@@ -3593,7 +3682,12 @@ GAME: {
         .byte $7e,$1e,$0c,$f8,$fe,$72,$60,$60,$60,$60,$72,$fe,$fe,$76,$62,$62
         .byte $62,$62,$76,$fe,$fc,$66,$62,$66,$7c,$6e,$6e,$ee,$fc,$66,$62,$66
         .byte $7c,$60,$60,$e0,$fe,$38,$38,$38,$38,$38,$38,$fe,$fe,$76,$62,$62
-        .byte $62,$62,$76,$fe,$e6,$76,$76,$76,$6e,$6e,$6e,$e6,$80,$d0,$d0,$8e
+
+
+        .byte $62,$62,$76,$fe,$e6,$76,$76,$76,$6e,$6e,$6e,$e6
+
+        * = * "BF70"
+        .byte $80,$d0,$d0,$8e
         .byte $86,$cc,$ee,$ff,$01,$0b,$0b,$71,$61
 
     L_bf7d:

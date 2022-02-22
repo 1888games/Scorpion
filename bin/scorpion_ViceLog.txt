@@ -1,6 +1,6 @@
 Opening monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs
  
-*** VICE Version 3.5 ***
+*** VICE Version 3.6.2-dev, rev 41706 ***
  
 Welcome to xvic, the free portable VIC20 Emulator.
  
@@ -8,58 +8,66 @@ Current VICE team members:
 Martin Pottendorfer, Marco van den Heuvel, Fabrizio Gennari, Groepaz, 
 Errol Smith, Ingo Korb, Olaf Seibert, Marcus Sutton, Kajtar Zsolt, AreaScout, 
 Bas Wassink, Michael C. Martin, Christopher Phillips, David Hogan, 
-Empathic Qubit, Roberto Muscedere.
+Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
  
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/chargen'.
+random seed was: 0x621552c5
+command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/chargen'.
 VIC20 kernal patched to 901486-07.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803'.
-Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803.vpl'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10-cbm'.
-Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10.vpl'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803'.
+Palette: Loading palette `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803.vpl'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10-cbm'.
+Palette: Loading palette `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10.vpl'.
 NL10: Printer driver initialized.
-Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/1520.vpl'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1540'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1541'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/d1541II'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1570'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1571'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1581'.
+Palette: Loading palette `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/1520.vpl'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1540'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1541'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/d1541II'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1570'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1571'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1581'.
 DriveROM: Error - 2000 ROM image not found. Hardware-level 2000 emulation is not available.
 DriveROM: Error - 4000 ROM image not found. Hardware-level 4000 emulation is not available.
 DriveROM: Error - CMDHD ROM image not found. Hardware-level CMDHD emulation is not available.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2031'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2040'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos3040'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos4040'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1001'.
-Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos9000'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2031'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2040'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos3040'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos4040'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1001'.
+Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos9000'.
 Drive: Finished loading ROM images.
 using GTK3 backend: OpenGL
-Created render thread 0
-Render thread initialised
+Loading vertex shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/viewport.vert
+Loading fragment shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/builtin.frag
+Loading vertex shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/viewport.vert
+Loading fragment shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/builtin-interlaced.frag
+Loading vertex shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/viewport.vert
+Loading fragment shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/bicubic.frag
+Loading vertex shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/viewport.vert
+Loading fragment shader: /Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/GLSL/bicubic-interlaced.frag
 Sound: Available sound devices: coreaudio dummy fs dump wav voc iff aiff mp3 flac ogg soundmovie
-mac_joy: loaded HID device list with IOHIDManager. found 0 devices
-mac_joy: (auto) found 0 HID devices. HID A='' B=''
-mac_joy: (auto) done
-Keyboard: Loading keymap `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/DBA123F1-7D9F-4C8C-890B-8B8EBE1ADC3E/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/gtk3_sym.vkm'.
-Keyboard: Warning - gtk3_sym.vkm: !LCBM !VCBM !LCTRL !VCTRL !SHIFTL not defined.
+Keyboard: Loading keymap `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/gtk3_sym.vkm'.
 AUTOSTART: Autodetecting image type of `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg'.
 Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 48.
 Filesystem Image: Unknown disk image `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg'.
 Tape: Error - Cannot open file `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg'
+Error - CRT header invalid.
+CART: '/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg' is not a valid CRT file.
 AUTOSTART: Loading PRG file `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg' with direct RAM injection.
 AUTOSTART: Resetting the machine to autostart '*'
-AUTOSTART: Turning Warp mode on
+AUTOSTART: Turning Warp mode on.
 AUTOSTART: `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg' recognized as program/p00 file.
 Main CPU: starting at ($FFFC).
 Main CPU: RESET.
 Unit 8: RESET.
+Increasing trap_func array size to 1 with 1 to run
 Monitor playback command: al C:afab .L_afab
+Unit 8: RESET.
 Monitor playback command: al C:b280 .L_b280
 Monitor playback command: al C:b7c7 .L_b7c7
 Monitor playback command: al C:d7 .LastKeyPressed
@@ -73,6 +81,7 @@ Monitor playback command: al C:b38b .L_b38b
 Monitor playback command: al C:ba40 .L_ba40
 Monitor playback command: al C:aa5b .L_aa5b
 Monitor playback command: al C:b397 .L_b397
+Monitor playback command: al C:b49e .NullTerminate
 Monitor playback command: al C:b9ea .L_b9ea
 Monitor playback command: al C:b562 .VIC_Defaults
 Monitor playback command: al C:b0 .Table_B0
@@ -109,6 +118,7 @@ Monitor playback command: al C:b28c .L_b28c
 Monitor playback command: al C:0 .ScreenAddress
 Monitor playback command: al C:a19e .L_a19e
 Monitor playback command: al C:b055 .L_b055
+Monitor playback command: al C:b58f .SkipBlank
 Monitor playback command: al C:b299 .L_b299
 Monitor playback command: al C:a6df .L_a6df
 Monitor playback command: al C:b8ea .L_b8ea
@@ -135,8 +145,8 @@ Monitor playback command: al C:afe4 .L_afe4
 Monitor playback command: al C:b6bb .L_b6bb
 Monitor playback command: al C:adaf .L_adaf
 Monitor playback command: al C:b6e9 .L_b6e9
-Monitor playback command: al C:b4a8 .L_b4a8
 Monitor playback command: al C:a4d0 .L_a4d0
+Monitor playback command: al C:b48b .MoveToNextData
 Monitor playback command: al C:afea .L_afea
 Monitor playback command: al C:adb5 .L_adb5
 Monitor playback command: al C:a5db .L_a5db
@@ -147,6 +157,7 @@ Monitor playback command: al C:a09a .L_a09a
 Monitor playback command: al C:a4be .L_a4be
 Monitor playback command: al C:afff .L_afff
 Monitor playback command: al C:b091 .L_b091
+Monitor playback command: al C:b493 .PositiveIsChar
 Monitor playback command: al C:a3c3 .L_a3c3
 Monitor playback command: al C:b6f9 .L_b6f9
 Monitor playback command: al C:a3c1 .L_a3c1
@@ -166,17 +177,17 @@ Monitor playback command: al C:a3d0 .L_a3d0
 Monitor playback command: al C:a2b8 .L_a2b8
 Monitor playback command: al C:acaa .L_acaa
 Monitor playback command: al C:b3a2 .L_b3a2
+Monitor playback command: al C:10 .ReturnAddress
+Monitor playback command: al C:a052 .SetupSomeValues
 Monitor playback command: al C:acab .L_acab
 Monitor playback command: al C:b432 .WaitRaster128
 Monitor playback command: al C:a4de .L_a4de
-Monitor playback command: al C:b4af .L_b4af
 Monitor playback command: al C:a4db .L_a4db
+Monitor playback command: al C:b5a1 .CopyrightMessage
 Monitor playback command: al C:22 .RASTER_SPLIT_2
 Monitor playback command: al C:2d .RASTER_SPLIT_1
 Monitor playback command: al C:16 .COLUMNS
 Monitor playback command: al C:add1 .L_add1
-Monitor playback command: al C:b6ea .L_b6ea
-Monitor playback command: al C:b6ec .L_b6ec
 Monitor playback command: al C:b4ab .L_b4ab
 Monitor playback command: al C:9004 .RASTER_Y
 Monitor playback command: al C:b4d7 .L_b4d7
@@ -188,6 +199,7 @@ Monitor playback command: al C:acc1 .L_acc1
 Monitor playback command: al C:b6fe .L_b6fe
 Monitor playback command: al C:ae78 .L_ae78
 Monitor playback command: al C:ae70 .L_ae70
+Monitor playback command: al C:b487 .ChangeColour
 Monitor playback command: al C:20 .RED_BG
 Monitor playback command: al C:ae71 .L_ae71
 Monitor playback command: al C:b66b .L_b66b
@@ -195,6 +207,7 @@ Monitor playback command: al C:b42d .L_b42d
 Monitor playback command: al C:b438 .L_b438
 Monitor playback command: al C:bd0e .L_bd0e
 Monitor playback command: al C:a582 .L_a582
+Monitor playback command: al C:a26d .GetScreenColourAddress
 Monitor playback command: al C:b794 .L_b794
 Monitor playback command: al C:bd0b .L_bd0b
 Monitor playback command: al C:a589 .L_a589
@@ -214,6 +227,7 @@ Monitor playback command: al C:b67e .L_b67e
 Monitor playback command: al C:a10f .L_a10f
 Monitor playback command: al C:a8a0 .L_a8a0
 Monitor playback command: al C:a355 .L_a355
+Monitor playback command: al C:1d .UNKNOWN_1D_2
 Monitor playback command: al C:a230 .L_a230
 Monitor playback command: al C:30 .CYAN_BG
 Monitor playback command: al C:90 .LIGHT_ORANGE_BG
@@ -269,13 +283,11 @@ Monitor playback command: al C:a13e .L_a13e
 Monitor playback command: al C:b8a2 .L_b8a2
 Monitor playback command: al C:a37f .L_a37f
 Monitor playback command: al C:ba08 .L_ba08
-Monitor playback command: al C:b481 .L_b481
 Monitor playback command: al C:ac72 .L_ac72
 Monitor playback command: al C:a7b7 .L_a7b7
 Monitor playback command: al C:ab52 .L_ab52
 Monitor playback command: al C:a7b4 .L_a7b4
 Monitor playback command: al C:ab55 .L_ab55
-Monitor playback command: al C:b58f .L_b58f
 Monitor playback command: al C:a9f0 .L_a9f0
 Monitor playback command: al C:a9f1 .L_a9f1
 Monitor playback command: al C:ad99 .L_ad99
@@ -286,16 +298,15 @@ Monitor playback command: al C:a146 .L_a146
 Monitor playback command: al C:a8c9 .L_a8c9
 Monitor playback command: al C:b231 .L_b231
 Monitor playback command: al C:b111 .L_b111
+Monitor playback command: al C:16 .SCREEN_COLS
 Monitor playback command: al C:b233 .L_b233
 Monitor playback command: al C:ac5f .L_ac5f
 Monitor playback command: al C:a015 .CopyCharset
 Monitor playback command: al C:b51b .InitialiseZP
-Monitor playback command: al C:a26d .L_a26d
 Monitor playback command: al C:b250 .L_b250
 Monitor playback command: al C:be8a .L_be8a
 Monitor playback command: al C:ac7a .L_ac7a
 Monitor playback command: al C:b372 .L_b372
-Monitor playback command: al C:b493 .L_b493
 Monitor playback command: al C:b35a .L_b35a
 Monitor playback command: al C:ac85 .L_ac85
 Monitor playback command: al C:b35c .L_b35c
@@ -316,6 +327,7 @@ Monitor playback command: al C:b8c3 .L_b8c3
 Monitor playback command: al C:50 .GREEN_BG
 Monitor playback command: al C:a27f .L_a27f
 Monitor playback command: al C:b7a6 .L_b7a6
+Monitor playback command: al C:b .ColourAddress_MSB
 Monitor playback command: al C:b8c8 .L_b8c8
 Monitor playback command: al C:b141 .L_b141
 Monitor playback command: al C:b383 .L_b383
@@ -332,14 +344,16 @@ Monitor playback command: al C:ab5a .L_ab5a
 Monitor playback command: al C:ab5b .L_ab5b
 Monitor playback command: al C:b374 .L_b374
 Monitor playback command: al C:b134 .L_b134
+Monitor playback command: al C:b476 .MoveToData
 Monitor playback command: al C:b9f4 .L_b9f4
 Monitor playback command: al C:1 .Timer_MSB
 Monitor playback command: al C:a6c1 .L_a6c1
+Monitor playback command: al C:7 .Temp07
 Monitor playback command: al C:b7b5 .L_b7b5
 Monitor playback command: al C:f0 .LIGHT_YELLOW_BG
+Monitor playback command: al C:b4af .GetScreenAddressCol_X_Row_Y
 Monitor playback command: al C:b7b9 .L_b7b9
 Monitor playback command: al C:40 .MAP_ROWS
-Monitor playback command: al C:b49e .L_b49e
 Monitor playback command: al C:a6c7 .L_a6c7
 Monitor playback command: al C:b13d .L_b13d
 Monitor playback command: al C:ba36 .L_ba36
@@ -371,6 +385,7 @@ Monitor playback command: al C:b71a .L_b71a
 Monitor playback command: al C:a00c .Entry2
 Monitor playback command: al C:b0ec .L_b0ec
 Monitor playback command: al C:c0 .LIGHT_PURPLE_BG
+Monitor playback command: al C:12 .ColourTemp
 Monitor playback command: al C:a86f .L_a86f
 Monitor playback command: al C:b844 .L_b844
 Monitor playback command: al C:af0b .L_af0b
@@ -388,6 +403,7 @@ Monitor playback command: al C:a87b .L_a87b
 Monitor playback command: al C:b72e .L_b72e
 Monitor playback command: al C:a99a .L_a99a
 Monitor playback command: al C:9127 .TIMER_1_MSB
+Monitor playback command: al C:17 .SCREEN_ROWS
 Monitor playback command: al C:bf00 .L_bf00
 Monitor playback command: al C:af32 .L_af32
 Monitor playback command: al C:a401 .L_a401
@@ -399,8 +415,10 @@ Monitor playback command: al C:af1c .L_af1c
 Monitor playback command: al C:b738 .L_b738
 Monitor playback command: al C:bf80 .CART_CHARSET_2
 Monitor playback command: al C:b0ee .L_b0ee
+Monitor playback command: al C:21 .SOLID_CHAR
 Monitor playback command: al C:a406 .L_a406
 Monitor playback command: al C:b4ed .ZP_Defaults
+Monitor playback command: al C:b6ec .CharLoop
 Monitor playback command: al C:a887 .L_a887
 Monitor playback command: al C:a52b .L_a52b
 Monitor playback command: al C:a76c .L_a76c
@@ -410,6 +428,7 @@ Monitor playback command: al C:b504 .L_b504
 Monitor playback command: al C:b505 .L_b505
 Monitor playback command: al C:b506 .L_b506
 Monitor playback command: al C:1 .WHITE_BORDER
+Monitor playback command: al C:b57f .ColumnLoop
 Monitor playback command: al C:a015 .CopyLoop
 Monitor playback command: al C:b981 .L_b981
 Monitor playback command: al C:a536 .L_a536
@@ -436,11 +455,13 @@ Monitor playback command: al C:b996 .L_b996
 Monitor playback command: al C:ae45 .L_ae45
 Monitor playback command: al C:ac05 .L_ac05
 Monitor playback command: al C:a78b .L_a78b
+Monitor playback command: al C:b57a .RowLoop
 Monitor playback command: al C:a313 .L_a313
 Monitor playback command: al C:a434 .L_a434
 Monitor playback command: al C:b403 .L_b403
 Monitor playback command: al C:ad0c .L_ad0c
 Monitor playback command: al C:b648 .L_b648
+Monitor playback command: al C:b6ea .EditTwoChars
 Monitor playback command: al C:a558 .L_a558
 Monitor playback command: al C:a315 .L_a315
 Monitor playback command: al C:ae2a .L_ae2a
@@ -509,6 +530,7 @@ Monitor playback command: al C:ace9 .L_ace9
 Monitor playback command: al C:a2cc .L_a2cc
 Monitor playback command: al C:a1aa .L_a1aa
 Monitor playback command: al C:2000 .ZP
+Monitor playback command: al C:1c90 .CHAR_EDIT_ADDRESS
 Monitor playback command: al C:b3bc .L_b3bc
 Monitor playback command: al C:b4de .L_b4de
 Monitor playback command: al C:a1af .L_a1af
@@ -517,6 +539,8 @@ Monitor playback command: al C:a2f7 .L_a2f7
 Monitor playback command: al C:abe0 .L_abe0
 Monitor playback command: al C:b2c0 .L_b2c0
 Monitor playback command: al C:b3e1 .L_b3e1
+Monitor playback command: al C:b4a8 .NoWrap2
+Monitor playback command: al C:b481 .NoWrap1
 Monitor playback command: al C:acec .L_acec
 Monitor playback command: al C:b3e4 .L_b3e4
 Monitor playback command: al C:b1a4 .L_b1a4
@@ -530,6 +554,7 @@ Monitor playback command: al C:a921 .L_a921
 Monitor playback command: al C:abd7 .L_abd7
 Monitor playback command: al C:a0c1 .L_a0c1
 Monitor playback command: al C:a92f .L_a92f
+Monitor playback command: al C:a .ColourAddress
 Monitor playback command: al C:acfb .L_acfb
 Monitor playback command: al C:b1b2 .L_b1b2
 Monitor playback command: al C:a80b .L_a80b
@@ -574,6 +599,7 @@ Monitor playback command: al C:a700 .L_a700
 Monitor playback command: al C:10 .WHITE_BG
 Monitor playback command: al C:b91f .L_b91f
 Monitor playback command: al C:b0b1 .L_b0b1
+Monitor playback command: al C:d0 .INPUT_FLAG
 Monitor playback command: al C:aadf .L_aadf
 Monitor playback command: al C:b1d8 .L_b1d8
 Monitor playback command: al C:a94a .L_a94a
@@ -602,6 +628,7 @@ Monitor playback command: al C:aaea .L_aaea
 Monitor playback command: al C:aaf6 .L_aaf6
 Monitor playback command: al C:1c00 .CHAR_RAM
 Monitor playback command: al C:a84a .L_a84a
+Monitor playback command: al C:bf70 .CHAR_EOR_TABLE
 Monitor playback command: al C:5 .GREEN_BORDER
 Monitor playback command: al C:b1eb .L_b1eb
 Monitor playback command: al C:aafc .L_aafc
@@ -619,23 +646,64 @@ Monitor playback command: al C:a979 .L_a979
 Monitor playback command: al C:a855 .L_a855
 Monitor playback command: al C:a612 .L_a612
 Monitor playback command: al C:a611 .L_a611
+Monitor playback command: break b5b5
 Closed monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs
-sound (coreaudio_init): Found audio device with no outputs: Built-in Microphone
-sound (coreaudio_init): Found output audio device: Built-in Output (Default)
-sound (coreaudio_init): Found output audio device: DisplayPort
-sound (coreaudio_init): Found output audio device: Record It Audio Device
-sound (coreaudio_init): Found output audio device: AirBeamTV Audio
-sound (coreaudio_init): Using output audio device: Built-in Output
-sound (coreaudio_init): audio frame buffer size in samples min: 14.000000 max: 4096.000000 fragment size: 128, chosen: 128
+sound (coreaudio_init): Found audio device with no outputs: MacBook Air Microphone
+sound (coreaudio_init): Found output audio device: MacBook Air Speakers (Default)
+sound (coreaudio_init): Using output audio device: MacBook Air Speakers
+sound (coreaudio_init): audio frame buffer size in samples min: 15.000000 max: 4096.000000 fragment size: 32, chosen: 32
 sound (coreaudio_start): Started
-Sound: Opened device `coreaudio', speed 44100Hz, fragment size 2.90ms, buffer size 26.12ms
-Copybuffer increase to 256 bytes
-reSID: MOS6581, filter on, sampling rate 44100Hz - resampling, pass to 19845Hz
-Unit 8: RESET.
+Sound: Opened device `coreaudio', speed 48000Hz, fragment size 0.67ms, buffer size 20.00ms
+Copybuffer increase to 64 bytes
+reSID: MOS6581, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
+Sync reset
 AUTOSTART: Injecting program data at $1201 (size $adff)
 AUTOSTART: Ready
-AUTOSTART: Turning Warp mode off
+AUTOSTART: Turning Warp mode off.
 AUTOSTART: Starting program.
 AUTOSTART: Restoring FileSystemDevice8 to 1.
 AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
+Sync reset
+Sound: Warning - Buffer full during suspend
+sound (coreaudio_start): Started
+Sync reset
+
+Resources with non default values:
+LogFileName="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion_ViceLog.txt"
+SaveResourcesOnExit=1
+ConfirmOnExit=0
+MonitorXPos=1082
+MonitorYPos=268
+MonitorWidth=572
+MonitorHeight=550
+Window0Height=1227
+Window0Width=1994
+Window0Xpos=54
+Window0Ypos=25
+SoundVolume=8
+RAMBlock1=1
+RAMBlock5=1
+KeySet1North=65362
+KeySet1East=65363
+KeySet1South=65364
+KeySet1West=65361
+KeySet1Fire=122
+KeySet1Fire2=122
+JoyDevice1=2
+FSDevice8Dir="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin"
+AutostartBasicLoad=0
+AutostartTapeBasicLoad=0
+AutostartRunWithColon=0
+AutostartPrgMode=1
+
+reconstructed commandline options (might be incomplete):
+-default +confirmonexit -saveres -monitorxpos "1082" -monitorypos "268" -monitorwidth "572" -monitorheight "550" -soundvolume "8" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
+
+VICE thread initiating shutdown
+VICE thread is exiting
+VICE thread has been joined.
+Writing configuration file `/Users/nick/.config/vice/vicerc'.
+Sound: Closing device `coreaudio'
+AudioComponentInstanceDispose
