@@ -3,7 +3,7 @@
 #import "labels.asm"
 
 
-GAME: {
+.namespace GAME {
 
   //  BASICStub(Entry2)
 
@@ -72,9 +72,10 @@ GAME: {
 
 
     L_a059:
-        jsr $b572
+        jsr DrawTitleScreen
         jsr L_b1e9
         jsr L_b92c
+        
         jsr PrintRowOfCharData
 
         .byte $04,$03,$87,$0e,$05,$18,$14,$20,$02,$0f,$0e,$15,$13,$20,$01,$14
@@ -2986,215 +2987,18 @@ GAME: {
         bne MapLoop
         rts 
 
-    
-
 
 
     VIC_Defaults:
-         .byte $0c
+
+        .byte $0c
         .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d
 
-    L_b572:
-    * = * "After Defaults"
-
-        sei
-        lda #$8D
-        sta COLOUR_REG
-
-        ldx #SCREEN_ROWS - 1
-
-    RowLoop:
-
-        jsr GetRowScreenColourAddressX
-
-        ldy #SCREEN_COLS - 1
-
-    ColumnLoop:
-
-        lda #SOLID_CHAR
-
-        cpx #$07
-        beq SkipBlank
-
-        cpy #0
-        beq SkipBlank
-
-        cpy #$15
-        beq SkipBlank
-
-        lda #0
-
-    SkipBlank:
-
-        sta (ZP.ScreenAddress),y
-
-        lda #GREEN
-        sta (ZP.ColourAddress),y
-        dey 
-        bpl ColumnLoop
-
-        dex
-        bpl RowLoop
-
-        jsr EditTwoChars
-
-        jsr PrintRowOfCharData
-
-    CopyrightMessage: // x, y, colour, chars, null term, return
-
-        .byte $03,$15,$83,$28,$03
-        .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00
-
-        * = * "Return2"
-    
-        lda #0
-        sta ZP.Temp07
-
-        jsr Reset32BytesTo1
-
-    L_b5bc:
-
-        lda #64
-        sta ZP.Table_50_32Bytes + 1
-
-        lda #$14
-        sta ZP.Address + 1
-
-        ldx #$00
-        stx ZP.Address
-
-
-        // puts 0 at 02 and 200
-        // puts 14 at 03 and 240 ??
-        jsr L_ad63
-
-        jsr CopyScorpionChars
-
-        lda ZP.Temp07
-        eor #$01
-        sta ZP.Temp07
-
-
-    TronixPresents:
-
-        jsr PrintRowOfCharData
-        .byte $03,$01,$83
-        .text @"tronix  presents\$00"  
-     
-    FromDragonFly:
-
-        jsr PrintRowOfCharData
-
-        .byte $04,$05
-        .text @"from dragonfly\$00" 
-
-        .label LOGO_ROW = 3 
-        .label LOGO_X = 7
-        .label LOGO_CHARS = 7
-  
-        ldx #LOGO_ROW
-        jsr GetRowScreenColourAddressX
-
-        ldy #LOGO_X
-        ldx #LOGO_CHARS
-
-    LogoLoop:
-        lda #BLUE
-        sta (ZP.ColourAddress),y
-
-        lda ZP.Temp07
-        beq SkipChar
-        lda ScorpionCharIDs,x
-    SkipChar:
-        sta (ZP.ScreenAddress),y
-        iny 
-        dex 
-        bpl LogoLoop
-
-
-    
-    Row1_75:
-        
-        jsr PrintRowOfCharData
-        .byte $07,$09,$86
-        .text @"75\$00" 
-
-    Row1_300:
-
-        jsr PrintRowOfCharData
-        .byte $10,$09
-        .text  @"300\$00"
-
-    Row2_1000:
-
-        jsr PrintRowOfCharData
-        .byte $05,$0b
-        .text  @"1000\$00"
-
-    Row2_400_:
-
-        jsr PrintRowOfCharData
-        .byte $10,$0b
-        .text  @"400-\$00"
-
-    Row3_200:
-  
-        jsr PrintRowOfCharData
-        .byte $06,$0d
-        .text  @"200\$00"
-   
-    Row_4_Worm:
-    
-        jsr PrintRowOfCharData  
-        .byte $10,$0e
-        .text @"worm\$00"
-    
-    Row_4_50:
-
-        jsr PrintRowOfCharData 
-        .byte $07,$0f
-        .text @"50\$00"
-
-    Row_5_Egg:
-
-        jsr PrintRowOfCharData
-        .byte $10,$0f
-        .text @"egg\$00"
-
-    Row_5_10:
-
-         jsr PrintRowOfCharData
-        .byte $07,$11
-        .text @"10\$00"
-
-    Row_6_Home:
-
-        jsr PrintRowOfCharData
-        .byte $10,$11
-        .text @"home\$00"
-
-    Row_6_150:
-
-        jsr PrintRowOfCharData
-        .byte $06,$13
-        .text @"150\$00"
-
-    Row_7_Life:
-
-        jsr PrintRowOfCharData
-        .byte $10,$13
-         .text @"life\$00"
-
-    Row_3_3200:
-
-        jsr PrintRowOfCharData
-        .byte $10,$0c
-         .text @"3200\$00"
-
-
-         // GOT HERE
+    #import "title.asm"
 
         ldx #21
+
+    DrawSprites:
 
     L_b694:
         lda L_ba08 + $2,x
@@ -3218,7 +3022,11 @@ GAME: {
     L_b6bb:
         dex 
         bpl L_b694
+
+    EndDrawSprites:
+
     L_b6be:
+     
         lda #$20
         jsr L_b504
         jsr L_b4c6
@@ -3240,7 +3048,7 @@ GAME: {
         jsr L_b6f9
         jmp L_b6be
     L_b6e9:
-        cli 
+       cli 
    // L_b6ea:
     EditTwoChars:
 
@@ -3621,8 +3429,6 @@ GAME: {
         bpl CopyLoop2
         rts 
 
-
-
     L_b9f4:
          .byte $0a,$0e,$0e,$0e,$15,$26,$2c,$22,$2b,$27
         .byte $25,$02,$1f,$05,$e9,$df,$12,$13,$e9,$df
@@ -3674,8 +3480,8 @@ GAME: {
         .byte $82,$00,$00,$00,$00,$00,$00
 
       * = * "Chars"
-    CART_CHARSET:
-     .import binary "chars1.bin" 
+        CART_CHARSET:
+         .import binary "chars1.bin" 
 
         .byte $42,$0f,$00,$00,$0f,$00,$00,$0f,$00,$00,$0f,$00,$06,$0f,$00,$06
         .byte $0f,$00,$06,$0f,$07,$c6,$00,$07,$c0,$00,$07,$c0,$00,$07,$c0,$e0

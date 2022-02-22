@@ -54,7 +54,7 @@
 .label BLACK_BORDER=$0
 .label TIMER_1_MSB=$9127
 .label SCREEN_ROWS=$17
-.label GAME=$2000 {
+.namespace GAME {
   .label L_afab=$afab
   .label L_b280=$b280
   .label ScorpionCharIDs=$ba37
@@ -180,6 +180,7 @@
   .label L_acc1=$acc1
   .label L_b6fe=$b6fe
   .label L_ae78=$ae78
+  .label DrawSprites=$b694
   .label L_ae70=$ae70
   .label ChangeColour=$b487
   .label Row1_300=$b622
@@ -224,7 +225,6 @@
   .label L_a9bf=$a9bf
   .label L_a9c9=$a9c9
   .label InitialiseRegistersLookups=$b510
-  .label L_b572=$b572
   .label L_b694=$b694
   .label L_b334=$b334
   .label L_b455=$b455
@@ -497,6 +497,8 @@
   .label L_a92b=$a92b
   .label L_abdd=$abdd
   .label L_acfe=$acfe
+  .label EndDrawSprites=$b6be
+  .label DrawTitleScreen=$b572
   .label LOGO_CHARS=$7
   .label PrintRowOfCharData=$b463
   .label L_a2eb=$a2eb

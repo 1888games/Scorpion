@@ -10,8 +10,7 @@ Memory Map
 Default-segment:
   $1201-$120d Unnamed
   $a00c-$af99 Program Start
-  $af9a-$b571 IRQ
-  $b572-$b5b4 After Defaults
+  $af9a-$b5b4 IRQ
   $b5b5-$baff Return2
   $bb00-$bf7f Chars
   $bf80-$bfff Chars2

@@ -138,6 +138,7 @@ al C:ade1 .L_ade1
 al C:acc1 .L_acc1
 al C:b6fe .L_b6fe
 al C:ae78 .L_ae78
+al C:b694 .DrawSprites
 al C:2 .Address
 al C:ae70 .L_ae70
 al C:b487 .ChangeColour
@@ -192,7 +193,6 @@ al C:a122 .L_a122
 al C:a9bf .L_a9bf
 al C:a9c9 .L_a9c9
 al C:b510 .InitialiseRegistersLookups
-al C:b572 .L_b572
 al C:b694 .L_b694
 al C:b334 .L_b334
 al C:b455 .L_b455
@@ -506,6 +506,8 @@ al C:a80b .L_a80b
 al C:a92b .L_a92b
 al C:abdd .L_abdd
 al C:acfe .L_acfe
+al C:b6be .EndDrawSprites
+al C:b572 .DrawTitleScreen
 al C:7 .LOGO_CHARS
 al C:30 .MAP_COLUMNS
 al C:b463 .PrintRowOfCharData
@@ -575,7 +577,6 @@ al C:b1e9 .L_b1e9
 al C:b67e .Row_7_Life
 al C:b0c9 .L_b0c9
 al C:b931 .L_b931
-al C:2000 .GAME
 al C:aaea .L_aaea
 al C:aaf6 .L_aaf6
 al C:1c00 .CHAR_RAM

@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x62156cd0
+random seed was: 0x6215719d
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -207,6 +207,7 @@ Monitor playback command: al C:ade1 .L_ade1
 Monitor playback command: al C:acc1 .L_acc1
 Monitor playback command: al C:b6fe .L_b6fe
 Monitor playback command: al C:ae78 .L_ae78
+Monitor playback command: al C:b694 .DrawSprites
 Monitor playback command: al C:2 .Address
 Monitor playback command: al C:ae70 .L_ae70
 Monitor playback command: al C:b487 .ChangeColour
@@ -261,7 +262,6 @@ Monitor playback command: al C:a122 .L_a122
 Monitor playback command: al C:a9bf .L_a9bf
 Monitor playback command: al C:a9c9 .L_a9c9
 Monitor playback command: al C:b510 .InitialiseRegistersLookups
-Monitor playback command: al C:b572 .L_b572
 Monitor playback command: al C:b694 .L_b694
 Monitor playback command: al C:b334 .L_b334
 Monitor playback command: al C:b455 .L_b455
@@ -575,6 +575,8 @@ Monitor playback command: al C:a80b .L_a80b
 Monitor playback command: al C:a92b .L_a92b
 Monitor playback command: al C:abdd .L_abdd
 Monitor playback command: al C:acfe .L_acfe
+Monitor playback command: al C:b6be .EndDrawSprites
+Monitor playback command: al C:b572 .DrawTitleScreen
 Monitor playback command: al C:7 .LOGO_CHARS
 Monitor playback command: al C:30 .MAP_COLUMNS
 Monitor playback command: al C:b463 .PrintRowOfCharData
@@ -644,7 +646,6 @@ Monitor playback command: al C:b1e9 .L_b1e9
 Monitor playback command: al C:b67e .Row_7_Life
 Monitor playback command: al C:b0c9 .L_b0c9
 Monitor playback command: al C:b931 .L_b931
-Monitor playback command: al C:2000 .GAME
 Monitor playback command: al C:aaea .L_aaea
 Monitor playback command: al C:aaf6 .L_aaf6
 Monitor playback command: al C:1c00 .CHAR_RAM
@@ -694,12 +695,12 @@ LogFileName="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion_ViceLo
 SaveResourcesOnExit=1
 ConfirmOnExit=0
 MonitorXPos=1425
-MonitorYPos=49
+MonitorYPos=25
 MonitorWidth=572
 MonitorHeight=550
 Window0Height=741
-Window0Width=1088
-Window0Xpos=931
+Window0Width=855
+Window0Xpos=1003
 Window0Ypos=25
 SoundVolume=8
 RAMBlock1=1
@@ -718,7 +719,7 @@ AutostartRunWithColon=0
 AutostartPrgMode=1
 
 reconstructed commandline options (might be incomplete):
--default +confirmonexit -saveres -monitorxpos "1425" -monitorypos "49" -monitorwidth "572" -monitorheight "550" -soundvolume "8" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
+-default +confirmonexit -saveres -monitorxpos "1425" -monitorypos "25" -monitorwidth "572" -monitorheight "550" -soundvolume "8" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
 
 VICE thread initiating shutdown
 VICE thread is exiting
