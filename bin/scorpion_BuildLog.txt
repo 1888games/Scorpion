@@ -13,8 +13,7 @@ Default-segment:
   $af9a-$b571 IRQ
   $b572-$b5b4 After Defaults
   $b5b5-$baff Return2
-  $bb00-$bf6f Chars
-  $bf70-$bf7f BF70
+  $bb00-$bf7f Chars
   $bf80-$bfff Chars2
 
 Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/bin/scorpion.vs

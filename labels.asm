@@ -14,6 +14,8 @@ ZP: {
     .label ReturnAddress = $10
     .label ColourTemp = $12
     .label Temp07 = $07
+    .label Table_50_32Bytes = $50
+    .label Address = $02
 
 }
 
@@ -27,6 +29,10 @@ ZP: {
 .label SCREEN_LSB_LOOKUP = $3C0
 .label MAP_LOOKUP_MSB = $380
 .label MAP_LOOKUP_LSB = $340
+
+.label TABLE_64_200 = $200
+.label TABLE_64_240 = $240
+.label TABLE_64_280 = $280
 
 .label RASTER_Y = $9004
 .label INTERRUPT_ENABLE = $911E
@@ -44,6 +50,8 @@ ZP: {
 
 .label CHAR_EOR_TABLE = $bf70
 .label CHAR_EDIT_ADDRESS = $1C90
+
+.label CHAR_RAM_SCORPION_LOGO = $1d80
 
 
 .label Timer_LSB = 177

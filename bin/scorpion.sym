@@ -2,6 +2,7 @@
 .label LIGHT_BLUE_BG=$e0
 .label CHAR_SET_P2=$bf80
 .label YELLOW_BORDER=$7
+.label TABLE_64_200=$200
 .label RED_BG=$20
 .label BLUE_BORDER=$6
 .label CHAR_SET_P1=$bb00
@@ -20,11 +21,15 @@
 .label HORIZONTAL_START_LOCATION=$9000
 .label LIGHT_PURPLE_BG=$c0
 .label MAP_LOOKUP_MSB=$380
+.label TABLE_64_280=$280
+.label CHAR_RAM_SCORPION_LOGO=$1d80
+.label TABLE_64_240=$240
 .label ZP=$2000 {
   .label Raster_Split_1=$9f
   .label Temp07=$7
   .label Raster_Split_2=$ca
   .label Table_B0=$b0
+  .label Address=$2
   .label ColourAddress_MSB=$b
   .label LastKeyPressed=$d7
   .label ColourAddress=$a
@@ -35,6 +40,7 @@
   .label DefaultColours=$cc
   .label UNKNOWN_1D_2=$1d
   .label ScreenAddress=$0
+  .label Table_50_32Bytes=$50
 }
 .label SCREEN_RAM=$1e00
 .label CYAN_BG=$30
@@ -51,6 +57,7 @@
 .label GAME=$2000 {
   .label L_afab=$afab
   .label L_b280=$b280
+  .label ScorpionCharIDs=$ba37
   .label L_b7c7=$b7c7
   .label L_ab97=$ab97
   .label L_a5b4=$a5b4
@@ -63,8 +70,8 @@
   .label L_aa5b=$aa5b
   .label L_b397=$b397
   .label NullTerminate=$b49e
-  .label L_b9ea=$b9ea
   .label VIC_Defaults=$b562
+  .label Loop32=$a12f
   .label L_ab9a=$ab9a
   .label L_a5c7=$a5c7
   .label L_a7ea=$a7ea
@@ -98,12 +105,14 @@
   .label L_b055=$b055
   .label SkipBlank=$b58f
   .label L_b299=$b299
+  .label Row_6_Home=$b66b
   .label L_a6df=$a6df
   .label L_b8ea=$b8ea
   .label L_a4c3=$a4c3
   .label L_b6d7=$b6d7
   .label L_a3a0=$a3a0
   .label L_aa9d=$aa9d
+  .label Reset32BytesTo1=$a12b
   .label L_a5cc=$a5cc
   .label L_aec5=$aec5
   .label L_b7de=$b7de
@@ -139,6 +148,8 @@
   .label L_b07f=$b07f
   .label L_aedc=$aedc
   .label L_a4cd=$a4cd
+  .label Row2_1000=$b62b
+  .label CharEorTable=$bf70
   .label L_adc8=$adc8
   .label L_aca0=$aca0
   .label ScreenLoop=$b52b
@@ -159,8 +170,11 @@
   .label L_add1=$add1
   .label L_b4ab=$b4ab
   .label L_b4d7=$b4d7
+  .label Row_6_150=$b675
+  .label Row_4_Worm=$b648
   .label L_acbc=$acbc
   .label L_adde=$adde
+  .label LOGO_X=$7
   .label DisableNMI=$a00c
   .label L_ade1=$ade1
   .label L_acc1=$acc1
@@ -168,13 +182,12 @@
   .label L_ae78=$ae78
   .label L_ae70=$ae70
   .label ChangeColour=$b487
+  .label Row1_300=$b622
   .label L_ae71=$ae71
-  .label L_b66b=$b66b
   .label L_b42d=$b42d
   .label L_b438=$b438
   .label L_bd0e=$bd0e
   .label L_a582=$a582
-  .label GetScreenColourAddress=$a26d
   .label L_b794=$b794
   .label L_bd0b=$bd0b
   .label L_a589=$a589
@@ -184,11 +197,11 @@
   .label L_a46d=$a46d
   .label L_a9c3=$a9c3
   .label L_aa09=$aa09
+  .label GetRowScreenColourAddressX=$a26d
   .label L_ab20=$ab20
   .label L_aa00=$aa00
   .label L_ad63=$ad63
   .label L_b79d=$b79d
-  .label L_b67e=$b67e
   .label L_a10f=$a10f
   .label L_a8a0=$a8a0
   .label L_a355=$a355
@@ -216,11 +229,9 @@
   .label L_b334=$b334
   .label L_b455=$b455
   .label L_a369=$a369
-  .label L_a12f=$a12f
   .label L_b9b1=$b9b1
   .label L_b9b2=$b9b2
   .label L_a24d=$a24d
-  .label L_a12b=$a12b
   .label L_a36b=$a36b
   .label L_a382=$a382
   .label L_b45b=$b45b
@@ -234,7 +245,6 @@
   .label L_a256=$a256
   .label L_a493=$a493
   .label L_ac4a=$ac4a
-  .label L_b463=$b463
   .label L_ab2a=$ab2a
   .label L_bf7d=$bf7d
   .label L_aa39=$aa39
@@ -254,6 +264,7 @@
   .label L_b34f=$b34f
   .label L_b238=$b238
   .label L_a146=$a146
+  .label FromDragonFly=$b5eb
   .label L_a8c9=$a8c9
   .label L_b231=$b231
   .label L_b111=$b111
@@ -294,6 +305,7 @@
   .label L_a7d4=$a7d4
   .label L_a8f5=$a8f5
   .label L_b9ca=$b9ca
+  .label Row3_200=$b63f
   .label L_ab72=$ab72
   .label L_ab5a=$ab5a
   .label L_ab5b=$ab5b
@@ -305,11 +317,11 @@
   .label L_b7b5=$b7b5
   .label GetScreenAddressCol_X_Row_Y=$b4af
   .label L_b7b9=$b7b9
+  .label Row2_400_=$b635
   .label L_a6c7=$a6c7
   .label L_b13d=$b13d
   .label L_ba36=$ba36
   .label L_b7b1=$b7b1
-  .label L_ba37=$ba37
   .label L_a059=$a059
   .label L_a179=$a179
   .label L_a175=$a175
@@ -328,11 +340,11 @@
   .label L_b950=$b950
   .label L_b71a=$b71a
   .label Entry2=$a00c
+  .label SkipChar=$b613
   .label L_b0ec=$b0ec
   .label L_a86f=$a86f
   .label L_b844=$b844
   .label L_af0b=$af0b
-  .label L_b608=$b608
   .label L_a519=$a519
   .label L_b0dc=$b0dc
   .label L_a759=$a759
@@ -349,7 +361,6 @@
   .label L_af32=$af32
   .label L_a401=$a401
   .label L_a885=$a885
-  .label L_b613=$b613
   .label L_b734=$b734
   .label L_a520=$a520
   .label L_af1c=$af1c
@@ -395,7 +406,7 @@
   .label L_a434=$a434
   .label L_b403=$b403
   .label L_ad0c=$ad0c
-  .label L_b648=$b648
+  .label LOGO_ROW=$3
   .label EditTwoChars=$b6ea
   .label L_a558=$a558
   .label L_a315=$a315
@@ -408,6 +419,7 @@
   .label L_af73=$af73
   .label L_b76d=$b76d
   .label L_a687=$a687
+  .label Row_5_Egg=$b65a
   .label L_a200=$a200
   .label L_a321=$a321
   .label L_a560=$a560
@@ -420,9 +432,9 @@
   .label L_bd14=$bd14
   .label L_a56d=$a56d
   .label L_a9a5=$a9a5
-  .label L_b65a=$b65a
   .label L_b77c=$b77c
   .label L_bd11=$bd11
+  .label ScorpionLogoChars=$bf30
   .label L_a44f=$a44f
   .label L_af87=$af87
   .label L_a697=$a697
@@ -460,6 +472,7 @@
   .label L_a1af=$a1af
   .label L_b3e9=$b3e9
   .label L_a2f7=$a2f7
+  .label TronixPresents=$b5d4
   .label L_abe0=$abe0
   .label L_b2c0=$b2c0
   .label L_b3e1=$b3e1
@@ -472,6 +485,7 @@
   .label L_aab9=$aab9
   .label L_a90e=$a90e
   .label L_aab1=$aab1
+  .label CopyLoop2=$b9ea
   .label L_acf5=$acf5
   .label L_a921=$a921
   .label L_abd7=$abd7
@@ -483,6 +497,8 @@
   .label L_a92b=$a92b
   .label L_abdd=$abdd
   .label L_acfe=$acfe
+  .label LOGO_CHARS=$7
+  .label PrintRowOfCharData=$b463
   .label L_a2eb=$a2eb
   .label L_a91f=$a91f
   .label SetupMapLookup=$b543
@@ -507,6 +523,7 @@
   .label L_a93d=$a93d
   .label L_a0be=$a0be
   .label L_b911=$b911
+  .label Row_5_10=$b663
   .label L_b1c0=$b1c0
   .label L_a706=$a706
   .label L_b3ea=$b3ea
@@ -517,16 +534,19 @@
   .label L_a700=$a700
   .label L_b91f=$b91f
   .label L_b0b1=$b0b1
+  .label Row1_75=$b619
   .label L_aadf=$aadf
   .label L_b1d8=$b1d8
   .label L_a94a=$a94a
   .label L_a830=$a830
   .label L_b920=$b920
+  .label Row_4_50=$b652
   .label L_b803=$b803
   .label L_b925=$b925
   .label L_a954=$a954
   .label L_a711=$a711
   .label L_a832=$a832
+  .label LogoLoop=$b608
   .label L_b80b=$b80b
   .label L_b92c=$b92c
   .label L_b80d=$b80d
@@ -535,6 +555,7 @@
   .label L_b1e8=$b1e8
   .label L_b0c8=$b0c8
   .label L_b1e9=$b1e9
+  .label Row_7_Life=$b67e
   .label L_b0c9=$b0c9
   .label L_b931=$b931
   .label L_aaea=$aaea
@@ -549,7 +570,9 @@
   .label L_a851=$a851
   .label L_b944=$b944
   .label L_b1f0=$b1f0
+  .label CopyScorpionChars=$b9e8
   .label L_b0d1=$b0d1
+  .label Row_3_3200=$b688
   .label L_a979=$a979
   .label L_a855=$a855
   .label L_a612=$a612

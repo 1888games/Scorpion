@@ -75,7 +75,7 @@ GAME: {
         jsr $b572
         jsr L_b1e9
         jsr L_b92c
-        jsr L_b463
+        jsr PrintRowOfCharData
 
         .byte $04,$03,$87,$0e,$05,$18,$14,$20,$02,$0f,$0e,$15,$13,$20,$01,$14
         .byte $3a,$00,$20,$63,$b4,$03,$01,$86,$0c,$09,$06,$05,$3a,$20,$20,$20
@@ -147,18 +147,22 @@ GAME: {
         jsr L_a198
         jsr L_a3ef
         jmp L_a09a
-    L_a12b:
-        ldx #$1f
-        lda #$01
-    L_a12f:
-        sta $50,x
+
+    Reset32BytesTo1:
+
+        ldx #31
+        lda #1
+
+    Loop32:
+        sta ZP.Table_50_32Bytes,x
+
         dex 
-        bpl L_a12f
+        bpl Loop32
         rts 
 
 
     L_a135:
-        jsr L_a12b
+        jsr Reset32BytesTo1
         lda #$ff
         sta $08
         ldx #$03
@@ -248,7 +252,7 @@ GAME: {
         sta $9e
         lda #$4d
         jsr L_b0d1
-        jsr L_b463
+        jsr PrintRowOfCharData
 
         .byte $02,$09,$81,$07,$12,$05,$01,$14,$20,$20,$13,$03,$0f,$12,$05,$21
         .byte $00,$20,$63,$b4,$02,$0d,$87,$10,$0c,$05,$01,$13,$05,$20,$20,$05
@@ -257,7 +261,7 @@ GAME: {
 
     L_a200:
         rol $01
-        jsr L_b463
+        jsr PrintRowOfCharData
 
         .byte $07,$12,$80,$01,$2d,$2d,$00,$a2,$12,$20,$6d,$a2,$a0,$07,$a2,$01
 
@@ -315,8 +319,8 @@ GAME: {
         rts 
 
 
-    //GetScreenColourAddress:
-    GetScreenColourAddress:
+    //GetRowScreenColourAddressX:
+    GetRowScreenColourAddressX:
 
         lda SCREEN_LSB_LOOKUP,x
         sta ZP.ScreenAddress
@@ -1831,11 +1835,11 @@ GAME: {
         sta $04
     L_ad63:
         lda $02
-        sta $0200,x
+        sta TABLE_64_200,x
         lda $03
-        sta $0240,x
+        sta TABLE_64_240,x
         lda $04
-        sta $0280,x
+        sta TABLE_64_280,x
     L_ad72:
         rts 
 
@@ -1985,7 +1989,7 @@ GAME: {
         jsr L_b231
         ldy #$00
         jsr L_b249
-        jsr L_a12b
+        jsr Reset32BytesTo1
         lda #$3c
         sta $02
         lda #$28
@@ -2015,7 +2019,7 @@ GAME: {
         lda $03
         cmp #$68
         bcc L_af0b
-        jsr L_b463
+        jsr PrintRowOfCharData
         ora ($0c,x)
         stx $17
         ora ($16,x)
@@ -2038,7 +2042,7 @@ GAME: {
         and #$1f
         sta $1a
         jsr L_b981
-        jsr L_a12b
+        jsr Reset32BytesTo1
     L_af2a:
         jsr L_a3ef
         lda #$8d
@@ -2434,7 +2438,7 @@ GAME: {
     L_b1e9:
         ldx #$16
     L_b1eb:
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
         ldy #$15
     L_b1f0:
         lda #$21
@@ -2451,7 +2455,7 @@ GAME: {
         bpl L_b1f0
         dex 
         bpl L_b1eb
-        jsr L_b463
+        jsr PrintRowOfCharData
 
         .byte $12,$0b,$80,$13,$03,$01,$0e,$00,$20,$63,$b4,$12,$13,$0e,$05,$18
         .byte $14,$00,$20,$63,$b4,$12,$14,$05,$07,$07,$2b,$00,$20,$63,$b4,$12
@@ -2460,7 +2464,7 @@ GAME: {
     L_b231:
         ldx #$06
     L_b233:
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
         ldy #$10
     L_b238:
         lda #$00
@@ -2479,7 +2483,7 @@ GAME: {
         sty $06
         ldx #$0c
     L_b24d:
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
 
     L_b250:
          .byte $8a,$18,$69,$30,$85,$05,$a0,$15,$a5,$06,$f0,$03
@@ -2767,7 +2771,7 @@ GAME: {
       //  .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
       //  .byte $00,$85,$07,$20,$2b,$a1
 
-    L_b463:
+    PrintRowOfCharData:
         pla 
         sta ZP.ReturnAddress
         pla 
@@ -3001,7 +3005,7 @@ GAME: {
 
     RowLoop:
 
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
 
         ldy #SCREEN_COLS - 1
 
@@ -3034,8 +3038,7 @@ GAME: {
 
         jsr EditTwoChars
 
-        jsr L_b463
-
+        jsr PrintRowOfCharData
 
     CopyrightMessage: // x, y, colour, chars, null term, return
 
@@ -3043,70 +3046,155 @@ GAME: {
         .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00
 
         * = * "Return2"
-        .break
-
+    
         lda #0
         sta ZP.Temp07
 
-        jsr L_a12b
+        jsr Reset32BytesTo1
 
     L_b5bc:
 
-        lda #$40
-        sta $51
+        lda #64
+        sta ZP.Table_50_32Bytes + 1
+
         lda #$14
-        sta $03
+        sta ZP.Address + 1
+
         ldx #$00
-        stx $02
+        stx ZP.Address
+
+
+        // puts 0 at 02 and 200
+        // puts 14 at 03 and 240 ??
         jsr L_ad63
-        jsr $b9e8
+
+        jsr CopyScorpionChars
+
         lda ZP.Temp07
         eor #$01
         sta ZP.Temp07
-        jsr L_b463
 
-        .byte $03,$01,$83,$14,$12,$0f,$0e,$09,$18,$20,$20,$10,$12,$05,$13,$05
-        .byte $0e,$14,$13,$00,$20,$63,$b4,$04,$05,$06,$12,$0f,$0d,$20,$04,$12
-        .byte $01,$07,$0f,$0e,$06,$0c,$19,$00,$a2,$03,$20,$6d,$a2,$a0,$07,$a2
-        .byte $07
 
-    L_b608:
-        lda #$06
-        sta ($0a),y
-        lda $07
-        beq L_b613
-        lda L_ba37,x
-    L_b613:
-        sta ($00),y
+    TronixPresents:
+
+        jsr PrintRowOfCharData
+        .byte $03,$01,$83
+        .text @"tronix  presents\$00"  
+     
+    FromDragonFly:
+
+        jsr PrintRowOfCharData
+
+        .byte $04,$05
+        .text @"from dragonfly\$00" 
+
+        .label LOGO_ROW = 3 
+        .label LOGO_X = 7
+        .label LOGO_CHARS = 7
+  
+        ldx #LOGO_ROW
+        jsr GetRowScreenColourAddressX
+
+        ldy #LOGO_X
+        ldx #LOGO_CHARS
+
+    LogoLoop:
+        lda #BLUE
+        sta (ZP.ColourAddress),y
+
+        lda ZP.Temp07
+        beq SkipChar
+        lda ScorpionCharIDs,x
+    SkipChar:
+        sta (ZP.ScreenAddress),y
         iny 
         dex 
-        bpl L_b608
-        jsr L_b463
+        bpl LogoLoop
 
-        .byte $07,$09,$86,$37,$35,$00,$20,$63,$b4,$10,$09,$33,$30,$30,$00,$20
-        .byte $63,$b4,$05,$0b,$31,$30,$30,$30,$00,$20,$63,$b4,$10,$0b,$34,$30
-        .byte $30,$2d,$00,$20,$63,$b4,$06,$0d,$32,$30,$30,$00
 
-    L_b648:
-        jsr L_b463
+    
+    Row1_75:
+        
+        jsr PrintRowOfCharData
+        .byte $07,$09,$86
+        .text @"75\$00" 
 
-        .byte $10,$0e,$17,$0f,$12,$0d,$00,$20,$63,$b4,$07,$0f,$35,$30,$00
+    Row1_300:
 
-    L_b65a:
-        jsr L_b463
+        jsr PrintRowOfCharData
+        .byte $10,$09
+        .text  @"300\$00"
 
-        .byte $10,$0f,$05,$07,$07,$00,$20,$63,$b4,$07,$11,$31,$30,$00
+    Row2_1000:
 
-    L_b66b:
-        jsr L_b463
+        jsr PrintRowOfCharData
+        .byte $05,$0b
+        .text  @"1000\$00"
 
-        .byte $10,$11,$08,$0f,$0d,$05,$00,$20,$63,$b4,$06,$13,$31,$35,$30,$00
+    Row2_400_:
 
-    L_b67e:
-        jsr L_b463
+        jsr PrintRowOfCharData
+        .byte $10,$0b
+        .text  @"400-\$00"
 
-        .byte $10,$13,$0c,$09,$06,$05,$00,$20,$63,$b4,$10,$0c,$33,$32,$30,$30
-        .byte $00,$a2,$15
+    Row3_200:
+  
+        jsr PrintRowOfCharData
+        .byte $06,$0d
+        .text  @"200\$00"
+   
+    Row_4_Worm:
+    
+        jsr PrintRowOfCharData  
+        .byte $10,$0e
+        .text @"worm\$00"
+    
+    Row_4_50:
+
+        jsr PrintRowOfCharData 
+        .byte $07,$0f
+        .text @"50\$00"
+
+    Row_5_Egg:
+
+        jsr PrintRowOfCharData
+        .byte $10,$0f
+        .text @"egg\$00"
+
+    Row_5_10:
+
+         jsr PrintRowOfCharData
+        .byte $07,$11
+        .text @"10\$00"
+
+    Row_6_Home:
+
+        jsr PrintRowOfCharData
+        .byte $10,$11
+        .text @"home\$00"
+
+    Row_6_150:
+
+        jsr PrintRowOfCharData
+        .byte $06,$13
+        .text @"150\$00"
+
+    Row_7_Life:
+
+        jsr PrintRowOfCharData
+        .byte $10,$13
+         .text @"life\$00"
+
+    Row_3_3200:
+
+        jsr PrintRowOfCharData
+        .byte $10,$0c
+         .text @"3200\$00"
+
+
+         // GOT HERE
+
+        ldx #21
 
     L_b694:
         lda L_ba08 + $2,x
@@ -3329,7 +3417,7 @@ GAME: {
         bpl L_b80d
         dey 
         bpl L_b80b
-        jsr L_b463
+        jsr PrintRowOfCharData
 
         .byte $02,$09,$81,$02,$19,$20,$0a,$09,$0d,$0d,$19,$20,$08,$15,$05,$19
         .byte $00,$20,$63
@@ -3346,7 +3434,7 @@ GAME: {
     L_b896:
         jsr L_af32
         ldx #$07
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
         ldx #$08
         ldy #$04
     L_b8a2:
@@ -3502,7 +3590,7 @@ GAME: {
 
     L_b9b2:
         ldx #$11
-        jsr GetScreenColourAddress
+        jsr GetRowScreenColourAddressX
         ldx #$0a
         ldy #$0d
     L_b9bb:
@@ -3521,13 +3609,16 @@ GAME: {
     L_b9ca:
          .byte $05,$01,$13
         .byte $19,$20,$20,$20,$20,$0e,$0f,$12,$0d,$01,$0c,$20,$20,$08,$01,$12
-        .byte $04,$20,$20,$20,$20,$04,$05,$0d,$0f,$20,$20,$a2,$3f
+        .byte $04,$20,$20,$20,$20,$04,$05,$0d,$0f,$20,$20
 
-    L_b9ea:
-        lda L_bf24 + $c,x
-        sta $1d80,x
+    CopyScorpionChars:
+        ldx #63
+
+    CopyLoop2:
+        lda ScorpionLogoChars,x
+        sta CHAR_RAM_SCORPION_LOGO,x
         dex 
-        bpl L_b9ea
+        bpl CopyLoop2
         rts 
 
 
@@ -3551,8 +3642,8 @@ GAME: {
     L_ba36:
         sec 
 
-    L_ba37:
-         .byte $37
+    ScorpionCharIDs:
+        .byte $37
         .byte $36,$35,$34,$33,$32,$31,$30,$00
 
     L_ba40:
@@ -3678,15 +3769,18 @@ GAME: {
         .byte $15,$25,$15,$15,$25,$07,$37,$a6,$80,$20,$1a,$40,$40
 
     L_bf24:
-        .byte $29,$03,$85,$56,$76,$05,$11,$43,$01,$01,$11,$63,$3e,$60,$f0,$fc
+        .byte $29,$03,$85,$56,$76,$05,$11,$43,$01,$01,$11,$63
+
+    ScorpionLogoChars:
+
+        .byte $3e,$60,$f0,$fc
         .byte $7e,$1e,$0c,$f8,$fe,$72,$60,$60,$60,$60,$72,$fe,$fe,$76,$62,$62
         .byte $62,$62,$76,$fe,$fc,$66,$62,$66,$7c,$6e,$6e,$ee,$fc,$66,$62,$66
         .byte $7c,$60,$60,$e0,$fe,$38,$38,$38,$38,$38,$38,$fe,$fe,$76,$62,$62
-
-
         .byte $62,$62,$76,$fe,$e6,$76,$76,$76,$6e,$6e,$6e,$e6
 
-        * = * "BF70"
+    CharEorTable:
+
         .byte $80,$d0,$d0,$8e
         .byte $86,$cc,$ee,$ff,$01,$0b,$0b,$71,$61
 
