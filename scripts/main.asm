@@ -1,6 +1,6 @@
 
 
-#import "labels.asm"
+#import "data/labels.asm"
 
 
 .namespace GAME {
@@ -68,14 +68,14 @@
         ldx #1
         stx ZP.INPUT_FLAG
         inx 
-        stx ZP.UNKNOWN_1D_2
+        stx ZP.JOY_HAND_SWITCH
 
 
     L_a059:
         jsr DrawTitleScreen
         jsr L_b1e9
         jsr L_b92c
-        
+
         jsr PrintRowOfCharData
 
         .byte $04,$03,$87,$0e,$05,$18,$14,$20,$02,$0f,$0e,$15,$13,$20,$01,$14
@@ -105,7 +105,7 @@
         jsr L_a3a0
     L_a0c1:
         lda $cf
-        jsr L_b504
+        jsr DelayByA
         jsr L_a43d
         jsr L_a536
         lda $cd
@@ -116,7 +116,7 @@
         jsr L_a94a
         jsr L_b38b
         jsr $a828
-        jsr L_b183
+        jsr GameAnimateChars
         jsr L_a612
         jsr L_a687
         jsr L_aa93
@@ -271,7 +271,7 @@
         sta $1c
     L_a219:
         lda #$28
-        jsr L_b504
+        jsr DelayByA
         stx $13
         jsr L_a72c
         ldx $13
@@ -292,7 +292,7 @@
         lda #$10
         sta $5c
         sty $14
-        jsr L_b4c6
+        jsr ReadJoystick
         ldy $14
         lda $0c
         bne L_a24d
@@ -630,7 +630,7 @@
         jsr L_a5db
         jmp L_a4de
     L_a4be:
-        jsr L_b4c6
+        jsr ReadJoystick
         ldx #$03
     L_a4c3:
         lda $0c,x
@@ -1998,7 +1998,7 @@
         bne L_aed7
     L_aec5:
         lda #$16
-        jsr L_b504
+        jsr DelayByA
         lda $900e
         beq L_aedc
         inc $900c
@@ -2212,7 +2212,7 @@
         lda #$24
         sta ($a3),y
         tax 
-        lda L_bf00,x
+        lda ColourLookup,x
         sta ($0a),y
         dey 
         bpl L_b03a
@@ -2228,7 +2228,7 @@
         ldy $14
         sta ($a3),y
         tax 
-        lda L_bf00,x
+        lda ColourLookup,x
         sta ($0a),y
         dec $06
         dey 
@@ -2327,7 +2327,7 @@
         dey 
         bpl L_b0ee
         lda #$a0
-        jsr L_b504
+        jsr DelayByA
         jsr L_af32
         ldy #$01
         jsr L_b35a
@@ -2343,7 +2343,7 @@
         sty $07
         ldx $05
     L_b111:
-        jsr L_b4ab
+        jsr GetScreen_Col2_Row3
         lda $8d
         sta ($00),y
         lda $12
@@ -2357,84 +2357,7 @@
         ldy $07
         rts 
 
-
-
-    L_b12a:
-         .byte $55,$ab,$fc,$1c,$82,$9f
-        .byte $f9,$02,$12,$28
-
-    L_b134:
-        .byte $00,$00
-        .byte $06,$00,$02,$01,$00,$01,$00
-
-    L_b13d:
-        .byte $00
-        .byte $60,$00,$40
-
-    L_b141:
-        .byte $80,$00,$80,$c3,$00
-        .byte $81,$82,$81,$01,$00,$01,$81,$82,$00,$63,$00,$00,$00,$00,$00,$41
-        .byte $36,$00,$41,$81,$80,$00,$80,$81,$41,$6c,$82,$00,$00,$00,$00,$00
-        .byte $c6,$ff,$81,$81,$81,$81,$81,$81,$ff,$00,$7e,$42,$42,$42,$42,$7e
-        .byte $00,$00,$00,$3c,$24,$24
-
-    L_b17c:
-        .byte $3c,$00,$00,$07,$0f,$17,$0f
-
-    L_b183:
-        dec $57
-        bne L_b1e8
-        lda #$20
-        sta $57
-    L_b18b:
-        ldy #$02
-    L_b18d:
-        lda L_b12a,y
-        eor $1d2b,y
-        sta $1d2b,y
-        lda L_b141 + $3,y
-        eor $1cf8,y
-        sta $1cf8,y
-        dey 
-        bpl L_b18d
-        ldy #$06
-    L_b1a4:
-        lda L_b12a + $3,y
-        eor $1c08,y
-        sta $1c08,y
-        dey 
-        bpl L_b1a4
-        ldy #$0f
-    L_b1b2:
-        lda L_b134,y
-        eor $1d38,y
-        sta $1d38,y
-        dey 
-        bpl L_b1b2
-        ldy #$1f
-    L_b1c0:
-        lda $b147,y
-        eor $1c18,y
-        sta $1c18,y
-        dey 
-        bpl L_b1c0
-        inc $69
-        lda $69
-        and #$03
-        tay 
-        ldx L_b17c + $3,y
-        ldy #$07
-    L_b1d8:
-        lda $1c38,x
-        sta $1d30,y
-        lda $b167,x
-        sta $1c10,y
-        dex 
-        dey 
-        bpl L_b1d8
-    L_b1e8:
-        rts 
-
+    #import "system/anim.asm"
 
     L_b1e9:
         ldx #$16
@@ -2679,9 +2602,13 @@
         sta $b4,x
         dex 
         bpl L_b3c5
-        lda $1d
+
+    SwitchBetween2_3:
+
+        lda ZP.JOY_HAND_SWITCH
         eor #$01
-        sta $1d
+        sta ZP.JOY_HAND_SWITCH
+        
         jsr L_a3ef
     L_b3da:
         jsr L_b3e4
@@ -2698,7 +2625,7 @@
 
 
     L_b3ea:
-        jsr L_b4c6
+        jsr ReadJoystick
         dec $07
         bne L_b40e
         lda #$04
@@ -2734,7 +2661,7 @@
         inc ZP.Raster_Split_2
     L_b42d:
         lda #$40
-        jsr L_b504
+        jsr DelayByA
    // L_b432:
     WaitRaster128:
         lda RASTER_Y
@@ -2785,7 +2712,7 @@
         lda (ZP.ReturnAddress),y  // 15 to Y
         tay             // y = 15, a = 15
         pla            // a = 3
-        jsr GetScreenAddressCol_X_Row_Y  // row 15 column 3
+        jsr GetScreenAddressCol_A_Row_Y  // row 15 column 3
 
 
     MoveToData:
@@ -2843,12 +2770,13 @@
 
 
 
-    L_b4ab:
+   // L_b4ab:
+    GetScreen_Col2_Row3:
 
         lda $02
         ldy $03
 
-    GetScreenAddressCol_X_Row_Y:
+    GetScreenAddressCol_A_Row_Y:
   // AddScr
         clc 
         adc SCREEN_LSB_LOOKUP,y
@@ -2864,27 +2792,42 @@
         rts 
 
 
-    L_b4c6:
-        ldy #$03
-    L_b4c8:
-        lda #$ff
-        cpy $1d
-        beq L_b4d7
-        sta $9122
-        lda $9111
-        jmp L_b4de
-    L_b4d7:
-        lsr 
-        sta $9122
-        lda $9120
-    L_b4de:
-        and.a $00b8,y
-        sta.a $000c,y
+    L_sb4c6:
+    ReadJoystick:
+
+        ldy #3
+
+    DirectionLoop:
+
+        lda #255
+        cpy ZP.JOY_HAND_SWITCH  // was 2
+        beq ReadRight
+
+    ReadOtherDirections:
+
+        sta DATA_DIRECTION_REG_B
+        lda PORT_A_OUTPUT
+        jmp ProcessRead
+
+    ReadRight:
+
+        lsr // a = 127
+        sta DATA_DIRECTION_REG_B
+        lda PORT_B_OUTPUT
+
+    ProcessRead:
+
+        // y = 3 00f
+        // y = 2 00e
+
+        and ZP.JOYSTICK_MASKS,y
+        sta ZP.JoystickReadings,y
+      
         dey 
-        bpl L_b4c8
+        bpl DirectionLoop
     L_b4e7:
-        lda $9111
-        and #$20
+        lda PORT_A_OUTPUT
+        and #%00100000
         rts 
 
 
@@ -2897,16 +2840,18 @@
         .byte $30, $30
         .byte $30,$30,$20,$20,$0a,$09,$0d
 
-    L_b504:
+   // L_b504:
+
+    DelayByA:
         sec 
-    L_b505:
+    DelayLoop1:
         pha 
-    L_b506:
-        sbc #$01
-        bne L_b506
+    DelayLoop2:
+        sbc #1
+        bne DelayLoop2
         pla 
-        sbc #$01
-        bne L_b505
+        sbc #1
+        bne DelayLoop1
         rts 
 
 
@@ -2994,63 +2939,14 @@
         .byte $0c
         .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d
 
-    #import "title.asm"
+    #import "system/title.asm"
 
-        ldx #21
 
-    DrawSprites:
 
-    L_b694:
-        lda L_ba08 + $2,x
-        sta $02
-        lda L_ba20,x
-        sta $03
-        jsr L_b4ab
-        lda L_b9f4,x
-        sta ($00),y
-        tay 
-        lda $01
-        clc 
-        adc #$90
-        sta $01
-        lda ($00),y
-        cpx #$0e
-        bcs L_b6bb
-        lda L_bf00,y
-        ldy #$00
-        sta ($0a),y
-    L_b6bb:
-        dex 
-        bpl L_b694
 
-    EndDrawSprites:
-
-    L_b6be:
-     
-        lda #$20
-        jsr L_b504
-        jsr L_b4c6
-        beq L_b6e9
-        dec $50
-        bne L_b6d7
-        lda #$20
-        sta $50
-        jsr L_b18b
-        dec $51
-        beq L_b712
-    L_b6d7:
-        lda $07
-        bne L_b6be
-        dec $52
-        bne L_b6be
-        lda #$08
-        sta $52
-        jsr L_b6f9
-        jmp L_b6be
-    L_b6e9:
-       cli 
    // L_b6ea:
     EditTwoChars:
+
 
         ldx #15
 
@@ -3079,8 +2975,9 @@
         bcc L_b715
         pla 
         pla 
-    L_b712:
-        jmp L_b5bc
+        
+    DrawTitleChars_Jmp:
+        jmp DrawTitleChars
     L_b715:
         ldx #$00
         jsr L_ad63
@@ -3188,7 +3085,7 @@
         lsr 
         lsr 
         lsr 
-        jmp GetScreenAddressCol_X_Row_Y
+        jmp GetScreenAddressCol_A_Row_Y
 
     L_b7c7:
          .byte $00
@@ -3275,7 +3172,7 @@
         bne L_b8ea
         lda #$02
         sta $5c
-        jsr L_b18b
+        jsr AnimateChars
         jsr L_b96e
     L_b8ea:
         jsr L_b998
@@ -3286,7 +3183,7 @@
         dex 
         bpl L_b8ef
         lda #$78
-        jsr L_b504
+        jsr DelayByA
         jsr L_b911
         jsr L_b4e7
         bne L_b896
@@ -3352,7 +3249,7 @@
         .byte $00,$00,$00,$00
 
     L_b96e:
-        jsr L_b4c6
+        jsr ReadJoystick
         lda $0c
         beq L_b98a
         lda $0e
@@ -3420,29 +3317,32 @@
         .byte $04,$20,$20,$20,$20,$04,$05,$0d,$0f,$20,$20
 
     CopyScorpionChars:
+
         ldx #63
 
     CopyLoop2:
+
         lda ScorpionLogoChars,x
         sta CHAR_RAM_SCORPION_LOGO,x
         dex 
         bpl CopyLoop2
         rts 
 
-    L_b9f4:
+    IconCharIDs:
+
          .byte $0a,$0e,$0e,$0e,$15,$26,$2c,$22,$2b,$27
         .byte $25,$02,$1f,$05,$e9,$df,$12,$13,$e9,$df
+        .byte $12,$13
 
-    L_ba08:
-        .byte $12,$13,$02,$03,$04
+    IconXTable:
+
+        .byte $02,$03,$04
         .byte $05,$0d,$02,$0d,$02,$0d,$02,$02,$0d,$02,$0d,$01,$14,$01,$14,$01
         .byte $14,$01,$14
 
-    L_ba20:
-        ora #$09
-        ora #$09
-        ora #$0b
+    IconYTable:
 
+        .byte $09, $09, $09, $09, $09,$0b 
         .byte $0b,$0d,$0e,$0f,$11,$11,$13,$13,$00,$00,$06,$06,$08,$08,$16,$16
 
     L_ba36:
@@ -3481,7 +3381,7 @@
 
       * = * "Chars"
         CART_CHARSET:
-         .import binary "chars1.bin" 
+         .import binary "../assets/chars1.bin" 
 
         .byte $42,$0f,$00,$00,$0f,$00,$00,$0f,$00,$00,$0f,$00,$06,$0f,$00,$06
         .byte $0f,$00,$06,$0f,$07,$c6,$00,$07,$c0,$00,$07,$c0,$00,$07,$c0,$e0
@@ -3569,7 +3469,8 @@
         .byte $3d,$6c,$73,$01,$6c,$73,$01,$6c,$73,$01,$6c,$73,$3d,$6c,$03,$3d
         .byte $6c,$03,$3d,$6c,$03,$3d,$6c,$03,$01,$00,$03,$01,$00,$03,$01,$00
 
-    L_bf00:
+    //L_bf00:
+    ColourLookup:
         .byte $00,$00,$00,$00,$00,$00,$00
         .byte $31,$01,$01,$46,$16,$06,$16,$57,$07,$17,$27,$00,$30,$35,$25,$55
         .byte $15,$25,$15,$15,$25,$07,$37,$a6,$80,$20,$1a,$40,$40
@@ -3595,7 +3496,7 @@
 
            * = * "Chars2"
     CART_CHARSET_2:
-     .import binary "chars2.bin" 
+     .import binary "../assets/chars2.bin" 
 
 
      L_bfff:

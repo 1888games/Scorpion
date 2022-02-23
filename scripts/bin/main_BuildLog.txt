@@ -1,0 +1,13 @@
+parsing
+flex pass 1
+        * = * "Return2"
+    
+        lda #0
+        sta ZP.Temp07
+               ^
+
+Error: Variable 'Temp07' not present on value of type 'LabelValue'
+at line 56, column 16 in title.asm
+called at line 2942, column 13 in /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/main.asm
+
+

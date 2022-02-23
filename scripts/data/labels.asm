@@ -5,17 +5,35 @@ ZP: {
     .label LastKeyPressed = $D7
     .label DefaultColours = $CC
     .label Table_B0 = $B0
+
     .label ScreenAddress = $00
     .label ScreenAddress_MSB = $01
+     .label Address = $02
+    .label Address_MSB = $03
+
     .label INPUT_FLAG = $D0
-    .label UNKNOWN_1D_2 = $1D
+    .label JOY_HAND_SWITCH = $1D
     .label ColourAddress = $0A
     .label ColourAddress_MSB = $0B
     .label ReturnAddress = $10
     .label ColourTemp = $12
-    .label Temp07 = $07
+    .label ScorpionLogoFlag = $07
     .label Table_50_32Bytes = $50
-    .label Address = $02
+   
+
+    .label JoystickReadings = $0C
+    .label JOYSTICK_MASKS = $B8
+    .label JOY_LEFT_NOW = $0C
+    .label JOY_RIGHT_NOW = $0E
+    .label JOY_UP_NOW = $0D
+    .label JOY_DOWN_NOW = $0F
+    .label Timer1 = $50
+    .label Timer2 = $51
+    .label Timer3 = $52
+
+    .label GameAnimateTimer = $57
+
+    .label AnimCounter = $69
 
 }
 
@@ -34,6 +52,7 @@ ZP: {
 .label TABLE_64_240 = $240
 .label TABLE_64_280 = $280
 
+
 .label RASTER_Y = $9004
 .label INTERRUPT_ENABLE = $911E
 .label TIMER_1_LSB = $9126
@@ -42,6 +61,21 @@ ZP: {
 .label VERTICAL_TOP_LOCATION = $9001
 .label HORIZONTAL_START_LOCATION = $9000
 .label VIC_REGISTER_START = HORIZONTAL_START_LOCATION
+.label DATA_DIRECTION_REG_B = $9122
+.label PORT_A_OUTPUT = $9111
+.label PORT_B_OUTPUT = $9120
+
+.label VENUS_START = $1d28
+.label STALKER_START = $1cf8
+.label DEAD_START = $1c08
+.label DRAGON_START = $1d38
+.label SCORPION_START = $1c18
+
+.label BALL_CHAR_SOURCE = $1c38
+.label BALL_CHAR_USE = $1d30
+.label HOME_CHAR_USE = $1c10
+
+
 
 .label CHAR_RAM = $1C00
 .label SCREEN_RAM = $1E00
