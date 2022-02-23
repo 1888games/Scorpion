@@ -71,7 +71,7 @@ DrawTitleScreen:
 
         // puts 0 at 02 and 200
         // puts $14 at 03 and 240 ??
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
 
         jsr CopyScorpionChars
 
@@ -107,7 +107,7 @@ DrawTitleScreen:
         lda #BLUE
         sta (ZP.ColourAddress),y
 
-        lda ZP.Temp07
+        lda ZP.ScorpionLogoFlag
         beq SkipChar
         lda ScorpionCharIDs,x
     SkipChar:
@@ -272,12 +272,200 @@ DrawTitleScreen:
         lda #8
         sta ZP.Timer2
 
-        jsr L_b6f9
+        jsr HideLogo
+      
 
         jmp TitleScreenLoop
 
     FirePressed:
-        .break
+
        cli 
+
+
+    EditTwoChars:
+
+        ldx #15
+
+    CharLoop:
+
+        lda CHAR_EOR_TABLE,x
+        eor CHAR_EDIT_ADDRESS,x
+        sta CHAR_EDIT_ADDRESS,x
+        dex 
+        bpl CharLoop
+
+        rts 
+
+
+
+
+    UNKNOWN_CODE:
+
+
+     //L_b6f9:
+    HideLogo:
+
+        ldx #0
+        jsr Copy2_4_800X_To_ZP
+
+    WaitForRaster1:
+
+        lda RASTER_Y
+        cmp ZP.Raster_Split_1
+        bcc WaitForRaster1
+
+    //jmp DrawTitleChars
+
+    NoIdea:
+
+        jsr L_b7a1
+        inc $02
+        lda $02
+
+   
+        cmp #$98
+        bcc ThisDoesNothing
+       
+        pla 
+        pla 
+
+
+    DrawTitleChars_Jmp:
+        jmp DrawTitleChars
+
+    ThisDoesNothing:
+
+        //jmp DrawTitleChars
+        ldx #$00
+        jsr Copy_2_4ZP_To_2_4_800X
+    L_b71a:
+
+        // Timer4 goes 3-1
+        // Timer5 goes 0-5
+        dec ZP.Timer4
+        bne NoWrapTimer4
+
+        lda #3
+        sta ZP.Timer4
+
+        inc ZP.Timer5
+        lda ZP.Timer5
+        cmp #6
+        bcc NoResetTimer5
+
+        lda #0
+        sta ZP.Timer5
+
+    NoResetTimer5:
+
+        tay 
+        lda LookupTimer5 ,y  // 0, 48, 96, 144, 96, 48  
+        sta $06
+
+     NoWrapTimer4:
+     Clear96BytesLogo:
+
+        ldx #95
+        lda #0
+     ClearLoop:
+
+        sta CHAR_RAM_SCORPION_LOGO,x
+        dex 
+        bpl ClearLoop
+
+        
+        lda $03
+        and #$07
+        tax 
+        clc 
+        adc #$10
+        sta $05
+        lda $02
+        and #$07
+        sta $16
+        ldy $06
+    L_b750:
+        lda L_ba40,y
+        sta $1d80,x
+        lda L_ba50,y
+        sta $1d98,x
+        lda L_ba5f + $1,y
+        sta $1db0,x
+        lda #$00
+        sta $1dc8,x
+        sty $13
+        ldy $16
+        beq L_b77c
+    L_b76d:
+        lsr $1d80,x
+        ror $1d98,x
+        ror $1db0,x
+        ror $1dc8,x
+        dey 
+        bne L_b76d
+    L_b77c:
+        ldy $13
+        inx 
+        iny 
+        cpx $05
+        bne L_b750
+        jsr Divide2_3_By_3_GetScreen
+        ldx #$0b
+    L_b789:
+        ldy L_b7c7,x
+        lda ($00),y
+        beq L_b794
+        cmp #$30
+        bcc L_b79d
+    L_b794:
+        lda $b7d3,x
+        lda ($00),y
+
+      lda #$05
+      //nop
+      //nop
+ 
+        sta ($0a),y
+    L_b79d:
+        dex 
+        bpl L_b789
+        rts 
+
+
+    L_b7a1:
+        jsr Divide2_3_By_3_GetScreen
+        ldx #$0b
+    L_b7a6:
+        ldy L_b7c7,x
+        lda ($00),y
+        beq L_b7b1
+        cmp #$30
+        bcc L_b7b5
+    L_b7b1:
+        lda #$00
+        lda ($00),y
+    L_b7b5:
+        dex 
+        bpl L_b7a6
+
+        rts 
+
+    // L_b7b9:
+
+    Divide2_3_By_3_GetScreen:
+
+        lda $03
+        lsr 
+        lsr 
+        lsr 
+        tay 
+        lda $02
+        lsr 
+        lsr 
+        lsr 
+        jmp GetScreenAddressCol_A_Row_Y
+
+        
+
 
 }

@@ -1,13 +1,19 @@
 parsing
 flex pass 1
-        * = * "Return2"
-    
-        lda #0
-        sta ZP.Temp07
-               ^
+flex pass 2
+flex pass 3
+Output pass
+Writing prg file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 
-Error: Variable 'Temp07' not present on value of type 'LabelValue'
-at line 56, column 16 in title.asm
-called at line 2942, column 13 in /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/main.asm
+Memory Map
+----------
+Default-segment:
+  $1201-$120d Unnamed
+  $a00c-$af99 Program Start
+  $af9a-$b5b4 IRQ
+  $b5b5-$baff Return2
+  $bb00-$bf7f Chars
+  $bf80-$bfff Chars2
 
-
+Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs
+Writing Symbol file: main.sym

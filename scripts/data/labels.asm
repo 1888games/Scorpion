@@ -8,36 +8,51 @@ ZP: {
 
     .label ScreenAddress = $00
     .label ScreenAddress_MSB = $01
-     .label Address = $02
+    .label Address = $02
     .label Address_MSB = $03
+    .label Backup280 = $04
+    .label ScorpionLogoFlag = $07
 
-    .label INPUT_FLAG = $D0
-    .label JOY_HAND_SWITCH = $1D
+    .label NumberLives = $08
+
     .label ColourAddress = $0A
     .label ColourAddress_MSB = $0B
-    .label ReturnAddress = $10
-    .label ColourTemp = $12
-    .label ScorpionLogoFlag = $07
-    .label Table_50_32Bytes = $50
-   
-
-    .label JoystickReadings = $0C
-    .label JOYSTICK_MASKS = $B8
     .label JOY_LEFT_NOW = $0C
+    .label JoystickReadings = $0C
     .label JOY_RIGHT_NOW = $0E
     .label JOY_UP_NOW = $0D
     .label JOY_DOWN_NOW = $0F
+    .label ReturnAddress = $10
+    .label ColourTemp = $12
+
+    .label JOY_HAND_SWITCH = $1D
+    .label Score = $1e
+
+    .label Difficulty = $D0
+    
+
+    .label Table_50_32Bytes = $50
+   
+
+    .label JOYSTICK_MASKS = $B8
+ 
     .label Timer1 = $50
     .label Timer2 = $51
     .label Timer3 = $52
+    .label Timer4 = $53
+    .label Timer5 = $68
 
     .label GameAnimateTimer = $57
 
     .label AnimCounter = $69
 
+    .label BonusStorage1 = $24
+    .label BonusStorage2 = $2A
+
+
 }
 
-
+.label DIGIT_TO_CHAR_MASK = $b0
 .label CHAR_SET_P1 = $BB00
 .label CHAR_SET_P2 = $BF80
 
@@ -52,6 +67,12 @@ ZP: {
 .label TABLE_64_240 = $240
 .label TABLE_64_280 = $280
 
+.label LOGO_COPY =    $0280
+.label TABLE_64_2C0 = $02c0
+
+
+.label RIGHT_ARROW_CHAR = 19
+.label LEFT_ARROW_CHAR = 18
 
 .label RASTER_Y = $9004
 .label INTERRUPT_ENABLE = $911E
@@ -76,6 +97,16 @@ ZP: {
 .label HOME_CHAR_USE = $1c10
 
 
+.label BONUS_SCREEN_POSITION = $1e60
+.label LIFE_ARROW_POSITION = $1E1D
+.label WAVE_ARROW_POSITION = $1E24
+.label LIFE_INDICATOR_COLOUR_POS = $961e
+
+.label LIFE_INDICATOR_POSITION = $1e1e
+.label SCORE_POSITION = $1e08
+.label SCORE_COLOUR_POSITION = $9608
+
+
 
 .label CHAR_RAM = $1C00
 .label SCREEN_RAM = $1E00
@@ -86,6 +117,7 @@ ZP: {
 .label CHAR_EDIT_ADDRESS = $1C90
 
 .label CHAR_RAM_SCORPION_LOGO = $1d80
+.label CHAR_RAM_MINI_MAP = $1d80
 
 
 .label Timer_LSB = 177
@@ -98,6 +130,7 @@ ZP: {
 .label MAP_COLUMNS = 48
 
 .label SOLID_CHAR = 33
+.label SCORPION_UP_CHAR = 4
 
 .label SCREEN_ROWS = 23
 .label SCREEN_COLS = 22
@@ -129,6 +162,9 @@ ZP: {
 .label LIGHT_YELLOW_BG = 240
 
 .label INVERTED = 8
+
+.label START_LIVES = 4
+.label SCANNER_ROW = 12
 
 
 

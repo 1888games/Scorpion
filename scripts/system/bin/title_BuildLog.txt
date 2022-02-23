@@ -1,0 +1,19 @@
+parsing
+Got 78 errors while executing:
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/title.asm 7:13) Unknown symbol 'COLOUR_REG'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/title.asm 9:14) Unknown symbol 'SCREEN_ROWS'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/title.asm 13:13) Unknown symbol 'GetRowScreenColourAddressX'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/title.asm 15:14) Unknown symbol 'SCREEN_COLS'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/title.asm 19:14) Unknown symbol 'SOLID_CHAR'
+  ...
+
+
+        sei
+        lda #$8D
+        sta COLOUR_REG
+            ^
+
+Error: Unknown symbol 'COLOUR_REG'
+at line 7, column 13 in title.asm
+
+

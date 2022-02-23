@@ -66,22 +66,37 @@
     SetupSomeValues:
     
         ldx #1
-        stx ZP.INPUT_FLAG
+        stx ZP.Difficulty
         inx 
         stx ZP.JOY_HAND_SWITCH
 
 
-    L_a059:
+    StartTitleScreen:
+
         jsr DrawTitleScreen
-        jsr L_b1e9
-        jsr L_b92c
+        jsr LevelSelectScreen
+        jsr DrawBonus
+
+        jsr PrintRowOfCharData
+        .byte $04,$03,$87
+        .text @"next bonus at:\$00"
 
         jsr PrintRowOfCharData
 
-        .byte $04,$03,$87,$0e,$05,$18,$14,$20,$02,$0f,$0e,$15,$13,$20,$01,$14
-        .byte $3a,$00,$20,$63,$b4,$03,$01,$86,$0c,$09,$06,$05,$3a,$20,$20,$20
-        .byte $20,$30,$31,$3a,$17,$01,$16,$05,$00,$a2,$13,$8e,$1d,$1e,$ca,$8e
-        .byte $24,$1e,$20,$35,$a1
+        .byte $03,$01,$86
+        .text @"life:    01:wave\$00"
+
+
+        ldx #RIGHT_ARROW_CHAR
+        stx LIFE_ARROW_POSITION
+
+        dex
+        stx WAVE_ARROW_POSITION
+
+        jsr L_a135
+
+   
+
 
     L_a09a:
         ldx #$01
@@ -96,7 +111,7 @@
         and #$03
         tax 
         jsr L_b07f
-        jsr L_a157
+        jsr SidePanel
         jsr L_a3a0
         jsr L_a27f
         lda #$1f
@@ -134,7 +149,7 @@
         jsr $ae81
         bcs L_a0a9
     L_a10f:
-        ldy $08
+        ldy ZP.NumberLives
         bmi L_a122
         cpy #$04
         bcs L_a11c
@@ -142,7 +157,7 @@
         sta $1e1e,y
     L_a11c:
         dey 
-        sty $08
+        sty ZP.NumberLives
         jmp L_a0be
     L_a122:
         jsr L_a198
@@ -164,38 +179,58 @@
 
     L_a135:
         jsr Reset32BytesTo1
-        lda #$ff
-        sta $08
-        ldx #$03
-    L_a13e:
-        jsr L_b2cd
+
+        lda #255
+        sta ZP.NumberLives
+
+        ldx #START_LIVES - 1
+
+    LivesLoop:
+
+        jsr IncreaseLives
         dex 
-        bpl L_a13e
-        ldx #$05
-    L_a146:
+        bpl LivesLoop
+
+    ResetScore:
+
+        ldx #5
+
+    ResetScoreLoop:
+
         lda #$00
-        sta $1e,x
-        ora #$b0
-        sta $1e08,x
-        lda #$04
-        sta $9608,x
+        sta ZP.Score,x
+        ora #DIGIT_TO_CHAR_MASK
+        sta SCORE_POSITION,x
+        lda #PURPLE
+        sta SCORE_COLOUR_POSITION,x
         dex 
-        bpl L_a146
-    L_a157:
-        ldx #$7f
-    L_a159:
-        lda #$ff
-        sta $1d80,x
-        cpx #$40
-        bcs L_a16a
-        sta $0280,x
-        lda #$00
-        sta $02c0,x
-    L_a16a:
+        bpl ResetScoreLoop
+
+
+   // L_a157:
+    SidePanel:
+
+        ldx #127
+    ClearDataLoop:
+        lda #255
+        sta CHAR_RAM_MINI_MAP,x
+        cpx #64
+        bcs SkipPage2
+
+        sta TABLE_64_280,x
+
+        lda #0
+        sta TABLE_64_2C0,x
+
+    SkipPage2:
         dex 
-        bpl L_a159
+        bpl ClearDataLoop
+
         ldy #$ff
-        jsr L_b249
+        jsr PlaceMiniMapChars
+
+    //Test:
+      //  jmp Test
         jsr L_a3c1
     L_a175:
         lda #$29
@@ -218,11 +253,15 @@
         dex 
         bpl L_a186
     L_a197:
-        rts 
+
+       
+       rts 
+
+
 
 
     L_a198:
-        lda $18
+       lda $18
         beq L_a1af
         ldx #$00
     L_a19e:
@@ -489,7 +528,7 @@
         lda #$02
         sta $04
         ldx #$00
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
         stx $09
         stx $82
         stx $1c
@@ -577,7 +616,7 @@
         sta $1618
     L_a44f:
         ldx #$00
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         jsr L_b325
         lda #$04
         jsr L_af3b
@@ -622,7 +661,7 @@
         beq L_a4b4
     L_a4ac:
         ldx #$00
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         jsr L_a406
     L_a4b4:
         lda $18
@@ -662,13 +701,13 @@
         lda #$04
         jsr $af3e
         ldx #$00
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
         lda $82
         beq L_a505
         jsr L_a435
         ldx $8c
         jsr L_a3ff
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
         lda $82
         jsr L_b32c
     L_a505:
@@ -684,7 +723,7 @@
         jsr L_ac5f
     L_a519:
         ldx #$00
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         ldx #$23
     L_a520:
         lda $0280,x
@@ -709,7 +748,7 @@
     L_a53e:
         ldx #$20
     L_a540:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_a589
         jsr L_a700
         cmp #$23
@@ -747,7 +786,7 @@
     L_a582:
         tya 
         jsr L_b32c
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
     L_a589:
         inx 
         cpx #$24
@@ -790,7 +829,7 @@
     L_a5cc:
         ldx #$00
         sec 
-        jmp L_a6df
+        jmp Copy2_4_800X_To_ZP
     L_a5d2:
         stx $8c
         lda #$00
@@ -836,7 +875,7 @@
         inc $68
         ldx #$0d
     L_a61e:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
 
         .byte $30,$3c,$bd,$c0,$02,$f0,$37,$10,$1d,$fe,$c0,$02,$bd,$c0,$02,$49
         .byte $ff,$18,$69,$01,$c9,$10,$b0,$09,$a5,$68,$29,$01,$a8,$b9,$85,$a6
@@ -881,7 +920,7 @@
         sta $8d
         ldx #$0d
     L_a697:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_a6c1
         lda $02c0,x
         bne L_a6c1
@@ -912,7 +951,12 @@
     L_a6da:
         jsr L_a382
         ldx $13
-    L_a6df:
+
+
+    // L_a6df
+
+    Copy2_4_800X_To_ZP:
+
         lda $0200,x
         sta $02
         lda $0240,x
@@ -1306,14 +1350,14 @@
         sta $8e
         jmp L_aa5b
     L_a99a:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_a9a5
         jsr L_b325
         jsr L_a9c9
     L_a9a5:
         jsr L_a9c0
         dex 
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_a9ba
         jsr L_a9f1
         lda $04
@@ -1337,14 +1381,14 @@
         bmi L_a9bf
     L_a9c9:
         dex 
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         inx 
         lsr 
         clc 
         adc #$0e
     L_a9d2:
         jsr L_b32c
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
     L_a9d8:
         lda $02
         cmp $0200
@@ -1410,7 +1454,7 @@
     L_aa47:
         sec 
     L_aa48:
-        jmp L_a6df
+        jmp Copy2_4_800X_To_ZP
 
     L_aa4b:
          .byte $13,$17,$1b,$1f,$02
@@ -1420,7 +1464,7 @@
         .byte $04,$04,$00,$04,$00
 
     L_aa5b:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_aa6f
         lda.a $0093,y
         eor #$ff
@@ -1460,7 +1504,7 @@
         sta $56
         ldx #$24
     L_aa9d:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         and #$04
         bne L_aab9
         jsr L_b325
@@ -1496,7 +1540,7 @@
         cmp #$1e
         bcc L_aafc
     L_aaea:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         jsr L_afb7
         bcs L_aaf6
         lda #$f0
@@ -1506,7 +1550,7 @@
         eor $05
         sta $04
     L_aafc:
-        jmp L_ad63
+        jmp Copy_2_4ZP_To_2_4_800X
     L_aaff:
         stx $05
         dec $02c0,x
@@ -1518,7 +1562,7 @@
         clc 
         adc $05
         tax 
-        jsr L_ad63
+        jsr Copy_2_4ZP_To_2_4_800X
         lda $c8
         sta $02c0,x
         ldx $05
@@ -1531,7 +1575,7 @@
         sta $59
         ldx #$24
     L_ab2a:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_ab55
         and #$04
         beq L_ab55
@@ -1754,7 +1798,7 @@
         sta $5f
         ldx #$05
     L_accb:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_acfe
         jsr L_b325
         ldy #$01
@@ -1767,14 +1811,14 @@
         cmp #$07
         bcc L_acec
     L_ace9:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
     L_acec:
         jsr L_a6ef
         bcs L_acf5
         cmp #$07
         bcc L_acfb
     L_acf5:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         jsr L_a3ff
     L_acfb:
         jsr L_ad04
@@ -1834,7 +1878,10 @@
         jsr L_b438
         sta $62
         sta $04
-    L_ad63:
+    //Copy_2_4ZP_To_2_4_800X:
+
+    // l_ad63
+    Copy_2_4ZP_To_2_4_800X:
         lda $02
         sta TABLE_64_200,x
         lda $03
@@ -1851,7 +1898,7 @@
         lda #$18
         sta $61
         ldx #$0e
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         bmi L_ad72
         jsr L_b325
         lda $02c0,x
@@ -1906,7 +1953,7 @@
         bcs L_adde
         beq L_ade1
     L_adde:
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
     L_ade1:
         lda #$1f
         ldx #$0e
@@ -1987,9 +2034,9 @@
 
     L_aead:
         jsr L_ac4a
-        jsr L_b231
+        jsr ClearMainWindow
         ldy #$00
-        jsr L_b249
+        jsr PlaceMiniMapChars
         jsr Reset32BytesTo1
         lda #$3c
         sta $02
@@ -2178,7 +2225,7 @@
 
     L_afff:
         ldx #$00
-        jsr L_a6df
+        jsr Copy2_4_800X_To_ZP
         lda $03
         sec 
         sbc #$08
@@ -2359,60 +2406,57 @@
 
     #import "system/anim.asm"
 
-    L_b1e9:
-        ldx #$16
-    L_b1eb:
-        jsr GetRowScreenColourAddressX
-        ldy #$15
-    L_b1f0:
-        lda #$21
-        cpx #$02
-        beq L_b1fc
-        cpx #$05
-        bcs L_b1fc
-        lda #$00
-    L_b1fc:
-        sta ($00),y
-        lda #$05
-        sta ($0a),y
-        dey 
-        bpl L_b1f0
-        dex 
-        bpl L_b1eb
-        jsr PrintRowOfCharData
-
-        .byte $12,$0b,$80,$13,$03,$01,$0e,$00,$20,$63,$b4,$12,$13,$0e,$05,$18
-        .byte $14,$00,$20,$63,$b4,$12,$14,$05,$07,$07,$2b,$00,$20,$63,$b4,$12
-        .byte $07,$01,$09,$12,$2b,$00
-
-    L_b231:
-        ldx #$06
-    L_b233:
-        jsr GetRowScreenColourAddressX
-        ldy #$10
-    L_b238:
-        lda #$00
-        sta ($00),y
-        lda #$05
-        sta ($0a),y
-        dey 
-        bpl L_b238
-        inx 
-        cpx #$17
-        bne L_b233
-        rts 
+    #import "system/select.asm"
 
 
-    L_b249:
+    PlaceMiniMapChars:
+ 
         sty $06
-        ldx #$0c
+        ldx #12
     L_b24d:
         jsr GetRowScreenColourAddressX
 
     L_b250:
-         .byte $8a,$18,$69,$30,$85,$05,$a0,$15,$a5,$06,$f0,$03
-        .byte $a5,$05,$2c,$a9,$21,$91,$00,$a5,$05,$38,$e9,$04,$85,$05,$a9,$0b
-        .byte $25,$06,$91,$0a,$88,$c0,$11,$d0,$e3,$e8,$e0,$10,$d0,$d3,$60
+
+        txa
+        clc
+        adc #48
+        sta $05
+
+        ldy #21
+
+     MapDrawLoop:
+        lda $06
+        beq $b25f
+
+        lda $05
+    
+        .byte $2C
+        and ($A9, x)
+
+      //  bit $21A9
+        sta (ZP.ScreenAddress), y
+
+        lda $05
+        sec
+        sbc #4
+        sta $05
+
+        lda #11
+        and $06
+        sta (ZP.ColourAddress), y
+
+        dey
+        cpy #17
+        bne MapDrawLoop
+
+        inx
+        cpx #16
+        bne L_b24d
+
+        rts
+
+
 
     L_b27b:
         stx $13
@@ -2444,7 +2488,7 @@
         cpx #$06
         bne L_b299
     L_b2a8:
-        jsr L_b2cd
+        jsr IncreaseLives
         jsr L_a3d0
         lda #$0a
         sta $9e
@@ -2468,18 +2512,23 @@
         rts 
 
 
-    L_b2cd:
-        ldy $08
+ //   L_b2cd:
+    IncreaseLives:
+
+        ldy ZP.NumberLives
         iny 
-        bmi L_b2e2
-        sty $08
-        cpy #$04
-        bcs L_b2e2
-        lda #$00
-        sta $961e,y
-        lda #$04
-        sta $1e1e,y
-    L_b2e2:
+        bmi ExitLives
+        sty ZP.NumberLives
+        cpy #4
+        bcs ExitLives
+
+        lda #BLACK
+        sta LIFE_INDICATOR_COLOUR_POS,y
+
+        lda #SCORPION_UP_CHAR
+        sta LIFE_INDICATOR_POSITION,y
+
+    ExitLives:
         rts 
 
 
@@ -2588,7 +2637,7 @@
         pla 
         jsr L_a198
         jsr L_a3ef
-        jmp L_a059
+        jmp StartTitleScreen
     L_b3bc:
         lda #$bf
         jsr L_b3e1
@@ -2944,148 +2993,7 @@
 
 
 
-   // L_b6ea:
-    EditTwoChars:
 
-
-        ldx #15
-
-    CharLoop:
-
-        lda CHAR_EOR_TABLE,x
-        eor CHAR_EDIT_ADDRESS,x
-        sta CHAR_EDIT_ADDRESS,x
-        dex 
-        bpl CharLoop
-
-        rts 
-
-
-    L_b6f9:
-        ldx #$00
-        jsr L_a6df
-    L_b6fe:
-        lda RASTER_Y
-        cmp ZP.Raster_Split_1
-        bcc L_b6fe
-        jsr L_b7a1
-        inc $02
-        lda $02
-        cmp #$98
-        bcc L_b715
-        pla 
-        pla 
-        
-    DrawTitleChars_Jmp:
-        jmp DrawTitleChars
-    L_b715:
-        ldx #$00
-        jsr L_ad63
-    L_b71a:
-        dec $53
-        bne L_b734
-        lda #$03
-        sta $53
-        inc $68
-        lda $68
-        cmp #$06
-        bcc L_b72e
-        lda #$00
-        sta $68
-    L_b72e:
-        tay 
-        lda L_b7de + $1,y
-        sta $06
-    L_b734:
-        ldx #$5f
-        lda #$00
-    L_b738:
-        sta $1d80,x
-        dex 
-        bpl L_b738
-        lda $03
-        and #$07
-        tax 
-        clc 
-        adc #$10
-        sta $05
-        lda $02
-        and #$07
-        sta $16
-        ldy $06
-    L_b750:
-        lda L_ba40,y
-        sta $1d80,x
-        lda L_ba50,y
-        sta $1d98,x
-        lda L_ba5f + $1,y
-        sta $1db0,x
-        lda #$00
-        sta $1dc8,x
-        sty $13
-        ldy $16
-        beq L_b77c
-    L_b76d:
-        lsr $1d80,x
-        ror $1d98,x
-        ror $1db0,x
-        ror $1dc8,x
-        dey 
-        bne L_b76d
-    L_b77c:
-        ldy $13
-        inx 
-        iny 
-        cpx $05
-        bne L_b750
-        jsr L_b7b9
-        ldx #$0b
-    L_b789:
-        ldy L_b7c7,x
-        lda ($00),y
-        beq L_b794
-        cmp #$30
-        bcc L_b79d
-    L_b794:
-        lda $b7d3,x
-        lda ($00),y
-        lda #$05
-        sta ($0a),y
-    L_b79d:
-        dex 
-        bpl L_b789
-        rts 
-
-
-    L_b7a1:
-        jsr L_b7b9
-        ldx #$0b
-    L_b7a6:
-        ldy L_b7c7,x
-        lda ($00),y
-        beq L_b7b1
-        cmp #$30
-        bcc L_b7b5
-    L_b7b1:
-        lda #$00
-        lda ($00),y
-    L_b7b5:
-        dex 
-        bpl L_b7a6
-        rts 
-
-
-    L_b7b9:
-        lda $03
-        lsr 
-        lsr 
-        lsr 
-        tay 
-        lda $02
-        lsr 
-        lsr 
-        lsr 
-        jmp GetScreenAddressCol_A_Row_Y
 
     L_b7c7:
          .byte $00
@@ -3093,11 +3001,15 @@
         .byte $34,$37,$3a,$32,$35,$38
 
     L_b7de:
-        .byte $3b,$00,$30,$60
-        .byte $90,$60
+        .byte $3b
+
+    LookupTimer5:
+
+        .byte $00,$30,$60
+        .byte $90,$60,$30
 
     L_b7e4:
-        .byte $30,$a9
+        .byte $a9
         .byte $6d,$20,$d1,$b0,$20,$31,$b2,$a0,$00,$20,$49,$b2,$20,$e8,$b9,$a9
         .byte $80,$8d,$0a,$90,$20,$f9,$a3,$a9,$00,$85,$05,$a2,$07
 
@@ -3156,7 +3068,7 @@
         .byte $d0,$09,$a5,$1c,$f0,$09,$e6,$d0,$a9,$00,$2c,$a9,$01,$85,$1c
 
     L_b8c3:
-        jsr L_b944
+        jsr CalculateBonusIndex
         ldy #$05
     L_b8c8:
         lda L_b9ca,x
@@ -3167,7 +3079,7 @@
         dex 
         dey 
         bpl L_b8c8
-        jsr L_b92c
+        jsr DrawBonus
         dec $5c
         bne L_b8ea
         lda #$02
@@ -3187,7 +3099,7 @@
         jsr L_b911
         jsr L_b4e7
         bne L_b896
-        lda ZP.INPUT_FLAG 
+        lda ZP.Difficulty 
         and #$03
         cmp #$03
         bne L_b90e
@@ -3215,24 +3127,29 @@
         rts 
 
 
-    L_b92c:
-        jsr L_b944
+    DrawBonus:
+
+        jsr CalculateBonusIndex
         ldy #$05
-    L_b931:
-        lda L_b950,x
-        sta.a $002a,y
-        sta.a $0024,y
-        ora #$b0
-        sta $1e60,y
+
+    DigitLoop:
+
+        lda BonusLookup,x
+        sta ZP.BonusStorage2,y
+        sta ZP.BonusStorage1,y
+
+        ora #%10110000
+        sta BONUS_SCREEN_POSITION,y
+
         dex 
         dey 
-        bpl L_b931
+        bpl DigitLoop
         rts 
 
+    CalculateBonusIndex:
 
-    L_b944:
-        lda $d0
-        and #$03
+        lda ZP.Difficulty
+        and #%00000011
         asl 
         asl 
         asl 
@@ -3243,8 +3160,8 @@
 
 
 
-    L_b950:
-         .byte $00,$00,$04,$00,$00,$00,$00,$00,$00,$00
+    BonusLookup:
+        .byte $00,$00,$04,$00,$00,$00,$00,$00,$00,$00
         .byte $08,$00,$00,$00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$00,$00,$00
         .byte $00,$00,$00,$00
 
