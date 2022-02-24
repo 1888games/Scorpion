@@ -1,5 +1,7 @@
 .namespace GAME {
 
+* = * "Title Screen"
+
 DrawTitleScreen:
 
         sei
@@ -50,8 +52,7 @@ DrawTitleScreen:
         .byte $03,$15,$83,$28,$03
         .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00
 
-        * = * "Return2"
-    
+   
         lda #0
         sta ZP.ScorpionLogoFlag
 
@@ -464,6 +465,23 @@ DrawTitleScreen:
         lsr 
         lsr 
         jmp GetScreenAddressCol_A_Row_Y
+
+    L_b7c7:
+         .byte $00
+        .byte $01,$02,$03,$16,$17,$18,$19,$2c,$2d,$2e,$2f,$30,$33,$36,$39,$31
+        .byte $34,$37,$3a,$32,$35,$38
+
+    L_b7de:
+        .byte $3b
+
+    LookupTimer5:
+
+        .byte $00,$30,$60
+        .byte $90,$60,$30
+
+    L_b7e4:
+        .byte $a9
+
 
         
 

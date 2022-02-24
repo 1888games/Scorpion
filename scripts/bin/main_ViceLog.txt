@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x62180752
+random seed was: 0x6218152d
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -77,6 +77,7 @@ Monitor playback command: al C:9120 .PORT_B_KEYBOARD_COL
 Monitor playback command: al C:ab97 .L_ab97
 Monitor playback command: al C:a5b4 .L_a5b4
 Monitor playback command: al C:a7f6 .L_a7f6
+Monitor playback command: al C:b981 .IncreaseLevel
 Monitor playback command: al C:afb7 .L_afb7
 Monitor playback command: al C:b38a .L_b38a
 Monitor playback command: al C:b38b .L_b38b
@@ -107,7 +108,6 @@ Monitor playback command: al C:aa6f .L_aa6f
 Monitor playback command: al C:a6ce .L_a6ce
 Monitor playback command: al C:b049 .L_b049
 Monitor playback command: al C:bc .HighScoreString
-Monitor playback command: al C:b7e6 .L_b7e5
 Monitor playback command: al C:a6f4 .L_a6f4
 Monitor playback command: al C:a5d2 .L_a5d2
 Monitor playback command: al C:aead .L_aead
@@ -122,7 +122,6 @@ Monitor playback command: al C:b7e5 .L_b7e4
 Monitor playback command: al C:b9bb .HighScoreLoop
 Monitor playback command: al C:13 .RIGHT_ARROW_CHAR
 Monitor playback command: al C:a6da .L_a6da
-Monitor playback command: al C:b8ef .L_b8ef
 Monitor playback command: al C:aa93 .L_aa93
 Monitor playback command: al C:b28c .L_b28c
 Monitor playback command: al C:0 .ScreenAddress
@@ -134,6 +133,7 @@ Monitor playback command: al C:b58f .SkipBlank
 Monitor playback command: al C:b299 .L_b299
 Monitor playback command: al C:b66b .Row_6_Home
 Monitor playback command: al C:a4c3 .L_a4c3
+Monitor playback command: al C:b920 .DecreaseVolume
 Monitor playback command: al C:a3a0 .L_a3a0
 Monitor playback command: al C:d0 .LIGHT_GREEN_BG
 Monitor playback command: al C:aa9d .L_aa9d
@@ -169,7 +169,6 @@ Monitor playback command: al C:a144 .ResetScore
 Monitor playback command: al C:a5 .WaveDigit1
 Monitor playback command: al C:c .JoystickReadings
 Monitor playback command: al C:a6 .WaveDigit2
-Monitor playback command: al C:a09a .L_a09a
 Monitor playback command: al C:a4be .L_a4be
 Monitor playback command: al C:afff .L_afff
 Monitor playback command: al C:b091 .L_b091
@@ -200,6 +199,7 @@ Monitor playback command: al C:acab .L_acab
 Monitor playback command: al C:b432 .WaitRaster128
 Monitor playback command: al C:1e24 .WAVE_ARROW_POSITION
 Monitor playback command: al C:a4de .L_a4de
+Monitor playback command: al C:b911 .PulseSound
 Monitor playback command: al C:a4db .L_a4db
 Monitor playback command: al C:b5a1 .CopyrightMessage
 Monitor playback command: al C:b18d .ThreeRowLoop
@@ -220,6 +220,7 @@ Monitor playback command: al C:b648 .Row_4_Worm
 Monitor playback command: al C:acbc .L_acbc
 Monitor playback command: al C:adde .L_adde
 Monitor playback command: al C:7 .LOGO_X
+Monitor playback command: al C:1fc6 .WAVE_NUMBER_BOTTOM
 Monitor playback command: al C:a00c .DisableNMI
 Monitor playback command: al C:1e08 .SCORE_POSITION
 Monitor playback command: al C:ade1 .L_ade1
@@ -246,6 +247,7 @@ Monitor playback command: al C:a3c3 .ClearAirLoop
 Monitor playback command: al C:b438 .L_b438
 Monitor playback command: al C:b233 .RowLoop2
 Monitor playback command: al C:bd0e .L_bd0e
+Monitor playback command: al C:b915 .IncreaseVolume
 Monitor playback command: al C:a582 .L_a582
 Monitor playback command: al C:1e1e .LIFE_INDICATOR_POSITION
 Monitor playback command: al C:b794 .L_b794
@@ -263,6 +265,7 @@ Monitor playback command: al C:a9c3 .L_a9c3
 Monitor playback command: al C:aa09 .L_aa09
 Monitor playback command: al C:a26d .GetRowScreenColourAddressX
 Monitor playback command: al C:b17f .BallStartByte
+Monitor playback command: al C:b90e .NotDemo
 Monitor playback command: al C:3 .Address_MSB
 Monitor playback command: al C:ab20 .L_ab20
 Monitor playback command: al C:aa00 .L_aa00
@@ -300,7 +303,6 @@ Monitor playback command: al C:b32c .L_b32c
 Monitor playback command: al C:12 .LEFT_ARROW_CHAR
 Monitor playback command: al C:a026 .SetInterruptAddress
 Monitor playback command: al C:a9ba .L_a9ba
-Monitor playback command: al C:a122 .L_a122
 Monitor playback command: al C:a9bf .L_a9bf
 Monitor playback command: al C:a9c9 .L_a9c9
 Monitor playback command: al C:b510 .InitialiseRegistersLookups
@@ -309,6 +311,7 @@ Monitor playback command: al C:b334 .L_b334
 Monitor playback command: al C:b455 .L_b455
 Monitor playback command: al C:a369 .L_a369
 Monitor playback command: al C:a24d .L_a24d
+Monitor playback command: al C:b91f .ExitVolume
 Monitor playback command: al C:a36b .L_a36b
 Monitor playback command: al C:a382 .L_a382
 Monitor playback command: al C:b45b .L_b45b
@@ -370,6 +373,7 @@ Monitor playback command: al C:ab69 .L_ab69
 Monitor playback command: al C:4 .Backup280
 Monitor playback command: al C:af32 .CycleColour
 Monitor playback command: al C:1e00 .SCREEN_RAM
+Monitor playback command: al C:5 .SoundEffectToggle
 Monitor playback command: al C:4 .SCORPION_UP_CHAR
 Monitor playback command: al C:a7ac .L_a7ac
 Monitor playback command: al C:b127 .L_b127
@@ -382,6 +386,7 @@ Monitor playback command: al C:b383 .L_b383
 Monitor playback command: al C:b36d .L_b36d
 Monitor playback command: al C:b24d .L_b24d
 Monitor playback command: al C:aa56 .L_aa56
+Monitor playback command: al C:a09a .ResetGame
 Monitor playback command: al C:a7d4 .L_a7d4
 Monitor playback command: al C:a8f5 .L_a8f5
 Monitor playback command: al C:b80b .PixelRowLoop
@@ -432,6 +437,7 @@ Monitor playback command: al C:a982 .L_a982
 Monitor playback command: al C:b96e .CheckLevelChange
 Monitor playback command: al C:b4ab .GetScreen_Col2_Row3
 Monitor playback command: al C:b504 .DelayByA
+Monitor playback command: al C:b4e7 .CheckFireButton
 Monitor playback command: al C:a505 .L_a505
 Monitor playback command: al C:a746 .L_a746
 Monitor playback command: al C:b71a .L_b71a
@@ -481,6 +487,7 @@ Monitor playback command: al C:b4d7 .ReadRight
 Monitor playback command: al C:a52b .L_a52b
 Monitor playback command: al C:a76c .L_a76c
 Monitor playback command: al C:ad04 .L_ad04
+Monitor playback command: al C:a122 .GameOver
 Monitor playback command: al C:b8b6 .F3Pressed
 Monitor playback command: al C:69 .AnimCounter
 Monitor playback command: al C:b8bf .NoF3
@@ -491,9 +498,7 @@ Monitor playback command: al C:b57f .ColumnLoop
 Monitor playback command: al C:a015 .CopyLoop
 Monitor playback command: al C:b147 .ScorpionEorTable
 Monitor playback command: al C:1d30 .BALL_CHAR_USE
-Monitor playback command: al C:b981 .L_b981
 Monitor playback command: al C:a536 .L_a536
-Monitor playback command: al C:af2a .L_af2a
 Monitor playback command: al C:b258 .MapDrawLoop
 Monitor playback command: al C:a89f .L_a89f
 Monitor playback command: al C:bf24 .L_bf24
@@ -515,6 +520,7 @@ Monitor playback command: al C:314 .IRQ_VECTOR_LSB
 Monitor playback command: al C:b1fc .ClearRow
 Monitor playback command: al C:b750 .L_b750
 Monitor playback command: al C:a789 .L_a789
+Monitor playback command: al C:18 .PlayRealGame
 Monitor playback command: al C:1d38 .DRAGON_START
 Monitor playback command: al C:a666 .L_a666
 Monitor playback command: al C:af3b .L_af3b
@@ -541,6 +547,7 @@ Monitor playback command: al C:1e22 .WAVE_NUMBER_POSITION
 Monitor playback command: al C:3 .LOGO_ROW
 Monitor playback command: al C:b6ea .EditTwoChars
 Monitor playback command: al C:a146 .ResetScoreLoop
+Monitor playback command: al C:b7e6 .CompleteSettingsScreen
 Monitor playback command: al C:1c08 .DEAD_START
 Monitor playback command: al C:9608 .SCORE_COLOUR_POSITION
 Monitor playback command: al C:a558 .L_a558
@@ -553,6 +560,7 @@ Monitor playback command: al C:b1f0 .SelectCharLoop
 Monitor playback command: al C:a67d .L_a67d
 Monitor playback command: al C:b40e .L_b40e
 Monitor playback command: al C:ac17 .L_ac17
+Monitor playback command: al C:b925 .ToggleVolume
 Monitor playback command: al C:1e60 .BONUS_SCREEN_POSITION
 Monitor playback command: al C:af73 .L_af73
 Monitor playback command: al C:b8 .JOYSTICK_MASKS
@@ -561,6 +569,7 @@ Monitor playback command: al C:a687 .L_a687
 Monitor playback command: al C:b65a .Row_5_Egg
 Monitor playback command: al C:a200 .L_a200
 Monitor playback command: al C:a321 .L_a321
+Monitor playback command: al C:af2a .SetupNewLevel
 Monitor playback command: al C:315 .IRQ_VECTOR_MSB
 Monitor playback command: al C:a560 .L_a560
 Monitor playback command: al C:a681 .L_a681
@@ -601,10 +610,10 @@ Monitor playback command: al C:b2a3 .L_b2a3
 Monitor playback command: al C:bb00 .CHAR_SET_P1
 Monitor playback command: al C:b3c5 .L_b3c5
 Monitor playback command: al C:c000 .L_bfff
-Monitor playback command: al C:b4e7 .L_b4e7
 Monitor playback command: al C:b549 .MapLoop
 Monitor playback command: al C:3c0 .SCREEN_LSB_LOOKUP
 Monitor playback command: al C:b0 .LIGHT_CYAN_BG
+Monitor playback command: al C:b8ef .LevelNumberLoop
 Monitor playback command: al C:b18b .AnimateChars
 Monitor playback command: al C:b3ac .L_b3ac
 Monitor playback command: al C:b7b9 .Divide2_3_By_3_GetScreen
@@ -687,14 +696,12 @@ Monitor playback command: al C:a0d3 .L_a0d3
 Monitor playback command: al C:e .HIGH_SCORE_X_END
 Monitor playback command: al C:a707 .L_a707
 Monitor playback command: al C:a949 .L_a949
-Monitor playback command: al C:b90e .L_b90e
 Monitor playback command: al C:a049 .WaitRaster0
 Monitor playback command: al C:b0a1 .L_b0a1
 Monitor playback command: al C:a93d .L_a93d
 Monitor playback command: al C:b92c .DrawBonus
 Monitor playback command: al C:60 .BLUE_BG
 Monitor playback command: al C:a0be .L_a0be
-Monitor playback command: al C:b911 .L_b911
 Monitor playback command: al C:9121 .PORT_A_KEYBOARD_ROW
 Monitor playback command: al C:b663 .Row_5_10
 Monitor playback command: al C:a706 .L_a706
@@ -705,18 +712,15 @@ Monitor playback command: al C:a824 .L_a824
 Monitor playback command: al C:a823 .L_a823
 Monitor playback command: al C:a700 .L_a700
 Monitor playback command: al C:10 .WHITE_BG
-Monitor playback command: al C:b91f .L_b91f
 Monitor playback command: al C:b0b1 .L_b0b1
 Monitor playback command: al C:b619 .Row1_75
 Monitor playback command: al C:aadf .L_aadf
 Monitor playback command: al C:a94a .L_a94a
 Monitor playback command: al C:a830 .L_a830
-Monitor playback command: al C:b920 .L_b920
 Monitor playback command: al C:b7f5 .StartMenuSound
 Monitor playback command: al C:b238 .CharLoop2
 Monitor playback command: al C:b652 .Row_4_50
 Monitor playback command: al C:a0c1 .GameLoop
-Monitor playback command: al C:b925 .L_b925
 Monitor playback command: al C:4 .PURPLE_BORDER
 Monitor playback command: al C:a954 .L_a954
 Monitor playback command: al C:b1eb .SelectRowLoop
@@ -789,11 +793,11 @@ MonitorXPos=1045
 MonitorYPos=370
 MonitorWidth=1003
 MonitorHeight=550
-Window0Height=740
+Window0Height=765
 Window0Width=1263
 Window0Xpos=560
-Window0Ypos=284
-SoundVolume=0
+Window0Ypos=25
+SoundVolume=21
 RAMBlock1=1
 RAMBlock5=1
 KeySet1North=65362
@@ -810,7 +814,7 @@ AutostartRunWithColon=0
 AutostartPrgMode=1
 
 reconstructed commandline options (might be incomplete):
--default +confirmonexit -saveres -monitorxpos "1045" -monitorypos "370" -monitorwidth "1003" -monitorheight "550" -soundvolume "0" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
+-default +confirmonexit -saveres -monitorxpos "1045" -monitorypos "370" -monitorwidth "1003" -monitorheight "550" -soundvolume "21" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
 
 VICE thread initiating shutdown
 VICE thread is exiting

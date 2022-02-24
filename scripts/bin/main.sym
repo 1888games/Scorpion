@@ -41,6 +41,7 @@
   .label ScorpionLogoFlag=$7
   .label JoystickReadings=$c
   .label WaveDigit2=$a6
+  .label PlayRealGame=$18
   .label Table_50_32Bytes=$50
   .label Timer5=$68
   .label BonusStorage1=$24
@@ -58,6 +59,7 @@
   .label JOY_RIGHT_NOW=$e
   .label Backup280=$4
   .label Score=$1e
+  .label SoundEffectToggle=$5
   .label Level=$1a
   .label Timer2=$51
   .label GameAnimateTimer=$57
@@ -129,6 +131,7 @@
   .label L_ab97=$ab97
   .label L_a5b4=$a5b4
   .label L_a7f6=$a7f6
+  .label IncreaseLevel=$b981
   .label L_afb7=$afb7
   .label L_b38a=$b38a
   .label L_b38b=$b38b
@@ -155,7 +158,6 @@
   .label L_aa6f=$aa6f
   .label L_a6ce=$a6ce
   .label L_b049=$b049
-  .label L_b7e5=$b7e6
   .label L_a6f4=$a6f4
   .label L_a5d2=$a5d2
   .label L_aead=$aead
@@ -169,7 +171,6 @@
   .label L_b7e4=$b7e5
   .label HighScoreLoop=$b9bb
   .label L_a6da=$a6da
-  .label L_b8ef=$b8ef
   .label L_aa93=$aa93
   .label L_b28c=$b28c
   .label L_a19e=$a19e
@@ -178,6 +179,7 @@
   .label L_b299=$b299
   .label Row_6_Home=$b66b
   .label L_a4c3=$a4c3
+  .label DecreaseVolume=$b920
   .label L_a3a0=$a3a0
   .label L_aa9d=$aa9d
   .label ReadOtherDirections=$b4ce
@@ -205,7 +207,6 @@
   .label L_a5db=$a5db
   .label L_aed7=$aed7
   .label ResetScore=$a144
-  .label L_a09a=$a09a
   .label L_a4be=$a4be
   .label L_afff=$afff
   .label L_b091=$b091
@@ -230,6 +231,7 @@
   .label L_acab=$acab
   .label WaitRaster128=$b432
   .label L_a4de=$a4de
+  .label PulseSound=$b911
   .label L_a4db=$a4db
   .label CopyrightMessage=$b5a1
   .label ThreeRowLoop=$b18d
@@ -259,6 +261,7 @@
   .label L_b438=$b438
   .label RowLoop2=$b233
   .label L_bd0e=$bd0e
+  .label IncreaseVolume=$b915
   .label L_a582=$a582
   .label L_b794=$b794
   .label L_bd0b=$bd0b
@@ -273,6 +276,7 @@
   .label L_aa09=$aa09
   .label GetRowScreenColourAddressX=$a26d
   .label BallStartByte=$b17f
+  .label NotDemo=$b90e
   .label L_ab20=$ab20
   .label L_aa00=$aa00
   .label L_b79d=$b79d
@@ -300,7 +304,6 @@
   .label L_b32c=$b32c
   .label SetInterruptAddress=$a026
   .label L_a9ba=$a9ba
-  .label L_a122=$a122
   .label L_a9bf=$a9bf
   .label L_a9c9=$a9c9
   .label InitialiseRegistersLookups=$b510
@@ -309,6 +312,7 @@
   .label L_b455=$b455
   .label L_a369=$a369
   .label L_a24d=$a24d
+  .label ExitVolume=$b91f
   .label L_a36b=$a36b
   .label L_a382=$a382
   .label L_b45b=$b45b
@@ -372,6 +376,7 @@
   .label L_b36d=$b36d
   .label L_b24d=$b24d
   .label L_aa56=$aa56
+  .label ResetGame=$a09a
   .label L_a7d4=$a7d4
   .label L_a8f5=$a8f5
   .label PixelRowLoop=$b80b
@@ -407,6 +412,7 @@
   .label CheckLevelChange=$b96e
   .label GetScreen_Col2_Row3=$b4ab
   .label DelayByA=$b504
+  .label CheckFireButton=$b4e7
   .label L_a505=$a505
   .label L_a746=$a746
   .label L_b71a=$b71a
@@ -445,6 +451,7 @@
   .label L_a52b=$a52b
   .label L_a76c=$a76c
   .label L_ad04=$ad04
+  .label GameOver=$a122
   .label F3Pressed=$b8b6
   .label NoF3=$b8bf
   .label Clear96BytesLogo=$b734
@@ -452,9 +459,7 @@
   .label ColumnLoop=$b57f
   .label CopyLoop=$a015
   .label ScorpionEorTable=$b147
-  .label L_b981=$b981
   .label L_a536=$a536
-  .label L_af2a=$af2a
   .label MapDrawLoop=$b258
   .label L_a89f=$a89f
   .label L_bf24=$bf24
@@ -490,6 +495,7 @@
   .label LOGO_ROW=$3
   .label EditTwoChars=$b6ea
   .label ResetScoreLoop=$a146
+  .label CompleteSettingsScreen=$b7e6
   .label L_a558=$a558
   .label L_a315=$a315
   .label L_ae2a=$ae2a
@@ -499,12 +505,14 @@
   .label L_a67d=$a67d
   .label L_b40e=$b40e
   .label L_ac17=$ac17
+  .label ToggleVolume=$b925
   .label L_af73=$af73
   .label L_b76d=$b76d
   .label L_a687=$a687
   .label Row_5_Egg=$b65a
   .label L_a200=$a200
   .label L_a321=$a321
+  .label SetupNewLevel=$af2a
   .label L_a560=$a560
   .label L_a681=$a681
   .label ExitLives=$b2e2
@@ -538,8 +546,8 @@
   .label L_b2a3=$b2a3
   .label L_b3c5=$b3c5
   .label L_bfff=$c000
-  .label L_b4e7=$b4e7
   .label MapLoop=$b549
+  .label LevelNumberLoop=$b8ef
   .label AnimateChars=$b18b
   .label L_b3ac=$b3ac
   .label Divide2_3_By_3_GetScreen=$b7b9
@@ -607,13 +615,11 @@
   .label HIGH_SCORE_X_END=$e
   .label L_a707=$a707
   .label L_a949=$a949
-  .label L_b90e=$b90e
   .label WaitRaster0=$a049
   .label L_b0a1=$b0a1
   .label L_a93d=$a93d
   .label DrawBonus=$b92c
   .label L_a0be=$a0be
-  .label L_b911=$b911
   .label Row_5_10=$b663
   .label L_a706=$a706
   .label L_b3ea=$b3ea
@@ -622,18 +628,15 @@
   .label L_a824=$a824
   .label L_a823=$a823
   .label L_a700=$a700
-  .label L_b91f=$b91f
   .label L_b0b1=$b0b1
   .label Row1_75=$b619
   .label L_aadf=$aadf
   .label L_a94a=$a94a
   .label L_a830=$a830
-  .label L_b920=$b920
   .label StartMenuSound=$b7f5
   .label CharLoop2=$b238
   .label Row_4_50=$b652
   .label GameLoop=$a0c1
-  .label L_b925=$b925
   .label L_a954=$a954
   .label SelectRowLoop=$b1eb
   .label L_a711=$a711
@@ -690,6 +693,7 @@
 .label SOUND_CHANNEL_1=$900a
 .label RED_BORDER=$2
 .label MAP_LOOKUP_LSB=$340
+.label WAVE_NUMBER_BOTTOM=$1fc6
 .label YELLOW_BG=$70
 .label SCORE_POSITION=$1e08
 .label INVERTED=$8

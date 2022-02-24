@@ -8,6 +8,7 @@ al C:9120 .PORT_B_KEYBOARD_COL
 al C:ab97 .L_ab97
 al C:a5b4 .L_a5b4
 al C:a7f6 .L_a7f6
+al C:b981 .IncreaseLevel
 al C:afb7 .L_afb7
 al C:b38a .L_b38a
 al C:b38b .L_b38b
@@ -38,7 +39,6 @@ al C:aa6f .L_aa6f
 al C:a6ce .L_a6ce
 al C:b049 .L_b049
 al C:bc .HighScoreString
-al C:b7e6 .L_b7e5
 al C:a6f4 .L_a6f4
 al C:a5d2 .L_a5d2
 al C:aead .L_aead
@@ -53,7 +53,6 @@ al C:b7e5 .L_b7e4
 al C:b9bb .HighScoreLoop
 al C:13 .RIGHT_ARROW_CHAR
 al C:a6da .L_a6da
-al C:b8ef .L_b8ef
 al C:aa93 .L_aa93
 al C:b28c .L_b28c
 al C:0 .ScreenAddress
@@ -65,6 +64,7 @@ al C:b58f .SkipBlank
 al C:b299 .L_b299
 al C:b66b .Row_6_Home
 al C:a4c3 .L_a4c3
+al C:b920 .DecreaseVolume
 al C:a3a0 .L_a3a0
 al C:d0 .LIGHT_GREEN_BG
 al C:aa9d .L_aa9d
@@ -100,7 +100,6 @@ al C:a144 .ResetScore
 al C:a5 .WaveDigit1
 al C:c .JoystickReadings
 al C:a6 .WaveDigit2
-al C:a09a .L_a09a
 al C:a4be .L_a4be
 al C:afff .L_afff
 al C:b091 .L_b091
@@ -131,6 +130,7 @@ al C:acab .L_acab
 al C:b432 .WaitRaster128
 al C:1e24 .WAVE_ARROW_POSITION
 al C:a4de .L_a4de
+al C:b911 .PulseSound
 al C:a4db .L_a4db
 al C:b5a1 .CopyrightMessage
 al C:b18d .ThreeRowLoop
@@ -151,6 +151,7 @@ al C:b648 .Row_4_Worm
 al C:acbc .L_acbc
 al C:adde .L_adde
 al C:7 .LOGO_X
+al C:1fc6 .WAVE_NUMBER_BOTTOM
 al C:a00c .DisableNMI
 al C:1e08 .SCORE_POSITION
 al C:ade1 .L_ade1
@@ -177,6 +178,7 @@ al C:a3c3 .ClearAirLoop
 al C:b438 .L_b438
 al C:b233 .RowLoop2
 al C:bd0e .L_bd0e
+al C:b915 .IncreaseVolume
 al C:a582 .L_a582
 al C:1e1e .LIFE_INDICATOR_POSITION
 al C:b794 .L_b794
@@ -194,6 +196,7 @@ al C:a9c3 .L_a9c3
 al C:aa09 .L_aa09
 al C:a26d .GetRowScreenColourAddressX
 al C:b17f .BallStartByte
+al C:b90e .NotDemo
 al C:3 .Address_MSB
 al C:ab20 .L_ab20
 al C:aa00 .L_aa00
@@ -231,7 +234,6 @@ al C:b32c .L_b32c
 al C:12 .LEFT_ARROW_CHAR
 al C:a026 .SetInterruptAddress
 al C:a9ba .L_a9ba
-al C:a122 .L_a122
 al C:a9bf .L_a9bf
 al C:a9c9 .L_a9c9
 al C:b510 .InitialiseRegistersLookups
@@ -240,6 +242,7 @@ al C:b334 .L_b334
 al C:b455 .L_b455
 al C:a369 .L_a369
 al C:a24d .L_a24d
+al C:b91f .ExitVolume
 al C:a36b .L_a36b
 al C:a382 .L_a382
 al C:b45b .L_b45b
@@ -301,6 +304,7 @@ al C:ab69 .L_ab69
 al C:4 .Backup280
 al C:af32 .CycleColour
 al C:1e00 .SCREEN_RAM
+al C:5 .SoundEffectToggle
 al C:4 .SCORPION_UP_CHAR
 al C:a7ac .L_a7ac
 al C:b127 .L_b127
@@ -313,6 +317,7 @@ al C:b383 .L_b383
 al C:b36d .L_b36d
 al C:b24d .L_b24d
 al C:aa56 .L_aa56
+al C:a09a .ResetGame
 al C:a7d4 .L_a7d4
 al C:a8f5 .L_a8f5
 al C:b80b .PixelRowLoop
@@ -363,6 +368,7 @@ al C:a982 .L_a982
 al C:b96e .CheckLevelChange
 al C:b4ab .GetScreen_Col2_Row3
 al C:b504 .DelayByA
+al C:b4e7 .CheckFireButton
 al C:a505 .L_a505
 al C:a746 .L_a746
 al C:b71a .L_b71a
@@ -412,6 +418,7 @@ al C:b4d7 .ReadRight
 al C:a52b .L_a52b
 al C:a76c .L_a76c
 al C:ad04 .L_ad04
+al C:a122 .GameOver
 al C:b8b6 .F3Pressed
 al C:69 .AnimCounter
 al C:b8bf .NoF3
@@ -422,9 +429,7 @@ al C:b57f .ColumnLoop
 al C:a015 .CopyLoop
 al C:b147 .ScorpionEorTable
 al C:1d30 .BALL_CHAR_USE
-al C:b981 .L_b981
 al C:a536 .L_a536
-al C:af2a .L_af2a
 al C:b258 .MapDrawLoop
 al C:a89f .L_a89f
 al C:bf24 .L_bf24
@@ -446,6 +451,7 @@ al C:314 .IRQ_VECTOR_LSB
 al C:b1fc .ClearRow
 al C:b750 .L_b750
 al C:a789 .L_a789
+al C:18 .PlayRealGame
 al C:1d38 .DRAGON_START
 al C:a666 .L_a666
 al C:af3b .L_af3b
@@ -472,6 +478,7 @@ al C:1e22 .WAVE_NUMBER_POSITION
 al C:3 .LOGO_ROW
 al C:b6ea .EditTwoChars
 al C:a146 .ResetScoreLoop
+al C:b7e6 .CompleteSettingsScreen
 al C:1c08 .DEAD_START
 al C:9608 .SCORE_COLOUR_POSITION
 al C:a558 .L_a558
@@ -484,6 +491,7 @@ al C:b1f0 .SelectCharLoop
 al C:a67d .L_a67d
 al C:b40e .L_b40e
 al C:ac17 .L_ac17
+al C:b925 .ToggleVolume
 al C:1e60 .BONUS_SCREEN_POSITION
 al C:af73 .L_af73
 al C:b8 .JOYSTICK_MASKS
@@ -492,6 +500,7 @@ al C:a687 .L_a687
 al C:b65a .Row_5_Egg
 al C:a200 .L_a200
 al C:a321 .L_a321
+al C:af2a .SetupNewLevel
 al C:315 .IRQ_VECTOR_MSB
 al C:a560 .L_a560
 al C:a681 .L_a681
@@ -532,10 +541,10 @@ al C:b2a3 .L_b2a3
 al C:bb00 .CHAR_SET_P1
 al C:b3c5 .L_b3c5
 al C:c000 .L_bfff
-al C:b4e7 .L_b4e7
 al C:b549 .MapLoop
 al C:3c0 .SCREEN_LSB_LOOKUP
 al C:b0 .LIGHT_CYAN_BG
+al C:b8ef .LevelNumberLoop
 al C:b18b .AnimateChars
 al C:b3ac .L_b3ac
 al C:b7b9 .Divide2_3_By_3_GetScreen
@@ -618,14 +627,12 @@ al C:a0d3 .L_a0d3
 al C:e .HIGH_SCORE_X_END
 al C:a707 .L_a707
 al C:a949 .L_a949
-al C:b90e .L_b90e
 al C:a049 .WaitRaster0
 al C:b0a1 .L_b0a1
 al C:a93d .L_a93d
 al C:b92c .DrawBonus
 al C:60 .BLUE_BG
 al C:a0be .L_a0be
-al C:b911 .L_b911
 al C:9121 .PORT_A_KEYBOARD_ROW
 al C:b663 .Row_5_10
 al C:a706 .L_a706
@@ -636,18 +643,15 @@ al C:a824 .L_a824
 al C:a823 .L_a823
 al C:a700 .L_a700
 al C:10 .WHITE_BG
-al C:b91f .L_b91f
 al C:b0b1 .L_b0b1
 al C:b619 .Row1_75
 al C:aadf .L_aadf
 al C:a94a .L_a94a
 al C:a830 .L_a830
-al C:b920 .L_b920
 al C:b7f5 .StartMenuSound
 al C:b238 .CharLoop2
 al C:b652 .Row_4_50
 al C:a0c1 .GameLoop
-al C:b925 .L_b925
 al C:4 .PURPLE_BORDER
 al C:a954 .L_a954
 al C:b1eb .SelectRowLoop

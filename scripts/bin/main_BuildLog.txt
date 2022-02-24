@@ -8,12 +8,20 @@ Writing prg file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/ma
 Memory Map
 ----------
 Default-segment:
-  $1201-$120d Unnamed
-  $a00c-$af99 Program Start
-  $af9a-$b5b4 IRQ
-  $b5b5-$b997 Return2
-  $b998-$baff dd
-  $bb00-$bf7f Chars
+  $1201-$120d Basic
+  $a00c-$a0a8 Program Start
+  $a0a9-$af99 Gameplay
+  $af9a-$afb6 IRQ
+  $afb7-$b129 Game continued
+  $b12a-$b1e8 Animation
+  $b1e9-$b248 Level Select Pt 1
+  $b249-$b462 Game continued
+  $b463-$b571 Utility
+  $b572-$b7e5 Title Screen
+  $b7e6-$b9e7 Level Select Pt 2
+  $b9e8-$baff Char Data
+  $bb00-$bbff Chars
+  $bc00-$bf7f More Data
   $bf80-$bfff Chars2
 
 Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs

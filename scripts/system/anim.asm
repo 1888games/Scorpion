@@ -1,6 +1,7 @@
 
  .namespace GAME {
 
+    * = * "Animation"
 
     CharAnimEorTable:
          .byte $55,$ab,$fc,$1c,$82,$9f,$f9,$02,$12,$28

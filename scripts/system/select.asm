@@ -1,5 +1,8 @@
 .namespace GAME {
 
+
+    * = * "Level Select Pt 1"
+
 	LevelSelectScreen:
 
         ldx #SCREEN_ROWS - 1

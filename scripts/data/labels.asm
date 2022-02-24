@@ -11,6 +11,7 @@ ZP: {
     .label Address = $02
     .label Address_MSB = $03
     .label Backup280 = $04
+    .label SoundEffectToggle = $05
     .label ScorpionLogoFlag = $07
 
     .label NumberLives = $08
@@ -32,6 +33,8 @@ ZP: {
      .label Wave = $1B
     .label JOY_HAND_SWITCH = $1D
     .label Score = $1e
+
+    .label PlayRealGame = $18
 
     .label HighScoreString = $bc
 
@@ -135,6 +138,7 @@ ZP: {
 .label DIFFICULTY_COLOUR_POS = $97d1
 
 .label WAVE_NUMBER_POSITION = $1e22
+.label WAVE_NUMBER_BOTTOM = $1fc6
 
 
 .label CHAR_RAM = $1C00

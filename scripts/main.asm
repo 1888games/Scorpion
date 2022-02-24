@@ -7,107 +7,18 @@
 
   //  BASICStub(Entry2)
 
-    *=$1201
+    *=$1201 "Basic"
     BasicUpstart(GAME.Entry2)
 
      * = $a00C "Program Start"
     Entry2:
 
-    DisableNMI:
-
-        lda #%01111111
-        sta INTERRUPT_ENABLE
-        sta ZP.LastKeyPressed
+    #import "system/startup.asm"
 
 
-        ldx #255
 
-    CopyCharset:
-    CopyLoop:
+    * = * "Gameplay"
 
-        lda CHAR_SET_P1,x
-        sta CHAR_RAM, x
-        lda CHAR_SET_P2,x
-        sta CHAR_RAM + $100,x
-        dex 
-        cpx #255
-        bne CopyLoop
-
-    SetInterruptAddress:
-
-        lda #<IRQ
-        sta IRQ_VECTOR_LSB
-        lda #>IRQ
-        sta IRQ_VECTOR_MSB
-
-        lda Timer_LSB
-        sta TIMER_1_LSB
-        lda Timer_MSB
-        sta TIMER_1_MSB
-
-        lda #RASTER_SPLIT_1
-        sta ZP.Raster_Split_1
-
-        lda #RASTER_SPLIT_2
-        sta ZP.Raster_Split_2
-
-        lda #INVERTED + GREEN_BORDER + BLUE_BG
-        sta ZP.DefaultColours
-
-        jsr WaitRaster128
-
-    WaitRaster0:
-        lda RASTER_Y
-        bmi WaitRaster0
-        cli 
-
-        jsr InitialiseRegistersLookups
-
-    SetupSomeValues:
-    
-        ldx #1
-        stx ZP.Difficulty
-        inx 
-        stx ZP.JOY_HAND_SWITCH
-
-
-    StartTitleScreen:
-
-        jsr DrawTitleScreen
-        jsr LevelSelectScreen
-        jsr DrawBonus
-
-        jsr PrintRowOfCharData
-        .byte $04,$03,$87
-        .text @"next bonus at:\$00"
-
-        jsr PrintRowOfCharData
-
-        .byte $03,$01,$86
-        .text @"life:    01:wave\$00"
-
-
-        ldx #RIGHT_ARROW_CHAR
-        stx LIFE_ARROW_POSITION
-
-        dex
-        stx WAVE_ARROW_POSITION
-
-        jsr SetupScoreSidePanel
-
-  
-
-    L_a09a:
-
-        ldx #1
-        stx $18
-        stx $1b
-        dex 
-        stx $1a
-
-        jsr L_b7e4 + $1
-
-        jsr SetupScoreSidePanel
     L_a0a9:
 
         lda $1a
@@ -158,8 +69,10 @@
         jsr $ae81
         bcs L_a0a9
     L_a10f:
+
         ldy ZP.NumberLives
-        bmi L_a122
+        bmi GameOver
+
         cpy #$04
         bcs L_a11c
         lda #$00
@@ -168,10 +81,10 @@
         dey 
         sty ZP.NumberLives
         jmp L_a0be
-    L_a122:
+    GameOver:
         jsr L_a198
         jsr TurnSoundOff
-        jmp L_a09a
+        jmp ResetGame
 
     Reset32BytesTo1:
 
@@ -354,7 +267,7 @@
         beq L_a256
         inx 
     L_a256:
-        jsr L_b4e7
+        jsr CheckFireButton
         bne L_a215
         lda $1c
         bne L_a219
@@ -737,7 +650,7 @@
     L_a505:
         lda $18
         beq L_a512
-        jsr L_b4e7
+        jsr CheckFireButton
         bne L_a4cd
         lda $1c
         beq L_a4cf
@@ -2109,13 +2022,14 @@
         jsr L_b71a
         jmp L_aec5
     L_af1c:
-        inc $1a
-        lda $1a
-        and #$1f
-        sta $1a
-        jsr L_b981
+        inc ZP.Level
+        lda ZP.Level
+        and #%00011111
+        sta ZP.Level
+        jsr IncreaseLevel
         jsr Reset32BytesTo1
-    L_af2a:
+
+    SetupNewLevel:
         jsr TurnSoundOff
         lda #$8d
         jmp L_b0d1
@@ -2215,6 +2129,10 @@
         tax 
         pla 
         rti 
+
+
+      * = * "Game continued"
+
     L_afb7:
         jsr L_a71b
         clc 
@@ -2430,9 +2348,9 @@
         rts 
 
     #import "system/anim.asm"
-
     #import "system/select.asm"
 
+   * = * "Game continued"
 
     PlaceMiniMapChars:
  
@@ -2648,7 +2566,7 @@
     L_b397:
         jsr L_b3ea
         jsr L_b3bc
-        jsr L_b4e7
+        jsr CheckFireButton
         bne L_b397
     L_b3a2:
         lda #$ef
@@ -2773,6 +2691,8 @@
       //  .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
       //  .byte $00,$85,$07,$20,$2b,$a1
 
+       * = * "Utility"
+
     PrintRowOfCharData:
         pla 
         sta ZP.ReturnAddress
@@ -2840,10 +2760,7 @@
     NoWrap2:
  
         jmp (ZP.ReturnAddress)
-         //`.byte $6c,$10,$00
-
-
-
+      
    // L_b4ab:
     GetScreen_Col2_Row3:
 
@@ -2899,7 +2816,7 @@
       
         dey 
         bpl DirectionLoop
-    L_b4e7:
+   CheckFireButton:
         lda PORT_A_OUTPUT
         and #%00100000
         rts 
@@ -3016,345 +2933,9 @@
         .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d
 
     #import "system/title.asm"
+    #import "system/select2.asm"
 
-
-
-
-
-
-    L_b7c7:
-         .byte $00
-        .byte $01,$02,$03,$16,$17,$18,$19,$2c,$2d,$2e,$2f,$30,$33,$36,$39,$31
-        .byte $34,$37,$3a,$32,$35,$38
-
-    L_b7de:
-        .byte $3b
-
-    LookupTimer5:
-
-        .byte $00,$30,$60
-        .byte $90,$60,$30
-
-    L_b7e4:
-        .byte $a9
-
-    L_b7e5:
-
-        adc $d120 // #$2A from kernal rom????
-        bcs PixelRowLoop
-        and ($B2), y
-        ldy #0
-        jsr PlaceMiniMapChars
-        jsr CopyScorpionChars
-
-    StartMenuSound:
-
-        lda #128
-        sta SOUND_CHANNEL_1
-        jsr MainVolume
-    
-        lda #0
-        sta $05
-
-        ldx #7
- 
-    MoveScorpionLogo1:
-
-        sta CHAR_RAM_SCORPION_LOGO_END,x
-        dex 
-        bpl MoveScorpionLogo1
-        ldy #3
-
-    MoveOver3Pixels:
-
-    PixelRowLoop:
-
-        ldx #7
-
-    PixelRightLoop:
-     
-        lsr CHAR_RAM_SCORPION_LOGO,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 56,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 48,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 40,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 32,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 24,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 16,x
-        ror CHAR_RAM_SCORPION_LOGO_END - 8,x
-        ror CHAR_RAM_SCORPION_LOGO_END,x
-
-        dex 
-        bpl PixelRightLoop
-
-        dey 
-        bpl PixelRowLoop
-
-        jsr PrintRowOfCharData
-        .byte $02,$09,$81
-        .text  @"by jimmy huey\$00"
-       
-        jsr PrintRowOfCharData
-        .byte $03,$0c,$85
-        .text  @"press  fire\$00"
-
-        jsr PrintRowOfCharData
-        .byte $04,$0d
-        .text  @"to  start\$00"
-
-        jsr PrintRowOfCharData
-        .byte $03,$10,$81
-        .text  @"high  score\$00"
-   
-        jsr DrawHighScore
-      
-        jsr PrintRowOfCharData
-        .byte $01,$14,$87
-         .text  @"select level\$00"
-        
-        jsr PrintRowOfCharData
-        .byte $0a,$15,$85
-        .text  @"game\$00"
-
-
-      
-    SettingsLoop:
-        jsr CycleColour
-
-        .label LOGO_ROW_2= 7
-        .label LOGO_CHARS_2 = 8
-        .label LOGO_START_COL = 4
-
-        ldx #LOGO_ROW_2
-        jsr GetRowScreenColourAddressX
-
-        ldx #LOGO_CHARS_2
-        ldy #LOGO_START_COL
-
-    LogoCharLoop:
-
-        lda ZP.ColourTemp
-        sta (ZP.ColourAddress),y
-
-        lda ScorpionCharIDs_Shifted,x
-        sta (ZP.ScreenAddress),y
-        iny 
-        dex 
-        bpl LogoCharLoop
-
-        lda #%11011111
-        jsr CheckKey
-       
-        bne NoF3
-
-    F3Pressed:
-
-        lda $1C
-        beq RecalcBonus
-
-        inc ZP.Difficulty
-
-        lda #0
-        .byte $2c
-
-     NoF3:
-
-        lda #1
-        sta $1C
-
-    RecalcBonus:
-
-        jsr CalculateBonusIndex
-        ldy #$05
-
-    DifficultyLoop:
-
-       // jmp L_b8c8
-
-        lda DifficultyText,x
-        ora #CHAR_TO_ROM_CHAR_MARK
-        sta DIFFICULTY_POSITION,y
-
-        lda #CYAN
-        sta DIFFICULTY_COLOUR_POS,y
-        dex 
-        dey 
-
-        bpl DifficultyLoop
-
-        jsr DrawBonus
-
-        dec ZP.CharAnimTimer
-        bne NotAnimYet
-
-        lda #2
-        sta ZP.CharAnimTimer
-
-        jsr AnimateChars
-        jsr CheckLevelChange
-
-   NotAnimYet:
-        jsr DrawWaveNumberTop
-        ldx #$01
-    L_b8ef:
-        lda $a5,x
-        sta $1fc6,x
-        dex 
-        bpl L_b8ef
-        lda #$78
-        jsr DelayByA
-        jsr L_b911
-        jsr L_b4e7
-        bne SettingsLoop
-        lda ZP.Difficulty 
-        and #$03
-        cmp #$03
-        bne L_b90e
-        dec $18
-    L_b90e:
-        jmp L_af2a
-    L_b911:
-        lda $05
-        beq L_b920
-        inc $900e
-        lda $900e
-        cmp #$0f
-        beq L_b925
-    L_b91f:
-        rts 
-
-
-    L_b920:
-        dec $900e
-        bne L_b91f
-    L_b925:
-        lda $05
-        eor #$01
-        sta $05
-        rts 
-
-
-    DrawBonus:
-
-        jsr CalculateBonusIndex
-        ldy #$05
-
-    DigitLoop:
-
-        lda BonusLookup,x
-        sta ZP.BonusStorage2,y
-        sta ZP.BonusStorage1,y
-
-        ora #%10110000
-        sta BONUS_SCREEN_POSITION,y
-
-        dex 
-        dey 
-        bpl DigitLoop
-        rts 
-
-    CalculateBonusIndex:
-
-        lda ZP.Difficulty
-        and #%00000011
-        asl 
-        asl 
-        asl 
-        clc 
-        adc #$05
-        tax 
-        rts 
-
-
-
-    BonusLookup:
-
-        .byte $00,$00,$04,$00,$00,$00,$00,$00,$00,$00
-        .byte $08,$00,$00,$00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$00,$00,$00
-        .byte $00,$00,$00,$00
-
-    CheckLevelChange:
-        jsr ReadJoystick
-        lda ZP.JOY_LEFT_NOW
-        beq LevelDown
-        lda ZP.JOY_RIGHT_NOW
-        bne DrawWaveNumberTop
-        lda ZP.Level
-        cmp #31
-        beq DrawWaveNumberTop
-        inc ZP.Level
-    L_b981:
-        sed 
-        lda ZP.Wave
-        clc 
-        adc #1
-        jmp StoreExit
-    LevelDown:
-        lda ZP.Level
-        beq LevelExit
-        dec ZP.Level
-        sed 
-        lda ZP.Wave
-        sec 
-        sbc #1
-    StoreExit:
-        sta ZP.Wave
-    * = * "dd"
-    DrawWaveNumberTop:
-        cld 
-        lda ZP.Wave
-        lsr 
-        lsr 
-        lsr 
-        lsr 
-        ora #DIGIT_TO_CHAR_MASK
-        sta WAVE_NUMBER_POSITION
-        sta ZP.WaveDigit1
-        lda ZP.Wave
-        and #%00001111
-        ora #DIGIT_TO_CHAR_MASK
-        sta WAVE_NUMBER_POSITION + 1
-        sta ZP.WaveDigit2
-    LevelExit:
-        rts 
-
-
-    DrawHighScore:
-
-        .label HIGH_SCORE_ROW = 17
-        .label HIGH_SCORE_X_END = 14
-        .label HIGH_SCORE_LENGTH = 10
-    
-        ldx #HIGH_SCORE_ROW
-        jsr GetRowScreenColourAddressX
-
-        ldx #HIGH_SCORE_LENGTH
-        ldy #HIGH_SCORE_X_END
-
-    HighScoreLoop:
-
-        lda ZP.HighScoreString ,x
-        ora #CHAR_TO_ROM_CHAR_MARK
-        sta (ZP.ScreenAddress),y
-
-        lda #CYAN
-        sta (ZP.ColourAddress),y
-
-        dey 
-        dex 
-
-        bpl HighScoreLoop
-        rts 
-
-
-
-    DifficultyText:
-
-         .text  @"easy    "
-         .text  @"normal  "
-         .text  @"hard    "
-         .text  @"demo  "
-
-
+    * = * "Char Data"
          
 
     CopyScorpionChars:
@@ -3423,6 +3004,8 @@
       * = * "Chars"
         CART_CHARSET:
          .import binary "../assets/chars1.bin" 
+
+        * = * "More Data"
 
         .byte $42,$0f,$00,$00,$0f,$00,$00,$0f,$00,$00,$0f,$00,$06,$0f,$00,$06
         .byte $0f,$00,$06,$0f,$07,$c6,$00,$07,$c0,$00,$07,$c0,$00,$07,$c0,$e0
