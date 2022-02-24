@@ -95,10 +95,10 @@
 
         jsr L_a135
 
-   
-
+  
 
     L_a09a:
+
         ldx #$01
         stx $18
         stx $1b
@@ -107,6 +107,7 @@
         jsr L_b7e4 + $1
         jsr L_a135
     L_a0a9:
+
         lda $1a
         and #$03
         tax 
@@ -118,7 +119,10 @@
         sta $8b
     L_a0be:
         jsr L_a3a0
-    L_a0c1:
+
+
+   // L_a0c1:
+    GameLoop:
         lda $cf
         jsr DelayByA
         jsr L_a43d
@@ -143,9 +147,12 @@
         jsr L_ad73
         jsr L_ac17 + $e
         jsr L_ae2a
+
         jsr $aff7
         lda $19
-        bne L_a0c1
+        bne GameLoop
+
+
         jsr $ae81
         bcs L_a0a9
     L_a10f:
@@ -161,7 +168,7 @@
         jmp L_a0be
     L_a122:
         jsr L_a198
-        jsr L_a3ef
+        jsr TurnSoundOff
         jmp L_a09a
 
     Reset32BytesTo1:
@@ -229,40 +236,40 @@
         ldy #$ff
         jsr PlaceMiniMapChars
 
-    //Test:
-      //  jmp Test
-        jsr L_a3c1
-    L_a175:
-        lda #$29
+        jsr ClearAirIndicator
+
+        
+
+    ResetEgg:
+        //nop
+        lda #41
         sta $80
     L_a179:
         lda $80
-        cmp #$41
-        bcs L_a197
-        adc #$06
+        cmp #65
+        bcs Exit2
+        adc #6
         sta $80
         tay 
-        ldx #$03
-    L_a186:
-        lda L_b2e3,y
-        ora #$b0
-        sta $1fe0,x
-        lda #$03
-        sta $97e0,x
+        ldx #3
+    EggDisplayLoop:
+        lda NextEggLookup,y
+        ora #DIGIT_TO_CHAR_MASK
+        sta NEXT_EGG_POSITION,x
+        lda #CYAN
+        sta NEXT_EGG_COLOUR_POS,x
         dey 
         dex 
-        bpl L_a186
-    L_a197:
+        bpl EggDisplayLoop
+  Exit2:
 
-       
        rts 
 
 
-
-
     L_a198:
-       lda $18
-        beq L_a1af
+      //  nop
+      lda $18
+      beq L_a1af
         ldx #$00
     L_a19e:
         lda $1e,x
@@ -287,7 +294,7 @@
         sta $bc,x
         dex 
         bpl L_a1b2
-        jsr L_a3d0
+        jsr ResetZPValues
         lda #$0c
         sta $9e
         lda #$4d
@@ -532,48 +539,63 @@
         stx $09
         stx $82
         stx $1c
-        jsr L_a175
+        jsr ResetEgg
         lda #$1f
         sta $ce
         jsr L_ac05
-    L_a3c1:
+
+   
+    ClearAirIndicator:
+
         ldx #$03
-    L_a3c3:
-        lda #$21
-        sta $1ec2,x
-        lda #$06
-        sta $96c2,x
+
+    ClearAirLoop:
+
+        lda #SOLID_CHAR
+        sta AIR_INDICATOR_POSITION,x
+
+        lda #BLUE
+        sta AIR_INDICATOR_COLOUR_POS,x
         dex 
-        bpl L_a3c3
-    L_a3d0:
-        ldx #$00
+        bpl ClearAirLoop
+
+    //L_a3d0
+    ResetZPValues:
+
+        ldx #0
+
         stx $8a
         stx $85
         stx $9d
         stx $88
         stx $d1
         stx $d2
+
         dex 
+
         stx $89
         stx $9c
         stx $9e
         stx $cb
         stx $d5
-        ldx #$c0
+
+        ldx #192
         stx $86
         stx $87
-    L_a3ef:
-        ldx #$03
-    L_a3f1:
-        lda #$00
-        sta $900a,x
-        dex 
-        bpl L_a3f1
-    L_a3f9:
-        lda #$0f
-        sta $900e
-        rts 
 
+    //l_a3ef:
+    TurnSoundOff:
+        ldx #3
+    SoundOffLoop:
+        lda #$00
+        sta SOUND_CHANNEL_1,x
+        dex 
+        bpl SoundOffLoop
+
+    MainVolume:
+        lda #15
+        sta SOUND_VOLUME_AUX_COLOR
+        rts 
 
     L_a3ff:
         lda $04
@@ -1012,7 +1034,7 @@
         .byte $a9,$c0,$2c,$a9,$e0,$8d,$0a,$90,$ce,$0e,$90,$d0,$15,$c6,$d5
 
     L_a746:
-        jmp L_a3ef
+        jmp TurnSoundOff
         lda $9e
         bmi L_a76c
         lda $9d
@@ -1738,7 +1760,7 @@
     L_ac5f:
         lda #$ff
         sta $cd
-        jmp L_a3d0
+        jmp ResetZPValues
     L_ac66:
         dec $ce
         lda $ce
@@ -2092,7 +2114,7 @@
         jsr L_b981
         jsr Reset32BytesTo1
     L_af2a:
-        jsr L_a3ef
+        jsr TurnSoundOff
         lda #$8d
         jmp L_b0d1
     L_af32:
@@ -2463,7 +2485,7 @@
         clc 
         ldx #$05
     L_b280:
-        lda L_b2e3,y
+        lda NextEggLookup,y
         adc $1e,x
         cmp #$0a
         bcc L_b28c
@@ -2489,7 +2511,7 @@
         bne L_b299
     L_b2a8:
         jsr IncreaseLives
-        jsr L_a3d0
+        jsr ResetZPValues
         lda #$0a
         sta $9e
         clc 
@@ -2533,12 +2555,12 @@
 
 
 
-    L_b2e3:
-         .byte $00,$00,$00,$00
-        .byte $05,$00,$00,$00,$00,$00,$01,$00,$00,$00,$00,$03,$00,$00,$00,$00
-        .byte $00,$01,$05,$00,$00,$00,$01,$00,$00,$00,$00,$00,$00,$02,$00,$00
-        .byte $00,$00,$00,$00,$07,$05,$00,$00,$00,$04,$00,$00,$00,$00,$00,$08
-        .byte $00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$03,$02,$00,$00
+    NextEggLookup:
+         .byte $00,$00,$00,$00 // 0-3
+        .byte $05,$00,$00,$00,$00,$00,$01,$00,$00,$00,$00,$03,$00,$00,$00,$00 // 4-19
+        .byte $00,$01,$05,$00,$00,$00,$01,$00,$00,$00,$00,$00,$00,$02,$00,$00 // 20-35
+        .byte $00,$00,$00,$00,$07,$05,$00,$00,$00,$04,$00,$00,$00,$00,$00,$08 // 36-51
+        .byte $00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$03,$02,$00,$00 //52-65
 
     L_b325:
         jsr L_b334
@@ -2619,7 +2641,7 @@
         bne L_b3a2
         lda #$01
         sta $07
-        jsr L_a3ef
+        jsr TurnSoundOff
     L_b397:
         jsr L_b3ea
         jsr L_b3bc
@@ -2629,14 +2651,14 @@
         lda #$ef
         jsr L_b3e1
         bne L_b3bc
-        jsr L_a3ef
+        jsr TurnSoundOff
     L_b3ac:
         jsr L_b3e4
         beq L_b3ac
         pla 
         pla 
         jsr L_a198
-        jsr L_a3ef
+        jsr TurnSoundOff
         jmp StartTitleScreen
     L_b3bc:
         lda #$bf
@@ -2658,7 +2680,7 @@
         eor #$01
         sta ZP.JOY_HAND_SWITCH
         
-        jsr L_a3ef
+        jsr TurnSoundOff
     L_b3da:
         jsr L_b3e4
         beq L_b3da
