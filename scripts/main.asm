@@ -93,19 +93,21 @@
         dex
         stx WAVE_ARROW_POSITION
 
-        jsr L_a135
+        jsr SetupScoreSidePanel
 
   
 
     L_a09a:
 
-        ldx #$01
+        ldx #1
         stx $18
         stx $1b
         dex 
         stx $1a
+
         jsr L_b7e4 + $1
-        jsr L_a135
+
+        jsr SetupScoreSidePanel
     L_a0a9:
 
         lda $1a
@@ -184,7 +186,7 @@
         rts 
 
 
-    L_a135:
+    SetupScoreSidePanel:
         jsr Reset32BytesTo1
 
         lda #255
@@ -1711,7 +1713,7 @@
 
 
     L_abe4:
-        jsr L_af32
+        jsr CycleColour
         sta $973c
         dec $5d
         bne L_abe3
@@ -2117,11 +2119,12 @@
         jsr TurnSoundOff
         lda #$8d
         jmp L_b0d1
-    L_af32:
-        inc $12
-        lda $12
-        and #$07
-        sta $12
+
+   CycleColour:
+        inc ZP.ColourTemp
+        lda ZP.ColourTemp
+        and #%00000111
+        sta ZP.ColourTemp
         rts 
 
 
@@ -2397,7 +2400,7 @@
         bpl L_b0ee
         lda #$a0
         jsr DelayByA
-        jsr L_af32
+        jsr CycleColour
         ldy #$01
         jsr L_b35a
         inc $05
@@ -2649,7 +2652,7 @@
         bne L_b397
     L_b3a2:
         lda #$ef
-        jsr L_b3e1
+        jsr CheckKey
         bne L_b3bc
         jsr TurnSoundOff
     L_b3ac:
@@ -2662,7 +2665,7 @@
         jmp StartTitleScreen
     L_b3bc:
         lda #$bf
-        jsr L_b3e1
+        jsr CheckKey
         bne L_b3e9
         ldx #$03
     L_b3c5:
@@ -2686,11 +2689,11 @@
         beq L_b3da
     L_b3df:
         lda #$7f
-    L_b3e1:
-        sta $9120
+    CheckKey:
+        sta PORT_B_KEYBOARD_COL
     L_b3e4:
-        lda $9121
-        and #$80
+        lda PORT_A_KEYBOARD_ROW
+        and #%10000000
     L_b3e9:
         rts 
 
@@ -2909,7 +2912,9 @@
         .byte $08 
         .byte $30,$31
         .byte $30, $30
-        .byte $30,$30,$20,$20,$0a,$09,$0d
+        .byte $30,$30,$20,$20
+
+       .text  @"arl"
 
    // L_b504:
 
@@ -3032,84 +3037,163 @@
 
     L_b7e4:
         .byte $a9
-        .byte $6d,$20,$d1,$b0,$20,$31,$b2,$a0,$00,$20,$49,$b2,$20,$e8,$b9,$a9
-        .byte $80,$8d,$0a,$90,$20,$f9,$a3,$a9,$00,$85,$05,$a2,$07
 
-    L_b803:
-        sta $1dc0,x
+    L_b7e5:
+
+        adc $d120 // #$2A from kernal rom????
+        bcs PixelRowLoop
+        and ($B2), y
+        ldy #0
+        jsr PlaceMiniMapChars
+        jsr CopyScorpionChars
+
+    StartMenuSound:
+
+        lda #128
+        sta SOUND_CHANNEL_1
+        jsr MainVolume
+    
+        lda #0
+        sta $05
+
+        ldx #7
+ 
+    MoveScorpionLogo1:
+
+        sta CHAR_RAM_SCORPION_LOGO_END,x
         dex 
-        bpl L_b803
-        ldy #$03
-    L_b80b:
-        ldx #$07
-    L_b80d:
-        lsr $1d80,x
-        ror $1d88,x
-        ror $1d90,x
-        ror $1d98,x
-        ror $1da0,x
-        ror $1da8,x
-        ror $1db0,x
-        ror $1db8,x
-        ror $1dc0,x
+        bpl MoveScorpionLogo1
+        ldy #3
+
+    MoveOver3Pixels:
+
+    PixelRowLoop:
+
+        ldx #7
+
+    PixelRightLoop:
+     
+        lsr CHAR_RAM_SCORPION_LOGO,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 56,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 48,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 40,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 32,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 24,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 16,x
+        ror CHAR_RAM_SCORPION_LOGO_END - 8,x
+        ror CHAR_RAM_SCORPION_LOGO_END,x
+
         dex 
-        bpl L_b80d
+        bpl PixelRightLoop
+
         dey 
-        bpl L_b80b
+        bpl PixelRowLoop
+
         jsr PrintRowOfCharData
+        .byte $02,$09,$81
+        .text  @"by jimmy huey\$00"
+       
+        jsr PrintRowOfCharData
+        .byte $03,$0c,$85
+        .text  @"press  fire\$00"
 
-        .byte $02,$09,$81,$02,$19,$20,$0a,$09,$0d,$0d,$19,$20,$08,$15,$05,$19
-        .byte $00,$20,$63
+        jsr PrintRowOfCharData
+        .byte $04,$0d
+        .text  @"to  start\$00"
 
-    L_b844:
-        ldy $03,x
+        jsr PrintRowOfCharData
+        .byte $03,$10,$81
+        .text  @"high  score\$00"
+   
+        jsr DrawHighScore
+      
+        jsr PrintRowOfCharData
+        .byte $01,$14,$87
+         .text  @"select level\$00"
+        
+        jsr PrintRowOfCharData
+        .byte $0a,$15,$85
+        .text  @"game\$00"
 
-        .byte $0c,$85,$10,$12,$05,$13,$13,$20,$20,$06,$09,$12,$05,$00,$20,$63
-        .byte $b4,$04,$0d,$14,$0f,$20,$20,$13,$14,$01,$12,$14,$00,$20,$63,$b4
-        .byte $03,$10,$81,$08,$09,$07,$08,$20,$20,$13,$03,$0f,$12,$05,$00,$20
-        .byte $b2,$b9,$20,$63,$b4,$01,$14,$87,$13,$05,$0c,$05,$03,$14,$20,$0c
-        .byte $05,$16,$05,$0c,$00,$20,$63,$b4,$0a,$15,$85,$07,$01,$0d,$05,$00
 
-    L_b896:
-        jsr L_af32
-        ldx #$07
+      
+    SettingsLoop:
+        jsr CycleColour
+
+        .label LOGO_ROW_2= 7
+        .label LOGO_CHARS_2 = 8
+        .label LOGO_START_COL = 4
+
+        ldx #LOGO_ROW_2
         jsr GetRowScreenColourAddressX
-        ldx #$08
-        ldy #$04
-    L_b8a2:
-        lda $12
-        sta ($0a),y
-        lda L_ba36,x
-        sta ($00),y
+
+        ldx #LOGO_CHARS_2
+        ldy #LOGO_START_COL
+
+    LogoCharLoop:
+
+        lda ZP.ColourTemp
+        sta (ZP.ColourAddress),y
+
+        lda ScorpionCharIDs_Shifted,x
+        sta (ZP.ScreenAddress),y
         iny 
         dex 
-        bpl L_b8a2
-        lda #$df
-        jsr L_b3e1
+        bpl LogoCharLoop
 
-        .byte $d0,$09,$a5,$1c,$f0,$09,$e6,$d0,$a9,$00,$2c,$a9,$01,$85,$1c
+        lda #%11011111
+        jsr CheckKey
+       
+        bne NoF3
 
-    L_b8c3:
+    F3Pressed:
+
+        lda $1C
+        beq RecalcBonus
+
+        inc ZP.Difficulty
+
+        lda #0
+        .byte $2c
+
+     NoF3:
+
+        lda #1
+        sta $1C
+
+    RecalcBonus:
+
         jsr CalculateBonusIndex
         ldy #$05
-    L_b8c8:
-        lda L_b9ca,x
-        ora #$80
-        sta $1fd1,y
-        lda #$03
-        sta $97d1,y
+
+    DifficultyLoop:
+
+       // jmp L_b8c8
+
+        lda DifficultyText,x
+        ora #CHAR_TO_ROM_CHAR_MARK
+        sta DIFFICULTY_POSITION,y
+
+        lda #CYAN
+        sta DIFFICULTY_COLOUR_POS,y
         dex 
         dey 
-        bpl L_b8c8
+
+        bpl DifficultyLoop
+
         jsr DrawBonus
-        dec $5c
-        bne L_b8ea
-        lda #$02
-        sta $5c
+
+        dec ZP.CharAnimTimer
+        bne NotAnimYet
+
+        lda #2
+        sta ZP.CharAnimTimer
+
         jsr AnimateChars
-        jsr L_b96e
-    L_b8ea:
-        jsr L_b998
+        jsr CheckLevelChange
+
+   NotAnimYet:
+        jsr DrawWaveNumberTop
         ldx #$01
     L_b8ef:
         lda $a5,x
@@ -3120,7 +3204,7 @@
         jsr DelayByA
         jsr L_b911
         jsr L_b4e7
-        bne L_b896
+        bne SettingsLoop
         lda ZP.Difficulty 
         and #$03
         cmp #$03
@@ -3183,77 +3267,95 @@
 
 
     BonusLookup:
+
         .byte $00,$00,$04,$00,$00,$00,$00,$00,$00,$00
         .byte $08,$00,$00,$00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$00,$00,$00
         .byte $00,$00,$00,$00
 
-    L_b96e:
+    CheckLevelChange:
         jsr ReadJoystick
-        lda $0c
-        beq L_b98a
-        lda $0e
-        bne L_b998
-        lda $1a
-        cmp #$1f
-        beq L_b998
-        inc $1a
+        lda ZP.JOY_LEFT_NOW
+        beq LevelDown
+        lda ZP.JOY_RIGHT_NOW
+        bne DrawWaveNumberTop
+        lda ZP.Level
+        cmp #31
+        beq DrawWaveNumberTop
+        inc ZP.Level
     L_b981:
         sed 
-        lda $1b
+        lda ZP.Wave
         clc 
-        adc #$01
-        jmp L_b996
-    L_b98a:
-        lda $1a
-        beq L_b9b1
-        dec $1a
+        adc #1
+        jmp StoreExit
+    LevelDown:
+        lda ZP.Level
+        beq LevelExit
+        dec ZP.Level
         sed 
-        lda $1b
+        lda ZP.Wave
         sec 
-        sbc #$01
-    L_b996:
-        sta $1b
-    L_b998:
+        sbc #1
+    StoreExit:
+        sta ZP.Wave
+    * = * "dd"
+    DrawWaveNumberTop:
         cld 
-        lda $1b
+        lda ZP.Wave
         lsr 
         lsr 
         lsr 
         lsr 
-        ora #$b0
-        sta $1e22
-        sta $a5
-        lda $1b
-        and #$0f
-        ora #$b0
-        sta $1e23
-        sta $a6
-    L_b9b1:
+        ora #DIGIT_TO_CHAR_MASK
+        sta WAVE_NUMBER_POSITION
+        sta ZP.WaveDigit1
+        lda ZP.Wave
+        and #%00001111
+        ora #DIGIT_TO_CHAR_MASK
+        sta WAVE_NUMBER_POSITION + 1
+        sta ZP.WaveDigit2
+    LevelExit:
         rts 
 
 
-    L_b9b2:
-        ldx #$11
+    DrawHighScore:
+
+        .label HIGH_SCORE_ROW = 17
+        .label HIGH_SCORE_X_END = 14
+        .label HIGH_SCORE_LENGTH = 10
+    
+        ldx #HIGH_SCORE_ROW
         jsr GetRowScreenColourAddressX
-        ldx #$0a
-        ldy #$0d
-    L_b9bb:
-        lda $bc,x
-        ora #$80
-        sta ($00),y
-        lda #$03
-        sta ($0a),y
+
+        ldx #HIGH_SCORE_LENGTH
+        ldy #HIGH_SCORE_X_END
+
+    HighScoreLoop:
+
+        lda ZP.HighScoreString ,x
+        ora #CHAR_TO_ROM_CHAR_MARK
+        sta (ZP.ScreenAddress),y
+
+        lda #CYAN
+        sta (ZP.ColourAddress),y
+
         dey 
         dex 
-        bpl L_b9bb
+
+        bpl HighScoreLoop
         rts 
 
 
 
-    L_b9ca:
-         .byte $05,$01,$13
-        .byte $19,$20,$20,$20,$20,$0e,$0f,$12,$0d,$01,$0c,$20,$20,$08,$01,$12
-        .byte $04,$20,$20,$20,$20,$04,$05,$0d,$0f,$20,$20
+    DifficultyText:
+
+         .text  @"easy    "
+         .text  @"normal  "
+         .text  @"hard    "
+         .text  @"demo  "
+
+
+         
 
     CopyScorpionChars:
 
@@ -3284,8 +3386,8 @@
         .byte $09, $09, $09, $09, $09,$0b 
         .byte $0b,$0d,$0e,$0f,$11,$11,$13,$13,$00,$00,$06,$06,$08,$08,$16,$16
 
-    L_ba36:
-        sec 
+    ScorpionCharIDs_Shifted:
+        .byte $38 
 
     ScorpionCharIDs:
         .byte $37

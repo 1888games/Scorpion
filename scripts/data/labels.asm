@@ -15,6 +15,9 @@ ZP: {
 
     .label NumberLives = $08
 
+
+
+
     .label ColourAddress = $0A
     .label ColourAddress_MSB = $0B
     .label JOY_LEFT_NOW = $0C
@@ -25,8 +28,12 @@ ZP: {
     .label ReturnAddress = $10
     .label ColourTemp = $12
 
+    .label Level = $1A
+     .label Wave = $1B
     .label JOY_HAND_SWITCH = $1D
     .label Score = $1e
+
+    .label HighScoreString = $bc
 
     .label Difficulty = $D0
     
@@ -42,6 +49,8 @@ ZP: {
     .label Timer4 = $53
     .label Timer5 = $68
 
+    .label CharAnimTimer = $5C
+
     .label GameAnimateTimer = $57
 
     .label AnimCounter = $69
@@ -49,10 +58,14 @@ ZP: {
     .label BonusStorage1 = $24
     .label BonusStorage2 = $2A
 
+    .label WaveDigit1 = $a5
+    .label WaveDigit2 = $a6
+
 
 }
 
 .label DIGIT_TO_CHAR_MASK = $b0
+.label CHAR_TO_ROM_CHAR_MARK = $80
 .label CHAR_SET_P1 = $BB00
 .label CHAR_SET_P2 = $BF80
 
@@ -85,6 +98,8 @@ ZP: {
 .label DATA_DIRECTION_REG_B = $9122
 .label PORT_A_OUTPUT = $9111
 .label PORT_B_OUTPUT = $9120
+.label PORT_B_KEYBOARD_COL = $9120
+.label PORT_A_KEYBOARD_ROW = $9121
 .label SOUND_CHANNEL_1 = $900a
 .label SOUND_CHANNEL_2 = $900b
 .label SOUND_CHANNEL_3 = $900c
@@ -116,7 +131,10 @@ ZP: {
 
 .label NEXT_EGG_POSITION = $1fe0
 .label NEXT_EGG_COLOUR_POS = $97e0
+.label DIFFICULTY_POSITION = $1fd1
+.label DIFFICULTY_COLOUR_POS = $97d1
 
+.label WAVE_NUMBER_POSITION = $1e22
 
 
 .label CHAR_RAM = $1C00
@@ -128,6 +146,7 @@ ZP: {
 .label CHAR_EDIT_ADDRESS = $1C90
 
 .label CHAR_RAM_SCORPION_LOGO = $1d80
+.label CHAR_RAM_SCORPION_LOGO_END = $1dc0
 .label CHAR_RAM_MINI_MAP = $1d80
 
 
