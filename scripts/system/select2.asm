@@ -83,6 +83,7 @@ CompleteSettingsScreen:
 
       
     SettingsLoop:
+    
         jsr CycleColour
 
         .label LOGO_ROW_2= 7

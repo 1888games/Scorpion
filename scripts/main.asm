@@ -15,17 +15,20 @@
 
     #import "system/startup.asm"
 
-
-
     * = * "Gameplay"
 
     L_a0a9:
 
-        lda $1a
-        and #$03
+        lda ZP.Level
+        and #%00000011
         tax 
-        jsr L_b07f
+
+   
+        jsr SetupMap
         jsr SidePanel
+
+ 
+
         jsr L_a3a0
         jsr L_a27f
         lda #$1f
@@ -86,6 +89,8 @@
         jsr TurnSoundOff
         jmp ResetGame
 
+
+
     Reset32BytesTo1:
 
         ldx #31
@@ -97,7 +102,6 @@
         dex 
         bpl Loop32
         rts 
-
 
     SetupScoreSidePanel:
         jsr Reset32BytesTo1
@@ -213,7 +217,7 @@
         lda #$0c
         sta $9e
         lda #$4d
-        jsr L_b0d1
+        jsr ColourAnimation
         jsr PrintRowOfCharData
 
         .byte $02,$09,$81,$07,$12,$05,$01,$14,$20,$20,$13,$03,$0f,$12,$05,$21
@@ -2032,7 +2036,7 @@
     SetupNewLevel:
         jsr TurnSoundOff
         lda #$8d
-        jmp L_b0d1
+        jmp ColourAnimation
 
    CycleColour:
         inc ZP.ColourTemp
@@ -2241,77 +2245,108 @@
         rts 
 
 
-    L_b07f:
-        lda L_b0c9,x
-        sta $a2
-        lda #$10
-        sta $a4
-        lda L_b0c9 + $4,x
-        sta $a1
-        ldy #$00
-        sty $a3
-    L_b091:
-        lda $a4
-        cmp #$1c
-        beq L_b0c8
-        jsr L_b0a1
+    SetupMap:
+
+        lda LevelDataPointers_MSB,x
+        sta ZP.LevelDataPointer + 1
+
+        lda #>MAP_DATA
+        sta ZP.MapDataPointer + 1
+
+        lda LevelDataPointers_LSB, x
+        sta ZP.LevelDataPointer
+
+        ldy #0
+        sty ZP.MapDataPointer
+
+    NextByte:
+
+        lda ZP.MapDataPointer + 1
+        cmp #>MAP_DATA_END
+        beq ExitThis
+
+        jsr ProcessByte
+
         iny 
-        bne L_b091
-        inc $a2
-        bne L_b091
-    L_b0a1:
-        sty $14
-        lda ($a1),y
-        sta $05
-        ldx #$07
-    L_b0a9:
-        lda #$1e
-        asl $05
-        bcs L_b0b1
-        lda #$00
-    L_b0b1:
-        ldy #$00
-        sta ($a3),y
+        bne NextByte
+        inc ZP.LevelDataPointer + 1
+        bne NextByte
+
+    ProcessByte:
+
+        sty ZP.TempY
+
+        lda (ZP.LevelDataPointer),y
+        sta ZP.TempData
+
+        ldx #7
+    BitLoop:
+
+        lda #WALL_TILE
+        asl ZP.TempData
+        bcs IsWallTile
+
+    IsEmptyTile:
+
+        lda #EMPTY_TILE
+
+    IsWallTile:
+
+        ldy #0
+        sta (ZP.MapDataPointer),y
         iny 
-        sta ($a3),y
-        lda $a3
+        sta (ZP.MapDataPointer),y
+
+        lda ZP.MapDataPointer
         clc 
-        adc #$02
-        sta $a3
-        bcc L_b0c3
-        inc $a4
-    L_b0c3:
+        adc #2
+        sta ZP.MapDataPointer
+
+        bcc NoDataWrap
+        inc ZP.MapDataPointer + 1
+
+   NoDataWrap:
         dex 
-        bpl L_b0a9
-        ldy $14
-    L_b0c8:
+        bpl BitLoop
+        ldy ZP.TempY
+    ExitThis:
         rts 
 
+    LevelDataPointers_MSB:      .byte $bc,$bc,$bd,$be
+    LevelDataPointers_LSB:      .byte $00,$c0,$80,$40
+        
+     
 
+    * = * "Do the colour animation" 
+    ColourAnimation:
 
-    L_b0c9:
-         .byte $bc,$bc,$bd,$be,$00,$c0,$80
-        .byte $40
+        .break
 
-    L_b0d1:
         pha 
-        ldy #$21
+        ldy #33
         jsr L_b0dc
         pla 
         sta ZP.DefaultColours
-        ldy #$00
+
+        ldy #0
+
     L_b0dc:
         sty $8d
-        lda #$08
-        sta $02
-        lda #$0e
-        sta $03
-        lda #$01
-        sta $05
-        sta $12
+
+        lda #8
+        sta ZP.ScreenCol 
+
+        lda #14
+        sta ZP.ScreenRow
+
+        lda #1
+        sta ZP.TempData
+        sta ZP.ColourTemp
     L_b0ec:
-        ldy #$06
+
+        ldy #6
     L_b0ee:
+
         jsr L_b10d
         dey 
         dey 
@@ -2319,29 +2354,44 @@
         lda #$a0
         jsr DelayByA
         jsr CycleColour
+
+        .break
+
         ldy #$01
+
         jsr L_b35a
-        inc $05
-        inc $05
-        lda $05
-        cmp #$13
+        
+        inc ZP.TempData
+        inc ZP.TempData
+        lda ZP.TempData
+
+        cmp #19
         bcc L_b0ec
         rts 
 
 
     L_b10d:
         sty $07
-        ldx $05
+        ldx ZP.TempData
     L_b111:
+
         jsr GetScreen_Col2_Row3
+
         lda $8d
-        sta ($00),y
-        lda $12
-        sta ($0a),y
+        sta (ZP.ScreenAddress),y
+
+        lda ZP.ColourTemp
+        sta (ZP.ColourAddress),y
+
         dex 
         beq L_b127
+
         ldy $07
         jsr L_b35a
+
+        lda #150
+        jsr DelayByA
+
         jmp L_b111
     L_b127:
         ldy $07
@@ -2354,10 +2404,10 @@
 
     PlaceMiniMapChars:
  
-        sty $06
-        ldx #12
+         sty $06
+      //  ldx #12
     L_b24d:
-        jsr GetRowScreenColourAddressX
+        //jsr GetRowScreenColourAddressX
 
     L_b250:
 
@@ -2511,49 +2561,64 @@
         rts 
 
 
+        // minus = skip
+        // equal = subtract
+        // plus = add
 
-    L_b348:
-         .byte $00,$00,$ff
-        .byte $01,$01,$01,$ff
 
-    L_b34f:
-        .byte $00,$ff,$ff,$00,$00,$00,$ff
+    XDirection:
+         .byte $00,$00,$ff,$01,$01
+        .byte  $01,$ff,$00,$ff
+
+    YDirection:
+        .byte $ff,$00,$00,$00,$ff
         .byte $01,$01,$01,$ff
 
     L_b35a:
-        lda #$01
+        lda #1
     L_b35c:
-        sta $16
-        lda L_b348,y
-        bmi L_b374
-        beq L_b36d
-        lda $02
+        sta ZP.CharsToMove
+
+        lda XDirection, y
+        bmi CheckY
+
+        beq DecX
+
+    AddX:
+
+        lda ZP.ScreenCol
         clc 
-        adc $16
-        jmp L_b372
-    L_b36d:
-        lda $02
+        adc ZP.CharsToMove
+        jmp StoreX
+
+    DecX:
+        lda ZP.ScreenCol
         sec 
-        sbc $16
-    L_b372:
-        sta $02
-    L_b374:
-        lda L_b34f + $2,y
-        bmi L_b38a
-        beq L_b383
-        lda $03
+        sbc ZP.CharsToMove
+
+    StoreX:
+        sta ZP.ScreenCol
+
+    CheckY:
+        lda YDirection,y
+        bmi ExitCharMove
+
+        beq DecY
+
+        lda ZP.ScreenRow
         clc 
-        adc $16
-        sta $03
+        adc ZP.CharsToMove
+        sta ZP.ScreenRow
         rts 
 
+    DecY:
 
-    L_b383:
-        lda $03
+        lda ZP.ScreenRow
         sec 
-        sbc $16
-        sta $03
-    L_b38a:
+        sbc ZP.CharsToMove
+        sta ZP.ScreenRow
+
+    ExitCharMove:
         rts 
 
 
@@ -2691,247 +2756,10 @@
       //  .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
       //  .byte $00,$85,$07,$20,$2b,$a1
 
-       * = * "Utility"
+    
 
-    PrintRowOfCharData:
-        pla 
-        sta ZP.ReturnAddress
-        pla 
-        sta ZP.ReturnAddress + 1
-
-        ldy #1
-        lda (ZP.ReturnAddress),y  // 03
-        pha 
-        iny 
-        lda (ZP.ReturnAddress),y  // 15 to Y
-        tay             // y = 15, a = 15
-        pla            // a = 3
-        jsr GetScreenAddressCol_A_Row_Y  // row 15 column 3
-
-
-    MoveToData:
-
-        lda ZP.ReturnAddress
-        clc 
-        adc #$03
-        sta ZP.ReturnAddress 
-
-        bcc NoWrap1
-
-        inc ZP.ReturnAddress + 1
-
-    NoWrap1:
-
-        lda (ZP.ReturnAddress),y
-        beq NullTerminate
-        bpl PositiveIsChar
-
-    ChangeColour:
-
-        and #%01111111
-        sta ZP.ColourTemp
-
-    MoveToNextData:
-
-        inc ZP.ReturnAddress
-        bne NoWrap1
-        inc ZP.ReturnAddress + 1
-        bne NoWrap1
-
-    PositiveIsChar:
-
-        ora #%10000000
-        sta (ZP.ScreenAddress),y
-
-        lda ZP.ColourTemp
-        sta (ZP.ColourAddress),y
-        iny 
-        bne NoWrap1
-
-   NullTerminate:
-
-        tya 
-        sec 
-        adc ZP.ReturnAddress
-        sta ZP.ReturnAddress
-        bcc NoWrap2
-        inc ZP.ReturnAddress + 1
-
-    NoWrap2:
- 
-        jmp (ZP.ReturnAddress)
-      
-   // L_b4ab:
-    GetScreen_Col2_Row3:
-
-        lda $02
-        ldy $03
-
-    GetScreenAddressCol_A_Row_Y:
-  // AddScr
-        clc 
-        adc SCREEN_LSB_LOOKUP,y
-        sta ZP.ScreenAddress
-        sta ZP.ColourAddress
-        lda SCREEN_MSB_LOOKUP,y
-        adc #0
-        sta ZP.ScreenAddress + 1
-        clc 
-        adc #$78
-        sta ZP.ColourAddress + 1
-        ldy #0
-        rts 
-
-
-    L_sb4c6:
-    ReadJoystick:
-
-        ldy #3
-
-    DirectionLoop:
-
-        lda #255
-        cpy ZP.JOY_HAND_SWITCH  // was 2
-        beq ReadRight
-
-    ReadOtherDirections:
-
-        sta DATA_DIRECTION_REG_B
-        lda PORT_A_OUTPUT
-        jmp ProcessRead
-
-    ReadRight:
-
-        lsr // a = 127
-        sta DATA_DIRECTION_REG_B
-        lda PORT_B_OUTPUT
-
-    ProcessRead:
-
-        // y = 3 00f
-        // y = 2 00e
-
-        and ZP.JOYSTICK_MASKS,y
-        sta ZP.JoystickReadings,y
-      
-        dey 
-        bpl DirectionLoop
-   CheckFireButton:
-        lda PORT_A_OUTPUT
-        and #%00100000
-        rts 
-
-
-
-    ZP_Defaults:
-        .byte $a1,$45,$f7
-        .byte $81,$08,$10,$04,$80,$10,$04,$80
-        .byte $08 
-        .byte $30,$31
-        .byte $30, $30
-        .byte $30,$30,$20,$20
-
-       .text  @"arl"
-
-   // L_b504:
-
-    DelayByA:
-        sec 
-    DelayLoop1:
-        pha 
-    DelayLoop2:
-        sbc #1
-        bne DelayLoop2
-        pla 
-        sbc #1
-        bne DelayLoop1
-        rts 
-
-
-    //L_b510:
-    InitialiseRegistersLookups: 
-
-        ldx #15
-
-    SetVICDefaults:
- 
-    ResetLoop:
-
-        lda VIC_Defaults, x
-        sta VIC_REGISTER_START,x
-        dex 
-        bpl ResetLoop
-
-    InitialiseZP:
-
-        ldx #22
-
-    InitialiseLoop:
-
-        lda ZP_Defaults,x
-        sta ZP.Table_B0,x
-        dex 
-        bpl InitialiseLoop
-
-    SetupScreenLookup:
-
-        ldx #<SCREEN_RAM
-        stx ZP.ScreenAddress
-
-        lda #>SCREEN_RAM
-
-    ScreenLoop:
-
-        sta ZP.ScreenAddress + 1    
-        sta SCREEN_MSB_LOOKUP,x
-
-        lda ZP.ScreenAddress
-        sta SCREEN_LSB_LOOKUP,x
-
-        clc 
-        adc #COLUMNS
-        sta ZP.ScreenAddress
-
-        lda ZP.ScreenAddress + 1
-        adc #0
-
-        inx 
-        cpx #ROWS
-        bne ScreenLoop
-
-    SetupMapLookup:
-
-        ldx #<MAP_DATA
-        stx ZP.ScreenAddress
-
-        lda #>MAP_DATA
-
-    MapLoop:
-
-        sta ZP.ScreenAddress + 1
-        sta MAP_LOOKUP_MSB,x
-
-        lda ZP.ScreenAddress
-        sta MAP_LOOKUP_LSB,x
-        clc 
-        adc #MAP_COLUMNS
-        sta ZP.ScreenAddress
-
-        lda ZP.ScreenAddress + 1
-        adc #0
-
-        inx 
-        cpx #MAP_ROWS
-        bne MapLoop
-        rts 
-
-
-
-    VIC_Defaults:
-
-        .byte $0c
-        .byte $19,$96,$ae,$4f,$ff,$00,$00,$ff,$ff,$00,$00,$00,$00,$00,$8d
-
+    #import "system/utility.asm"
+    #import "system/initialise.asm"
     #import "system/title.asm"
     #import "system/select2.asm"
 
@@ -3001,129 +2829,13 @@
     L_baf9:
         .byte $82,$00,$00,$00,$00,$00,$00
 
+
       * = * "Chars"
         CART_CHARSET:
          .import binary "../assets/chars1.bin" 
-
-        * = * "More Data"
-
-        .byte $42,$0f,$00,$00,$0f,$00,$00,$0f,$00,$00,$0f,$00,$06,$0f,$00,$06
-        .byte $0f,$00,$06,$0f,$07,$c6,$00,$07,$c0,$00,$07,$c0,$00,$07,$c0,$e0
-        .byte $07,$c6,$e0,$07,$c6,$e0,$07,$c6,$e0,$07,$c6,$e3,$f0,$00,$03,$f0
-        .byte $00,$03,$f0,$00,$03,$f0,$00,$03,$00,$00,$03,$00,$00,$03,$00,$00
-        .byte $03,$00,$00,$33,$00,$00,$33,$6e,$f8,$30,$6e,$f8,$30,$6e,$f8,$30
-        .byte $6e,$f8,$30,$6e,$f8,$30,$00,$00,$30,$00,$00,$31,$80,$00,$31,$80
-        .byte $00,$31,$80,$e0,$31,$80,$e0,$01,$80,$e0,$01,$80,$e0,$01,$80,$00
-        .byte $01,$80,$00,$01,$80,$03,$01,$80,$03,$01,$fb,$c3,$c1,$fb,$c3,$c1
-        .byte $fb,$c3,$c1,$fb,$c3,$c1,$fb,$c3,$c1,$fb,$c0,$00,$00,$00,$00,$00
-        .byte $00,$00,$00,$00,$3c,$00,$00,$3d,$fb,$c0,$3d,$fb,$c0,$3d,$fb,$c0
-        .byte $01,$fb,$c0,$01,$fb,$c0,$00,$00,$00,$00,$00,$0f,$00,$00,$0f,$38
-        .byte $60,$0f,$38,$60,$0f,$38,$60,$0f,$00,$60,$0f,$00,$60,$00,$00,$60
-        .byte $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$01,$9f,$1f
-        .byte $39,$9f,$1f,$39,$9f,$1f,$39,$9f,$1f,$39,$98,$18,$39,$98,$18,$39
-        .byte $98,$1b,$39,$98,$1b,$39,$98,$1b,$39,$83,$1b,$39,$83,$1b,$39,$83
-        .byte $00,$39,$83,$00,$00,$03,$00,$00,$03,$1e,$00,$03,$1e,$00,$f3,$9e
-
-        .byte $00
-
-        .byte $f3,$9e,$18,$f3,$80,$18,$f3,$80,$18,$30
-
-    L_bd0b:
-        clc 
-        bmi L_bd0e
-    L_bd0e:
-        clc 
-        bmi L_bd11
-    L_bd11:
-        clc 
-        bmi L_bd14
-    L_bd14:
-        clc 
-
-        .byte $30,$00,$df,$b0,$00,$df,$b0,$00,$df,$b3,$ff,$df,$b3,$ff,$00,$03
-        .byte $ff,$00,$03,$ff,$00,$03,$00,$db,$83,$00,$db,$83,$00,$db,$83,$07
-        .byte $db,$83,$77,$01,$83,$77,$01,$83,$70,$01
-
-    L_bd3f:
-        .byte $80,$70,$39,$80
-        .byte $40,$39,$80,$46,$39,$80,$46,$39,$80,$46,$00,$00,$06,$00,$18,$06
-        .byte $00,$18,$06,$00,$18,$06,$39,$99,$ee,$39,$99,$ee,$39,$99,$ee,$39
-        .byte $99,$ee,$39,$98,$6e,$39,$98,$60,$39,$9e,$60,$01,$9e,$60,$01,$9e
-        .byte $60,$01,$9e,$60,$01,$80,$60,$01,$80,$60,$01,$80,$60,$00,$00,$00
-        .byte $00,$00,$00,$00,$00,$00,$00,$00,$f6,$00,$00,$f6,$00,$00,$f6,$7f
-        .byte $e0,$06,$7f,$e6,$06,$00,$26,$06,$00,$26,$f6,$00,$26,$f6,$73,$26
-        .byte $f6,$73,$26,$f6,$73,$26,$f6,$03,$26,$06,$03,$26,$06,$03,$26,$06
-        .byte $03,$26,$06,$03,$26,$06,$fb,$27,$d0,$fb,$27,$d0,$f8,$00,$10,$18
-        .byte $00,$10,$18,$00,$16,$1a,$f7,$96,$1a,$f7,$96,$1a,$80,$96,$1a,$80
-        .byte $96,$1a,$80,$96,$02,$80,$96,$02,$80,$96,$02,$80,$80,$02,$00,$00
-        .byte $1e,$00,$00,$1e,$00,$1e,$1e,$80,$9e,$1e,$80,$9e,$00,$80,$90,$00
-        .byte $80,$90,$00,$80,$90,$00,$80,$96,$00,$f7,$96,$76,$f7,$96,$76,$00
-        .byte $16,$76,$00,$16,$76,$00,$10,$76,$00,$10,$76,$00,$10,$07,$fe,$df
-        .byte $07,$fe,$df,$07,$fe,$df,$07,$fe,$c0,$70,$06,$c0,$70,$06,$c0,$70
-        .byte $06,$c0,$77,$56,$c0,$77,$56,$c0,$70,$56,$fe,$70,$56,$fe,$00,$56
-        .byte $fe,$07,$56,$00,$07,$56,$00,$00,$06,$00,$00,$06,$00,$00,$00,$00
-        .byte $00,$00,$00,$00,$00,$00,$00,$00,$00,$3f,$98,$00,$3f,$98,$f6,$3f
-        .byte $98,$f6,$3f,$98,$f6,$3f,$98,$f6,$01,$98,$06,$01,$98,$06,$01,$98
-        .byte $06,$01,$98,$06,$31,$9f,$f6,$31,$9f,$f6,$31,$9f,$f6,$31,$80,$00
-        .byte $31,$80,$00,$31,$80,$00,$31,$80,$00,$31,$ff,$3f,$31,$ff,$3f,$31
-        .byte $ff,$3f,$31,$ff,$3f,$30,$00
-
-    L_be8a:
-        jsr.a $0030
-        jsr.a $0030
-        jsr.a $0030
-        jsr $833f
-        rol $833f
-        asl $833f
-        asl $0300
-        asl $0300
-        asl $0300
-        rol $3f00
-        rol L_bfff
-        rol L_bfff
-        rol L_bfff
-        rol.a $0000
-        jsr.a $0000
-        jsr.a $0000
-        jsr.a $0000
-        jsr $3def
-
-        .byte $3f,$ef,$3d,$3f,$ef,$3d,$3f,$ef,$3d,$3f,$ef,$3d,$3f,$03,$00,$00
-        .byte $03,$00,$00,$03,$00,$00,$03,$3d,$00,$03,$3d,$00,$03,$3d,$6c,$73
-        .byte $3d,$6c,$73,$01,$6c,$73,$01,$6c,$73,$01,$6c,$73,$3d,$6c,$03,$3d
-        .byte $6c,$03,$3d,$6c,$03,$3d,$6c,$03,$01,$00,$03,$01,$00,$03,$01,$00
-
-    //L_bf00:
-    ColourLookup:
-        .byte $00,$00,$00,$00,$00,$00,$00
-        .byte $31,$01,$01,$46,$16,$06,$16,$57,$07,$17,$27,$00,$30,$35,$25,$55
-        .byte $15,$25,$15,$15,$25,$07,$37,$a6,$80,$20,$1a,$40,$40
-
-    L_bf24:
-        .byte $29,$03,$85,$56,$76,$05,$11,$43,$01,$01,$11,$63
-
-    ScorpionLogoChars:
-
-        .byte $3e,$60,$f0,$fc
-        .byte $7e,$1e,$0c,$f8,$fe,$72,$60,$60,$60,$60,$72,$fe,$fe,$76,$62,$62
-        .byte $62,$62,$76,$fe,$fc,$66,$62,$66,$7c,$6e,$6e,$ee,$fc,$66,$62,$66
-        .byte $7c,$60,$60,$e0,$fe,$38,$38,$38,$38,$38,$38,$fe,$fe,$76,$62,$62
-        .byte $62,$62,$76,$fe,$e6,$76,$76,$76,$6e,$6e,$6e,$e6
-
-    CharEorTable:
-
-        .byte $80,$d0,$d0,$8e
-        .byte $86,$cc,$ee,$ff,$01,$0b,$0b,$71,$61
-
-    L_bf7d:
-        .byte $33,$77,$ff
-
-           * = * "Chars2"
-    CART_CHARSET_2:
-     .import binary "../assets/chars2.bin" 
-
-
-     L_bfff:
+         #import "data/level_data.asm" 
+        #import "data/char_data.asm" 
+ 
 
     }
     

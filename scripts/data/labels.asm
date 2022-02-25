@@ -10,13 +10,19 @@ ZP: {
     .label ScreenAddress_MSB = $01
     .label Address = $02
     .label Address_MSB = $03
+
+    .label ScreenCol = $02
+    .label ScreenRow = $03
+    
     .label Backup280 = $04
     .label SoundEffectToggle = $05
+    .label TempData = $05
     .label ScorpionLogoFlag = $07
 
     .label NumberLives = $08
 
 
+    .label CharsToMove = $16
 
 
     .label ColourAddress = $0A
@@ -28,6 +34,8 @@ ZP: {
     .label JOY_DOWN_NOW = $0F
     .label ReturnAddress = $10
     .label ColourTemp = $12
+    .label TempY = $14
+    
 
     .label Level = $1A
      .label Wave = $1B
@@ -61,6 +69,10 @@ ZP: {
     .label BonusStorage1 = $24
     .label BonusStorage2 = $2A
 
+    .label MapDataPointer = $a3
+    .label MapDataPointer_MSB = $a4
+    .label LevelDataPointer_MSB = $a2
+    .label LevelDataPointer = $a1
     .label WaveDigit1 = $a5
     .label WaveDigit2 = $a6
 
@@ -145,6 +157,7 @@ ZP: {
 .label SCREEN_RAM = $1E00
 
 .label MAP_DATA = $1000
+.label MAP_DATA_END = $1C00
 
 .label CHAR_EOR_TABLE = $bf70
 .label CHAR_EDIT_ADDRESS = $1C90
@@ -199,6 +212,9 @@ ZP: {
 
 .label START_LIVES = 4
 .label SCANNER_ROW = 12
+
+.label WALL_TILE = 30
+.label EMPTY_TILE = 0
 
 
 
