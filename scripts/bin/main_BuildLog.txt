@@ -13,10 +13,10 @@ Default-segment:
   $a0a9-$af99 Gameplay
   $af9a-$afb6 IRQ
   $afb7-$b0d0 Game continued
-  $b0d1-$b12e Do the colour animation
-  $b12f-$b1ed Animation
-  $b1ee-$b24d Level Select Pt 1
-  $b24e-$b462 Game continued
+  $b0d1-$b129 Do the colour animation
+  $b12a-$b1e8 Animation
+  $b1e9-$b248 Level Select Pt 1
+  $b249-$b462 Game continued
   $b463-$b4f8 Utility
   $b4f9-$b571 Initialise
   $b572-$b7e5 Title Screen

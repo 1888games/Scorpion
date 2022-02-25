@@ -17,12 +17,14 @@ ZP: {
     .label Backup280 = $04
     .label SoundEffectToggle = $05
     .label TempData = $05
+    .label NumChars = $05
     .label ScorpionLogoFlag = $07
 
     .label NumberLives = $08
 
 
     .label CharsToMove = $16
+    .label DirectionToMove = $07
 
 
     .label ColourAddress = $0A
@@ -47,6 +49,8 @@ ZP: {
     .label HighScoreString = $bc
 
     .label Difficulty = $D0
+
+    .label CharToUse = $8D
     
 
     .label Table_50_32Bytes = $50
@@ -178,6 +182,7 @@ ZP: {
 
 .label SOLID_CHAR = 33
 .label SCORPION_UP_CHAR = 4
+.label BLANK_CHAR = 0
 
 .label SCREEN_ROWS = 23
 .label SCREEN_COLS = 22

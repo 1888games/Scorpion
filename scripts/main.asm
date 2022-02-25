@@ -27,7 +27,7 @@
         jsr SetupMap
         jsr SidePanel
 
- 
+    .break
 
         jsr L_a3a0
         jsr L_a27f
@@ -163,7 +163,9 @@
         //nop
         lda #41
         sta $80
+
     L_a179:
+
         lda $80
         cmp #65
         bcs Exit2
@@ -171,15 +173,19 @@
         sta $80
         tay 
         ldx #3
+
     EggDisplayLoop:
+
         lda NextEggLookup,y
         ora #DIGIT_TO_CHAR_MASK
         sta NEXT_EGG_POSITION,x
+        
         lda #CYAN
         sta NEXT_EGG_COLOUR_POS,x
         dey 
         dex 
         bpl EggDisplayLoop
+
   Exit2:
 
        rts 
@@ -447,18 +453,26 @@
 
 
     L_a3a0:
+
         lda #$20
         sta $03
+
         lda #$18
         sta $02
+
         lda #$02
         sta $04
+
         ldx #$00
+
         jsr Copy_2_4ZP_To_2_4_800X
+
         stx $09
         stx $82
         stx $1c
+
         jsr ResetEgg
+
         lda #$1f
         sta $ce
         jsr L_ac05
@@ -545,7 +559,7 @@
         lda $04
         eor #$04
         tay 
-        jmp L_b35a
+        jmp MoveLocationByOne
     L_a43d:
         dec $50
         bne L_a434
@@ -586,7 +600,7 @@
         ldy #$02
         jsr L_b438
         tay 
-        jsr L_b35a
+        jsr MoveLocationByOne
         jmp L_a932
     L_a493:
         lda $cd
@@ -910,7 +924,7 @@
     L_a6ef:
         ldy $04
     L_a6f1:
-        jsr L_b35a
+        jsr MoveLocationByOne
     L_a6f4:
         lda $03
         cmp #$40
@@ -1125,7 +1139,7 @@
         sta $03
         sty $14
         lda $48,x
-        jsr L_b35c
+        jsr MoveLocationByA
         jsr L_a6f4
         bcs L_a875
         beq L_a86f
@@ -2320,18 +2334,20 @@
     * = * "Do the colour animation" 
     ColourAnimation:
 
-        .break
-
         pha 
-        ldy #33
-        jsr L_b0dc
+        ldy #SOLID_CHAR
+        jsr DoACycle
+
+    DoSecondCycle:
+
         pla 
         sta ZP.DefaultColours
 
-        ldy #0
+        ldy #BLANK_CHAR
 
-    L_b0dc:
-        sty $8d
+    DoACycle:
+
+        sty ZP.CharToUse
 
         lda #8
         sta ZP.ScreenCol 
@@ -2340,62 +2356,66 @@
         sta ZP.ScreenRow
 
         lda #1
-        sta ZP.TempData
+        sta ZP.NumChars
         sta ZP.ColourTemp
-    L_b0ec:
 
-        ldy #6
-    L_b0ee:
+    StillLayersToDraw:
 
-        jsr L_b10d
+        ldy #Y_DOWN_ONLY
+
+    DrawAnotherLine:
+
+        jsr DrawLine
         dey 
         dey 
-        bpl L_b0ee
+        bpl DrawAnotherLine
+
         lda #$a0
         jsr DelayByA
         jsr CycleColour
 
-        .break
-
-        ldy #$01
-
-        jsr L_b35a
+        ldy #X_LEFT_Y_UP
+        jsr MoveLocationByOne
         
-        inc ZP.TempData
-        inc ZP.TempData
-        lda ZP.TempData
+        inc ZP.NumChars
+        inc ZP.NumChars
+
+        lda ZP.NumChars
 
         cmp #19
-        bcc L_b0ec
+        bcc StillLayersToDraw
         rts 
 
 
-    L_b10d:
-        sty $07
-        ldx ZP.TempData
-    L_b111:
+    DrawLine:
+
+        sty ZP.DirectionToMove
+        ldx ZP.NumChars
+
+    DrawChar:
 
         jsr GetScreen_Col2_Row3
 
-        lda $8d
+        lda ZP.CharToUse
         sta (ZP.ScreenAddress),y
 
         lda ZP.ColourTemp
         sta (ZP.ColourAddress),y
 
         dex 
-        beq L_b127
+        beq DoneALine
 
-        ldy $07
-        jsr L_b35a
+        ldy ZP.DirectionToMove
+        jsr MoveLocationByOne
 
-        lda #150
-        jsr DelayByA
+        jmp DrawChar
 
-        jmp L_b111
-    L_b127:
-        ldy $07
+    DoneALine:
+
+        ldy ZP.DirectionToMove
+
         rts 
+
 
     #import "system/anim.asm"
     #import "system/select.asm"
@@ -2405,9 +2425,9 @@
     PlaceMiniMapChars:
  
          sty $06
-      //  ldx #12
+       ldx #12
     L_b24d:
-        //jsr GetRowScreenColourAddressX
+        jsr GetRowScreenColourAddressX
 
     L_b250:
 
@@ -2565,6 +2585,15 @@
         // equal = subtract
         // plus = add
 
+    .label X_LEFT_ONLY = 0
+    .label X_LEFT_Y_UP = 1
+    .label Y_UP_ONLY = 2
+    .label X_RIGHT_Y_UP = 3
+    .label X_RIGHT_ONLY = 4
+    .label X_RIGHT_Y_DOWN = 5
+    .label Y_DOWN_ONLY = 6
+    .label X_LEFT_Y_DOWN = 7
+    .label NO_MOVEMENT = 8
 
     XDirection:
          .byte $00,$00,$ff,$01,$01
@@ -2574,9 +2603,9 @@
         .byte $ff,$00,$00,$00,$ff
         .byte $01,$01,$01,$ff
 
-    L_b35a:
+    MoveLocationByOne:
         lda #1
-    L_b35c:
+    MoveLocationByA:
         sta ZP.CharsToMove
 
         lda XDirection, y
