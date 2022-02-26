@@ -10,6 +10,7 @@ al C:ab97 .L_ab97
 al C:a5b4 .L_a5b4
 al C:a7f6 .L_a7f6
 al C:b981 .IncreaseLevel
+al C:2 .HOME_TILE
 al C:afb7 .L_afb7
 al C:b38b .L_b38b
 al C:ba40 .L_ba40
@@ -34,6 +35,7 @@ al C:afc8 .L_afc8
 al C:aa83 .L_aa83
 al C:afc9 .L_afc9
 al C:b27b .L_b27b
+al C:b325 .DeleteChar
 al C:0 .X_LEFT_ONLY
 al C:b6f9 .HideLogo
 al C:b03a .L_b03a
@@ -57,7 +59,7 @@ al C:b7e5 .L_b7e4
 al C:b9bb .HighScoreLoop
 al C:13 .RIGHT_ARROW_CHAR
 al C:a6da .L_a6da
-al C:b111 .DrawChar
+al C:b32c .DrawChar
 al C:aa93 .L_aa93
 al C:b28c .L_b28c
 al C:0 .ScreenAddress
@@ -131,7 +133,7 @@ al C:a4cf .L_a4cf
 al C:961e .LIFE_INDICATOR_COLOUR_POS
 al C:b6c8 .FireNotPressed
 al C:8d .CharToUse
-al C:a355 .LevelSpeeds
+al C:a335 .LevelSpeeds
 al C:acaa .L_acaa
 al C:b3a2 .L_b3a2
 al C:10 .ReturnAddress
@@ -150,6 +152,7 @@ al C:22 .RASTER_SPLIT_2
 al C:2d .RASTER_SPLIT_1
 al C:16 .COLUMNS
 al C:add1 .L_add1
+al C:ad63 .SavePositionDirection
 al C:b712 .DrawTitleChars_Jmp
 al C:9004 .RASTER_Y
 al C:68 .Timer5
@@ -218,6 +221,7 @@ al C:ab20 .L_ab20
 al C:aa00 .L_aa00
 al C:b79d .L_b79d
 al C:a8a0 .L_a8a0
+al C:a355 .L_a355
 al C:b694 .SpriteLoop
 al C:a230 .L_a230
 al C:30 .CYAN_BG
@@ -227,7 +231,6 @@ al C:b996 .StoreExit
 al C:90 .LIGHT_ORANGE_BG
 al C:af8e .L_af8e
 al C:a359 .L_a359
-al C:b325 .L_b325
 al C:aa16 .L_aa16
 al C:a9d2 .L_a9d2
 al C:1d80 .CHAR_RAM_MINI_MAP
@@ -244,7 +247,6 @@ al C:4 .Direction__0
 al C:280 .Direction__1
 al C:8 .NumberLives
 al C:ac55 .L_ac55
-al C:b32c .L_b32c
 al C:12 .LEFT_ARROW_CHAR
 al C:a026 .SetInterruptAddress
 al C:a9ba .L_a9ba
@@ -253,7 +255,6 @@ al C:a9bf .L_a9bf
 al C:a9c9 .L_a9c9
 al C:b510 .InitialiseRegistersLookups
 al C:b9ca .DifficultyText
-al C:b334 .L_b334
 al C:b455 .L_b455
 al C:a369 .L_a369
 al C:a24d .L_a24d
@@ -337,7 +338,6 @@ al C:b803 .MoveScorpionLogo1
 al C:a .HIGH_SCORE_LENGTH
 al C:b6f9 .UNKNOWN_CODE
 al C:1e1d .LIFE_ARROW_POSITION
-al C:ad63 .Copy_2_4ZP_To_2_4_800X
 al C:ab72 .L_ab72
 al C:ab5a .L_ab5a
 al C:ab5b .L_ab5b
@@ -381,6 +381,7 @@ al C:b9b1 .LevelExit
 al C:a982 .L_a982
 al C:b96e .CheckLevelChange
 al C:b4ab .GetScreen_Col2_Row3
+al C:1618 .MAP_HOME_POSITION
 al C:b4ed .DelayByA
 al C:b4e7 .CheckFireButton
 al C:a505 .L_a505
@@ -403,10 +404,12 @@ al C:af0b .L_af0b
 al C:1d80 .CHAR_RAM_SCORPION_LOGO
 al C:c .SCANNER_ROW
 al C:a519 .L_a519
+al C:b111 .DrawChar2
 al C:a759 .L_a759
 al C:57 .GameAnimateTimer
 al C:baf9 .L_baf9
 al C:b525 .SetupScreenLookup
+al C:5 .PLAYER_FACING_RIGHT
 al C:a512 .L_a512
 al C:a875 .L_a875
 al C:a75a .L_a75a
@@ -423,7 +426,6 @@ al C:a520 .L_a520
 al C:af1c .L_af1c
 al C:bf80 .CART_CHARSET_2
 al C:9122 .DATA_DIRECTION_REG_B
-al C:a6df .Copy2_4_800X_To_ZP
 al C:21 .SOLID_CHAR
 al C:a406 .L_a406
 al C:b1d8 .CharByteLoop
@@ -431,6 +433,7 @@ al C:b4f9 .ZP_Defaults
 al C:b6ec .CharLoop
 al C:a887 .L_a887
 al C:b4d7 .ReadRight
+al C:4 .PLAYER_FACING_UP
 al C:a52b .L_a52b
 al C:a76c .L_a76c
 al C:ad04 .L_ad04
@@ -440,6 +443,7 @@ al C:69 .AnimCounter
 al C:b8bf .NoF3
 al C:b734 .Clear96BytesLogo
 al C:ae0a .L_ae0a
+al C:6 .PLAYER_FACING_DOWN
 al C:b0af .IsEmptyTile
 al C:1 .WHITE_BORDER
 al C:b57f .ColumnLoop
@@ -506,7 +510,6 @@ al C:96c2 .AIR_INDICATOR_COLOUR_POS
 al C:a315 .L_a315
 al C:ae2a .L_ae2a
 al C:a435 .L_a435
-al C:a43d .L_a43d
 al C:b1f0 .SelectCharLoop
 al C:a67d .L_a67d
 al C:b40e .L_b40e
@@ -514,6 +517,7 @@ al C:ac17 .L_ac17
 al C:b0d1 .ColourAnimation
 al C:b925 .ToggleVolume
 al C:1e60 .BONUS_SCREEN_POSITION
+al C:a43d .ProcessPlayer
 al C:af73 .L_af73
 al C:b8 .JOYSTICK_MASKS
 al C:b76d .L_b76d
@@ -527,6 +531,7 @@ al C:a560 .L_a560
 al C:a681 .L_a681
 al C:b2e2 .ExitLives
 al C:a680 .L_a680
+al C:a6df .GetPositionDirection
 al C:1e .WALL_TILE
 al C:ae3a .L_ae3a
 al C:b8ea .NotAnimYet
@@ -537,7 +542,6 @@ al C:a56d .L_a56d
 al C:a9a5 .L_a9a5
 al C:b77c .L_b77c
 al C:bf30 .ScorpionLogoChars
-al C:a44f .L_a44f
 al C:af87 .L_af87
 al C:a697 .L_a697
 al C:b789 .L_b789
@@ -563,7 +567,9 @@ al C:b2a3 .L_b2a3
 al C:bb00 .CHAR_SET_P1
 al C:b3c5 .L_b3c5
 al C:c000 .L_bfff
+al C:b334 .ConvertTileToScreen
 al C:b549 .MapLoop
+al C:3 .PLAYER_FACING_LEFT
 al C:3c0 .SCREEN_LSB_LOOKUP
 al C:b0 .LIGHT_CYAN_BG
 al C:b8ef .LevelNumberLoop
@@ -682,7 +688,7 @@ al C:aadf .L_aadf
 al C:a94a .L_a94a
 al C:a830 .L_a830
 al C:2 .ScreenCol
-al C:4 .X_RIGHT_ONLY
+al C:5 .X_RIGHT_ONLY
 al C:b7f5 .StartMenuSound
 al C:b238 .CharLoop2
 al C:b652 .Row_4_50
@@ -706,7 +712,7 @@ al C:b249 .PlaceMiniMapChars
 al C:b6e9 .FirePressed
 al C:b950 .BonusLookup
 al C:aaea .L_aaea
-al C:5 .X_RIGHT_Y_DOWN
+al C:4 .X_RIGHT_Y_DOWN
 al C:aaf6 .L_aaf6
 al C:1c00 .CHAR_RAM
 al C:a84a .L_a84a
@@ -729,8 +735,10 @@ al C:b715 .ThisDoesNothing
 al C:b9e8 .CopyScorpionChars
 al C:b688 .Row_3_3200
 al C:a979 .L_a979
+al C:a44f .HomeNotBlank
 al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
 al C:b4de .ProcessRead
-break a27f 
+break a457 
+break af46 

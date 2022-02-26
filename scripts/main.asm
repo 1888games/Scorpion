@@ -43,7 +43,7 @@
         lda ZP.GameSpeed
         jsr DelayByA
 
-        jsr L_a43d
+        jsr ProcessPlayer
         jsr L_a536
 
         lda $cd
@@ -225,7 +225,7 @@
 
     CalculateFrameDelay:
     
-        .break
+    
         lda ZP.Level
         lsr 
         tay 
@@ -260,7 +260,7 @@
         lsr 
         lsr 
         tay 
-        lda LevelSpeeds,y
+        lda L_a355,y
         sta $c9
 
         lda L_a331,y
@@ -333,7 +333,7 @@
 
         jsr L_a369
         lda #$25
-        jsr L_b32c
+        jsr DrawChar
         dex 
         bne L_a315
         rts 
@@ -348,6 +348,7 @@
         .byte $08
         .byte $04,$02,$01
 
+    LevelSpeeds:
         .byte $1c,$1a,$18,$10,$0e,$0c,$0a,$09,$08,$07,$06,$05,$04
         .byte $03,$02,$01
 
@@ -356,7 +357,7 @@
         .byte $40,$3c,$34,$34,$30,$30,$30,$30,$2c,$2c,$2c,$2c,$2c
         .byte $24,$24,$24
 
-    LevelSpeeds:
+    L_a355:
         .byte $0c
         .byte $0a,$09,$08
 
@@ -386,7 +387,7 @@
         lda $03
         sta $ac,x
         lda #$2b
-        jsr L_b32c
+        jsr DrawChar
         ldy #$03
         jsr L_b438
         clc 
@@ -410,7 +411,7 @@
         sta ZP.Direction
 
         ldx #PLAYER_ID
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
 
         stx $09
         stx $82
@@ -507,31 +508,30 @@
         tay 
         jmp MoveLocationByOne
 
-    L_a43d:
+    ProcessPlayer:
 
-        //rts
-       // nop
         dec ZP.PlayerDisplayTimer
         bne QuitOut
         lda #PLAYER_UPDATE_TIME
         sta ZP.PlayerDisplayTimer
+        
+        lda MAP_HOME_POSITION
+        bne HomeNotBlank
+        lda #HOME_TILE
+        sta MAP_HOME_POSITION
 
+    HomeNotBlank:
 
-        lda $1618
-        bne L_a44f
-        lda #$02
-        sta $1618
+        ldx #PLAYER_ID
+        jsr GetPositionDirection
 
-    L_a44f:
+        jsr DeleteChar
 
+        .break
 
-        ldx #$00
-        jsr Copy2_4_800X_To_ZP
-        jsr L_b325
-
-
-        lda #$04
+        lda #4
         jsr L_af3b
+
         lda $18
         beq L_a493
         lda $09
@@ -549,7 +549,7 @@
         sta $900d
     L_a47a:
         lda #$01
-        jsr L_b32c
+        jsr DrawChar
         inc $09
         lda $09
         cmp #$10
@@ -565,7 +565,7 @@
         lda $82
         beq L_a4b4
         jsr L_a435
-        jsr L_b325
+        jsr DeleteChar
         ldx $8c
         lda $02c0,x
         bne L_a4ac
@@ -573,7 +573,7 @@
         beq L_a4b4
     L_a4ac:
         ldx #$00
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         jsr L_a406
     L_a4b4:
         lda $18
@@ -609,19 +609,19 @@
         lsr 
         clc 
         adc #$03
-        jsr L_b32c
+        jsr DrawChar
         lda #$04
         jsr $af3e
         ldx #$00
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
         lda $82
         beq L_a505
         jsr L_a435
         ldx $8c
         jsr L_a3ff
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
         lda $82
-        jsr L_b32c
+        jsr DrawChar
     L_a505:
         lda $18
         beq L_a512
@@ -635,7 +635,7 @@
         jsr L_ac5f
     L_a519:
         ldx #$00
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         ldx #$23
     L_a520:
         lda $0280,x
@@ -660,7 +660,7 @@
     L_a53e:
         ldx #$20
     L_a540:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_a589
         jsr L_a700
         cmp #$23
@@ -672,7 +672,7 @@
         cmp #$07
         bcs L_a56d
     L_a558:
-        jsr L_b325
+        jsr DeleteChar
         dec $02c0,x
         beq L_a574
     L_a560:
@@ -697,8 +697,8 @@
         iny 
     L_a582:
         tya 
-        jsr L_b32c
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr DrawChar
+        jsr SavePositionDirection
     L_a589:
         inx 
         cpx #$24
@@ -741,7 +741,7 @@
     L_a5cc:
         ldx #$00
         sec 
-        jmp Copy2_4_800X_To_ZP
+        jmp GetPositionDirection
     L_a5d2:
         stx $8c
         lda #$00
@@ -787,7 +787,7 @@
         inc $68
         ldx #$0d
     L_a61e:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
 
         .byte $30,$3c,$bd,$c0,$02,$f0,$37,$10,$1d,$fe,$c0,$02,$bd,$c0,$02,$49
         .byte $ff,$18,$69,$01,$c9,$10,$b0,$09,$a5,$68,$29,$01,$a8,$b9,$85,$a6
@@ -795,7 +795,7 @@
         .byte $a5,$68,$29,$03,$a8,$b9,$81,$a6,$2c,$a9,$2c
 
     L_a65c:
-        jsr L_b32c
+        jsr DrawChar
         dex 
         cpx #$05
         bne L_a61e
@@ -811,7 +811,7 @@
         lda $ac,x
         sta $03
         lda #$2f
-        jsr L_b32c
+        jsr DrawChar
     L_a67d:
         dex 
         bpl L_a666
@@ -832,7 +832,7 @@
         sta $8d
         ldx #$0d
     L_a697:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_a6c1
         lda $02c0,x
         bne L_a6c1
@@ -859,7 +859,7 @@
         dex 
         bpl L_a6ce
         ldx $13
-        jmp L_b325
+        jmp DeleteChar
     L_a6da:
         jsr L_a382
         ldx $13
@@ -867,7 +867,7 @@
 
     // L_a6df
 
-    Copy2_4_800X_To_ZP:
+    GetPositionDirection:
 
         lda TileX,x
         sta ZP.TileX
@@ -893,7 +893,7 @@
         cmp #$30
         bcs L_a706
     L_a700:
-        jsr L_b334
+        jsr ConvertTileToScreen
         lda ($00),y
         clc 
     L_a706:
@@ -1182,7 +1182,7 @@
         lda #$f0
         sta $a7
         lda #$29
-        jmp L_b32c
+        jmp DrawChar
     L_a90e:
         ldy $02c0,x
         lda.a $0093,y
@@ -1195,7 +1195,7 @@
         ldy #$0b
     L_a921:
         sty $05
-        jsr L_b325
+        jsr DeleteChar
         jsr L_a932
         ldy $05
     L_a92b:
@@ -1265,14 +1265,14 @@
         sta $8e
         jmp L_aa5b
     L_a99a:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_a9a5
-        jsr L_b325
+        jsr DeleteChar
         jsr L_a9c9
     L_a9a5:
         jsr L_a9c0
         dex 
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_a9ba
         jsr L_a9f1
         lda $04
@@ -1296,14 +1296,14 @@
         bmi L_a9bf
     L_a9c9:
         dex 
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         inx 
         lsr 
         clc 
         adc #$0e
     L_a9d2:
-        jsr L_b32c
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr DrawChar
+        jsr SavePositionDirection
     L_a9d8:
         lda $02
         cmp $0200
@@ -1369,7 +1369,7 @@
     L_aa47:
         sec 
     L_aa48:
-        jmp Copy2_4_800X_To_ZP
+        jmp GetPositionDirection
 
     L_aa4b:
          .byte $13,$17,$1b,$1f,$02
@@ -1379,7 +1379,7 @@
         .byte $04,$04,$00,$04,$00
 
     L_aa5b:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_aa6f
         lda.a $0093,y
         eor #$ff
@@ -1387,7 +1387,7 @@
         adc #$01
         tay 
         lda L_aa8e,y
-        jsr L_b32c
+        jsr DrawChar
     L_aa6f:
         ldy $07
         dex 
@@ -1419,10 +1419,10 @@
         sta $56
         ldx #$24
     L_aa9d:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         and #$04
         bne L_aab9
-        jsr L_b325
+        jsr DeleteChar
         lda $02c0,x
         bmi L_aab1
         jsr L_aaff
@@ -1455,7 +1455,7 @@
         cmp #$1e
         bcc L_aafc
     L_aaea:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         jsr L_afb7
         bcs L_aaf6
         lda #$f0
@@ -1465,7 +1465,7 @@
         eor $05
         sta $04
     L_aafc:
-        jmp Copy_2_4ZP_To_2_4_800X
+        jmp SavePositionDirection
     L_aaff:
         stx $05
         dec $02c0,x
@@ -1477,12 +1477,12 @@
         clc 
         adc $05
         tax 
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
         lda $c8
         sta $02c0,x
         ldx $05
         lda #$01
-        jmp L_b32c
+        jmp DrawChar
     L_ab20:
         dec $59
         bne L_ab5a
@@ -1490,11 +1490,11 @@
         sta $59
         ldx #$24
     L_ab2a:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_ab55
         and #$04
         beq L_ab55
-        jsr L_b325
+        jsr DeleteChar
         jsr L_aac2
         lda #$22
         jsr L_a9d2
@@ -1558,7 +1558,7 @@
 
     L_ab9a:
         lda #$23
-        jsr L_b32c
+        jsr DrawChar
         jsr L_a9d8
         lda $02
         sta $e0,x
@@ -1585,7 +1585,7 @@
         sta $02
         lda $e8,x
         sta $03
-        jsr L_b325
+        jsr DeleteChar
         jsr L_a6ef
         bcs L_abd7
         cmp #$07
@@ -1714,9 +1714,9 @@
         sta $5f
         ldx #$05
     L_accb:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_acfe
-        jsr L_b325
+        jsr DeleteChar
         ldy #$01
         jsr L_b438
         beq L_acec
@@ -1727,14 +1727,14 @@
         cmp #$07
         bcc L_acec
     L_ace9:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
     L_acec:
         jsr L_a6ef
         bcs L_acf5
         cmp #$07
         bcc L_acfb
     L_acf5:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         jsr L_a3ff
     L_acfb:
         jsr L_ad04
@@ -1794,10 +1794,10 @@
         jsr L_b438
         sta $62
         sta $04
-    //Copy_2_4ZP_To_2_4_800X:
+    //SavePositionDirection:
 
     // l_ad63
-    Copy_2_4ZP_To_2_4_800X:
+    SavePositionDirection:
         lda $02
         sta TileX,x
         lda $03
@@ -1814,9 +1814,9 @@
         lda #$18
         sta $61
         ldx #$0e
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         bmi L_ad72
-        jsr L_b325
+        jsr DeleteChar
         lda $02c0,x
         beq L_adc8
         bpl L_ad99
@@ -1869,7 +1869,7 @@
         bcs L_adde
         beq L_ade1
     L_adde:
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
     L_ade1:
         lda #$1f
         ldx #$0e
@@ -2022,23 +2022,32 @@
 
 
     L_af3b:
-        ldy #$00
+
+        ldy #0
         bit $ffa0
         sty $06
         stx $13
-        sta $05
-        lda $02
+
+        sta ZP.TempData
+
+
+        .break
+
+        lda ZP.TileX
         clc 
-        adc #$08
+        adc #8
         pha 
-        and #$0f
+
+        and #%00001111
         lsr 
         lsr 
         clc 
-        adc $05
+        adc ZP.TempData
         tay 
         lda L_af8e,y
-        sta $05
+
+        sta ZP.TempData
+
         pla 
         lsr 
         lsr 
@@ -2047,7 +2056,8 @@
         tay 
         lda $af96,y
         tay 
-        lda $03
+
+        lda ZP.TileY
         lsr 
         and #$fe
         tax 
@@ -2147,7 +2157,7 @@
 
     L_afff:
         ldx #$00
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
         lda $03
         sec 
         sbc #$08
@@ -2353,7 +2363,7 @@
         sty ZP.DirectionToMove
         ldx ZP.NumChars
 
-    DrawChar:
+    DrawChar2:
 
         jsr GetScreen_Col2_Row3
 
@@ -2369,7 +2379,7 @@
         ldy ZP.DirectionToMove
         jsr MoveLocationByOne
 
-        jmp DrawChar
+        jmp DrawChar2
 
     DoneALine:
 
@@ -2514,31 +2524,32 @@
         .byte $00,$00,$00,$00,$07,$05,$00,$00,$00,$04,$00,$00,$00,$00,$00,$08 // 36-51
         .byte $00,$00,$00,$00,$01,$06,$00,$00,$00,$00,$03,$02,$00,$00 //52-65
 
-    L_b325:
-        jsr L_b334
+    DeleteChar:
+        jsr ConvertTileToScreen
         tya 
-        sta ($00),y
+        sta (ZP.ScreenAddress),y
         rts 
 
 
-    L_b32c:
+    DrawChar:
         pha 
-        jsr L_b334
+        jsr ConvertTileToScreen
         pla 
-        sta ($00),y
+        sta (ZP.ScreenAddress),y
         rts 
 
 
-    L_b334:
-        lda $02
-        ldy $03
+    ConvertTileToScreen:
+
+        lda ZP.TileX
+        ldy ZP.TileY
         clc 
-        adc $0340,y
-        sta $00
-        lda $0380,y
-        adc #$00
-        sta $01
-        ldy #$00
+        adc MAP_LOOKUP_LSB,y
+        sta ZP.ScreenAddress
+        lda MAP_LOOKUP_MSB,y
+        adc #0
+        sta ZP.ScreenAddress + 1
+        ldy #0
         rts 
 
 
@@ -2550,8 +2561,8 @@
     .label X_LEFT_Y_UP = 1
     .label Y_UP_ONLY = 2
     .label X_RIGHT_Y_UP = 3
-    .label X_RIGHT_ONLY = 4
-    .label X_RIGHT_Y_DOWN = 5
+    .label X_RIGHT_Y_DOWN= 4
+    .label X_RIGHT_ONLY = 5
     .label Y_DOWN_ONLY = 6
     .label X_LEFT_Y_DOWN = 7
     .label NO_MOVEMENT = 8

@@ -72,7 +72,7 @@ DrawTitleScreen:
 
         // puts 0 at 02 and 200
         // puts $14 at 03 and 240 ??
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
 
         jsr CopyScorpionChars
 
@@ -307,7 +307,7 @@ DrawTitleScreen:
     HideLogo:
 
         ldx #0
-        jsr Copy2_4_800X_To_ZP
+        jsr GetPositionDirection
 
     WaitForRaster1:
 
@@ -338,7 +338,7 @@ DrawTitleScreen:
 
         //jmp DrawTitleChars
         ldx #$00
-        jsr Copy_2_4ZP_To_2_4_800X
+        jsr SavePositionDirection
     L_b71a:
 
         // Timer4 goes 3-1

@@ -12,6 +12,9 @@
 .label DIFFICULTY_POSITION=$1fd1
 .label PURPLE_BG=$40
 .label START_LIVES=$4
+.label HOME_TILE=$2
+.label PLAYER_FACING_LEFT=$3
+.label MAP_HOME_POSITION=$1618
 .label SCREEN_LSB_LOOKUP=$3c0
 .label LIFE_INDICATOR_POSITION=$1e1e
 .label LIGHT_CYAN_BG=$b0
@@ -91,6 +94,7 @@
 .label PORT_B_OUTPUT=$9120
 .label LIGHT_ORANGE_BG=$90
 .label CHAR_EDIT_ADDRESS=$1c90
+.label PLAYER_FACING_RIGHT=$5
 .label CHAR_RAM_MINI_MAP=$1d80
 .label TABLE_64_2C0=$2c0
 .label BLACK_BORDER=$0
@@ -105,9 +109,11 @@
 .label STALKER_START=$1cf8
 .label SOLID_CHAR=$21
 .label PINK_BG=$a0
+.label PLAYER_FACING_UP=$4
 .label LIGHT_GREEN_BG=$d0
 .label BLANK_CHAR=$0
 .label DIFFICULTY_COLOUR_POS=$97d1
+.label PLAYER_FACING_DOWN=$6
 .label MAP_COLUMNS=$30
 .label BALL_CHAR_SOURCE=$1c38
 .label WHITE_BORDER=$1
@@ -177,6 +183,7 @@
   .label L_aa83=$aa83
   .label L_afc9=$afc9
   .label L_b27b=$b27b
+  .label DeleteChar=$b325
   .label X_LEFT_ONLY=$0
   .label HideLogo=$b6f9
   .label L_b03a=$b03a
@@ -198,7 +205,7 @@
   .label L_b7e4=$b7e5
   .label HighScoreLoop=$b9bb
   .label L_a6da=$a6da
-  .label DrawChar=$b111
+  .label DrawChar=$b32c
   .label L_aa93=$aa93
   .label L_b28c=$b28c
   .label L_a19e=$a19e
@@ -256,7 +263,7 @@
   .label ScreenLoop=$b52b
   .label L_a4cf=$a4cf
   .label FireNotPressed=$b6c8
-  .label LevelSpeeds=$a355
+  .label LevelSpeeds=$a335
   .label L_acaa=$acaa
   .label L_b3a2=$b3a2
   .label SetupSomeValues=$a052
@@ -269,6 +276,7 @@
   .label CopyrightMessage=$b5a1
   .label ThreeRowLoop=$b18d
   .label L_add1=$add1
+  .label SavePositionDirection=$ad63
   .label DrawTitleChars_Jmp=$b712
   .label LevelDataPointers_MSB=$b0c9
   .label Y_DOWN_ONLY=$6
@@ -315,13 +323,13 @@
   .label L_aa00=$aa00
   .label L_b79d=$b79d
   .label L_a8a0=$a8a0
+  .label L_a355=$a355
   .label SpriteLoop=$b694
   .label L_a230=$a230
   .label TurnSoundOff=$a3ef
   .label StoreExit=$b996
   .label L_af8e=$af8e
   .label L_a359=$a359
-  .label L_b325=$b325
   .label L_aa16=$aa16
   .label L_a9d2=$a9d2
   .label CharAnimEorTable=$b12a
@@ -332,7 +340,6 @@
   .label DragonEorTable=$b134
   .label L_ad73=$ad73
   .label L_ac55=$ac55
-  .label L_b32c=$b32c
   .label SetInterruptAddress=$a026
   .label L_a9ba=$a9ba
   .label XDirection=$b348
@@ -340,7 +347,6 @@
   .label L_a9c9=$a9c9
   .label InitialiseRegistersLookups=$b510
   .label DifficultyText=$b9ca
-  .label L_b334=$b334
   .label L_b455=$b455
   .label L_a369=$a369
   .label L_a24d=$a24d
@@ -410,7 +416,6 @@
   .label MoveScorpionLogo1=$b803
   .label HIGH_SCORE_LENGTH=$a
   .label UNKNOWN_CODE=$b6f9
-  .label Copy_2_4ZP_To_2_4_800X=$ad63
   .label L_ab72=$ab72
   .label L_ab5a=$ab5a
   .label L_ab5b=$ab5b
@@ -451,6 +456,7 @@
   .label L_a86f=$a86f
   .label L_af0b=$af0b
   .label L_a519=$a519
+  .label DrawChar2=$b111
   .label L_a759=$a759
   .label L_baf9=$baf9
   .label SetupScreenLookup=$b525
@@ -467,7 +473,6 @@
   .label L_a520=$a520
   .label L_af1c=$af1c
   .label CART_CHARSET_2=$bf80
-  .label Copy2_4_800X_To_ZP=$a6df
   .label L_a406=$a406
   .label CharByteLoop=$b1d8
   .label ZP_Defaults=$b4f9
@@ -529,13 +534,13 @@
   .label L_a315=$a315
   .label L_ae2a=$ae2a
   .label L_a435=$a435
-  .label L_a43d=$a43d
   .label SelectCharLoop=$b1f0
   .label L_a67d=$a67d
   .label L_b40e=$b40e
   .label L_ac17=$ac17
   .label ColourAnimation=$b0d1
   .label ToggleVolume=$b925
+  .label ProcessPlayer=$a43d
   .label L_af73=$af73
   .label L_b76d=$b76d
   .label L_a687=$a687
@@ -547,6 +552,7 @@
   .label L_a681=$a681
   .label ExitLives=$b2e2
   .label L_a680=$a680
+  .label GetPositionDirection=$a6df
   .label L_ae3a=$ae3a
   .label NotAnimYet=$b8ea
   .label L_ae67=$ae67
@@ -555,7 +561,6 @@
   .label L_a9a5=$a9a5
   .label L_b77c=$b77c
   .label ScorpionLogoChars=$bf30
-  .label L_a44f=$a44f
   .label L_af87=$af87
   .label L_a697=$a697
   .label L_b789=$b789
@@ -576,6 +581,7 @@
   .label L_b2a3=$b2a3
   .label L_b3c5=$b3c5
   .label L_bfff=$c000
+  .label ConvertTileToScreen=$b334
   .label MapLoop=$b549
   .label LevelNumberLoop=$b8ef
   .label AnimateChars=$b18b
@@ -668,7 +674,7 @@
   .label L_aadf=$aadf
   .label L_a94a=$a94a
   .label L_a830=$a830
-  .label X_RIGHT_ONLY=$4
+  .label X_RIGHT_ONLY=$5
   .label StartMenuSound=$b7f5
   .label CharLoop2=$b238
   .label Row_4_50=$b652
@@ -686,7 +692,7 @@
   .label FirePressed=$b6e9
   .label BonusLookup=$b950
   .label L_aaea=$aaea
-  .label X_RIGHT_Y_DOWN=$5
+  .label X_RIGHT_Y_DOWN=$4
   .label L_aaf6=$aaf6
   .label L_a84a=$a84a
   .label DoACycle=$b0dc
@@ -704,6 +710,7 @@
   .label CopyScorpionChars=$b9e8
   .label Row_3_3200=$b688
   .label L_a979=$a979
+  .label HomeNotBlank=$a44f
   .label L_a855=$a855
   .label L_a612=$a612
   .label L_a611=$a611

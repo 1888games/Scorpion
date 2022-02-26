@@ -1,0 +1,11 @@
+parsing
+
+.label WALL_TILE = 30
+.label EMPTY_TILE = 0
+.label PLAYER_FACING_
+                     ^
+
+Error: Unexpected end of line
+at line 242, column 22 in labels.asm
+
+

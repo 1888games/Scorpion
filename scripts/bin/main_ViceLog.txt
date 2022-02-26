@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x6219ecd3
+random seed was: 0x621a48e1
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -81,6 +81,7 @@ Monitor playback command: al C:ab97 .L_ab97
 Monitor playback command: al C:a5b4 .L_a5b4
 Monitor playback command: al C:a7f6 .L_a7f6
 Monitor playback command: al C:b981 .IncreaseLevel
+Monitor playback command: al C:2 .HOME_TILE
 Monitor playback command: al C:afb7 .L_afb7
 Monitor playback command: al C:b38b .L_b38b
 Monitor playback command: al C:ba40 .L_ba40
@@ -105,6 +106,7 @@ Monitor playback command: al C:afc8 .L_afc8
 Monitor playback command: al C:aa83 .L_aa83
 Monitor playback command: al C:afc9 .L_afc9
 Monitor playback command: al C:b27b .L_b27b
+Monitor playback command: al C:b325 .DeleteChar
 Monitor playback command: al C:0 .X_LEFT_ONLY
 Monitor playback command: al C:b6f9 .HideLogo
 Monitor playback command: al C:b03a .L_b03a
@@ -128,7 +130,7 @@ Monitor playback command: al C:b7e5 .L_b7e4
 Monitor playback command: al C:b9bb .HighScoreLoop
 Monitor playback command: al C:13 .RIGHT_ARROW_CHAR
 Monitor playback command: al C:a6da .L_a6da
-Monitor playback command: al C:b111 .DrawChar
+Monitor playback command: al C:b32c .DrawChar
 Monitor playback command: al C:aa93 .L_aa93
 Monitor playback command: al C:b28c .L_b28c
 Monitor playback command: al C:0 .ScreenAddress
@@ -202,7 +204,7 @@ Monitor playback command: al C:a4cf .L_a4cf
 Monitor playback command: al C:961e .LIFE_INDICATOR_COLOUR_POS
 Monitor playback command: al C:b6c8 .FireNotPressed
 Monitor playback command: al C:8d .CharToUse
-Monitor playback command: al C:a355 .LevelSpeeds
+Monitor playback command: al C:a335 .LevelSpeeds
 Monitor playback command: al C:acaa .L_acaa
 Monitor playback command: al C:b3a2 .L_b3a2
 Monitor playback command: al C:10 .ReturnAddress
@@ -221,6 +223,7 @@ Monitor playback command: al C:22 .RASTER_SPLIT_2
 Monitor playback command: al C:2d .RASTER_SPLIT_1
 Monitor playback command: al C:16 .COLUMNS
 Monitor playback command: al C:add1 .L_add1
+Monitor playback command: al C:ad63 .SavePositionDirection
 Monitor playback command: al C:b712 .DrawTitleChars_Jmp
 Monitor playback command: al C:9004 .RASTER_Y
 Monitor playback command: al C:68 .Timer5
@@ -289,6 +292,7 @@ Monitor playback command: al C:ab20 .L_ab20
 Monitor playback command: al C:aa00 .L_aa00
 Monitor playback command: al C:b79d .L_b79d
 Monitor playback command: al C:a8a0 .L_a8a0
+Monitor playback command: al C:a355 .L_a355
 Monitor playback command: al C:b694 .SpriteLoop
 Monitor playback command: al C:a230 .L_a230
 Monitor playback command: al C:30 .CYAN_BG
@@ -298,7 +302,6 @@ Monitor playback command: al C:b996 .StoreExit
 Monitor playback command: al C:90 .LIGHT_ORANGE_BG
 Monitor playback command: al C:af8e .L_af8e
 Monitor playback command: al C:a359 .L_a359
-Monitor playback command: al C:b325 .L_b325
 Monitor playback command: al C:aa16 .L_aa16
 Monitor playback command: al C:a9d2 .L_a9d2
 Monitor playback command: al C:1d80 .CHAR_RAM_MINI_MAP
@@ -315,7 +318,6 @@ Monitor playback command: al C:4 .Direction__0
 Monitor playback command: al C:280 .Direction__1
 Monitor playback command: al C:8 .NumberLives
 Monitor playback command: al C:ac55 .L_ac55
-Monitor playback command: al C:b32c .L_b32c
 Monitor playback command: al C:12 .LEFT_ARROW_CHAR
 Monitor playback command: al C:a026 .SetInterruptAddress
 Monitor playback command: al C:a9ba .L_a9ba
@@ -324,7 +326,6 @@ Monitor playback command: al C:a9bf .L_a9bf
 Monitor playback command: al C:a9c9 .L_a9c9
 Monitor playback command: al C:b510 .InitialiseRegistersLookups
 Monitor playback command: al C:b9ca .DifficultyText
-Monitor playback command: al C:b334 .L_b334
 Monitor playback command: al C:b455 .L_b455
 Monitor playback command: al C:a369 .L_a369
 Monitor playback command: al C:a24d .L_a24d
@@ -408,7 +409,6 @@ Monitor playback command: al C:b803 .MoveScorpionLogo1
 Monitor playback command: al C:a .HIGH_SCORE_LENGTH
 Monitor playback command: al C:b6f9 .UNKNOWN_CODE
 Monitor playback command: al C:1e1d .LIFE_ARROW_POSITION
-Monitor playback command: al C:ad63 .Copy_2_4ZP_To_2_4_800X
 Monitor playback command: al C:ab72 .L_ab72
 Monitor playback command: al C:ab5a .L_ab5a
 Monitor playback command: al C:ab5b .L_ab5b
@@ -452,6 +452,7 @@ Monitor playback command: al C:b9b1 .LevelExit
 Monitor playback command: al C:a982 .L_a982
 Monitor playback command: al C:b96e .CheckLevelChange
 Monitor playback command: al C:b4ab .GetScreen_Col2_Row3
+Monitor playback command: al C:1618 .MAP_HOME_POSITION
 Monitor playback command: al C:b4ed .DelayByA
 Monitor playback command: al C:b4e7 .CheckFireButton
 Monitor playback command: al C:a505 .L_a505
@@ -474,10 +475,12 @@ Monitor playback command: al C:af0b .L_af0b
 Monitor playback command: al C:1d80 .CHAR_RAM_SCORPION_LOGO
 Monitor playback command: al C:c .SCANNER_ROW
 Monitor playback command: al C:a519 .L_a519
+Monitor playback command: al C:b111 .DrawChar2
 Monitor playback command: al C:a759 .L_a759
 Monitor playback command: al C:57 .GameAnimateTimer
 Monitor playback command: al C:baf9 .L_baf9
 Monitor playback command: al C:b525 .SetupScreenLookup
+Monitor playback command: al C:5 .PLAYER_FACING_RIGHT
 Monitor playback command: al C:a512 .L_a512
 Monitor playback command: al C:a875 .L_a875
 Monitor playback command: al C:a75a .L_a75a
@@ -494,7 +497,6 @@ Monitor playback command: al C:a520 .L_a520
 Monitor playback command: al C:af1c .L_af1c
 Monitor playback command: al C:bf80 .CART_CHARSET_2
 Monitor playback command: al C:9122 .DATA_DIRECTION_REG_B
-Monitor playback command: al C:a6df .Copy2_4_800X_To_ZP
 Monitor playback command: al C:21 .SOLID_CHAR
 Monitor playback command: al C:a406 .L_a406
 Monitor playback command: al C:b1d8 .CharByteLoop
@@ -502,6 +504,7 @@ Monitor playback command: al C:b4f9 .ZP_Defaults
 Monitor playback command: al C:b6ec .CharLoop
 Monitor playback command: al C:a887 .L_a887
 Monitor playback command: al C:b4d7 .ReadRight
+Monitor playback command: al C:4 .PLAYER_FACING_UP
 Monitor playback command: al C:a52b .L_a52b
 Monitor playback command: al C:a76c .L_a76c
 Monitor playback command: al C:ad04 .L_ad04
@@ -511,6 +514,7 @@ Monitor playback command: al C:69 .AnimCounter
 Monitor playback command: al C:b8bf .NoF3
 Monitor playback command: al C:b734 .Clear96BytesLogo
 Monitor playback command: al C:ae0a .L_ae0a
+Monitor playback command: al C:6 .PLAYER_FACING_DOWN
 Monitor playback command: al C:b0af .IsEmptyTile
 Monitor playback command: al C:1 .WHITE_BORDER
 Monitor playback command: al C:b57f .ColumnLoop
@@ -577,7 +581,6 @@ Monitor playback command: al C:96c2 .AIR_INDICATOR_COLOUR_POS
 Monitor playback command: al C:a315 .L_a315
 Monitor playback command: al C:ae2a .L_ae2a
 Monitor playback command: al C:a435 .L_a435
-Monitor playback command: al C:a43d .L_a43d
 Monitor playback command: al C:b1f0 .SelectCharLoop
 Monitor playback command: al C:a67d .L_a67d
 Monitor playback command: al C:b40e .L_b40e
@@ -585,6 +588,7 @@ Monitor playback command: al C:ac17 .L_ac17
 Monitor playback command: al C:b0d1 .ColourAnimation
 Monitor playback command: al C:b925 .ToggleVolume
 Monitor playback command: al C:1e60 .BONUS_SCREEN_POSITION
+Monitor playback command: al C:a43d .ProcessPlayer
 Monitor playback command: al C:af73 .L_af73
 Monitor playback command: al C:b8 .JOYSTICK_MASKS
 Monitor playback command: al C:b76d .L_b76d
@@ -598,6 +602,7 @@ Monitor playback command: al C:a560 .L_a560
 Monitor playback command: al C:a681 .L_a681
 Monitor playback command: al C:b2e2 .ExitLives
 Monitor playback command: al C:a680 .L_a680
+Monitor playback command: al C:a6df .GetPositionDirection
 Monitor playback command: al C:1e .WALL_TILE
 Monitor playback command: al C:ae3a .L_ae3a
 Monitor playback command: al C:b8ea .NotAnimYet
@@ -608,7 +613,6 @@ Monitor playback command: al C:a56d .L_a56d
 Monitor playback command: al C:a9a5 .L_a9a5
 Monitor playback command: al C:b77c .L_b77c
 Monitor playback command: al C:bf30 .ScorpionLogoChars
-Monitor playback command: al C:a44f .L_a44f
 Monitor playback command: al C:af87 .L_af87
 Monitor playback command: al C:a697 .L_a697
 Monitor playback command: al C:b789 .L_b789
@@ -634,7 +638,9 @@ Monitor playback command: al C:b2a3 .L_b2a3
 Monitor playback command: al C:bb00 .CHAR_SET_P1
 Monitor playback command: al C:b3c5 .L_b3c5
 Monitor playback command: al C:c000 .L_bfff
+Monitor playback command: al C:b334 .ConvertTileToScreen
 Monitor playback command: al C:b549 .MapLoop
+Monitor playback command: al C:3 .PLAYER_FACING_LEFT
 Monitor playback command: al C:3c0 .SCREEN_LSB_LOOKUP
 Monitor playback command: al C:b0 .LIGHT_CYAN_BG
 Monitor playback command: al C:b8ef .LevelNumberLoop
@@ -753,7 +759,7 @@ Monitor playback command: al C:aadf .L_aadf
 Monitor playback command: al C:a94a .L_a94a
 Monitor playback command: al C:a830 .L_a830
 Monitor playback command: al C:2 .ScreenCol
-Monitor playback command: al C:4 .X_RIGHT_ONLY
+Monitor playback command: al C:5 .X_RIGHT_ONLY
 Monitor playback command: al C:b7f5 .StartMenuSound
 Monitor playback command: al C:b238 .CharLoop2
 Monitor playback command: al C:b652 .Row_4_50
@@ -777,7 +783,7 @@ Monitor playback command: al C:b249 .PlaceMiniMapChars
 Monitor playback command: al C:b6e9 .FirePressed
 Monitor playback command: al C:b950 .BonusLookup
 Monitor playback command: al C:aaea .L_aaea
-Monitor playback command: al C:5 .X_RIGHT_Y_DOWN
+Monitor playback command: al C:4 .X_RIGHT_Y_DOWN
 Monitor playback command: al C:aaf6 .L_aaf6
 Monitor playback command: al C:1c00 .CHAR_RAM
 Monitor playback command: al C:a84a .L_a84a
@@ -800,11 +806,13 @@ Monitor playback command: al C:b715 .ThisDoesNothing
 Monitor playback command: al C:b9e8 .CopyScorpionChars
 Monitor playback command: al C:b688 .Row_3_3200
 Monitor playback command: al C:a979 .L_a979
+Monitor playback command: al C:a44f .HomeNotBlank
 Monitor playback command: al C:a855 .L_a855
 Monitor playback command: al C:a612 .L_a612
 Monitor playback command: al C:a611 .L_a611
 Monitor playback command: al C:b4de .ProcessRead
-Monitor playback command: break a27f
+Monitor playback command: break a457
+Monitor playback command: break af46
 Closed monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs
 sound (coreaudio_init): Found audio device with no outputs: MacBook Air Microphone
 sound (coreaudio_init): Found output audio device: MacBook Air Speakers (Default)
@@ -824,4 +832,23 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 Sync reset
-Sound: Warning - Buffer full during suspend
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset
+sound (coreaudio_start): Started
+Sync reset

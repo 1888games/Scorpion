@@ -171,6 +171,8 @@ ZP: {
 .label WAVE_NUMBER_POSITION = $1e22
 .label WAVE_NUMBER_BOTTOM = $1fc6
 
+.label MAP_HOME_POSITION = $1618
+
 
 .label CHAR_RAM = $1C00
 .label SCREEN_RAM = $1E00
@@ -237,6 +239,13 @@ ZP: {
 
 .label WALL_TILE = 30
 .label EMPTY_TILE = 0
+.label HOME_TILE = 2
+
+.label PLAYER_FACING_UP = 4
+.label PLAYER_FACING_DOWN = 6
+.label PLAYER_FACING_LEFT = 3
+.label PLAYER_FACING_RIGHT = 5
+
 
 
 
