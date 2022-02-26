@@ -26,27 +26,33 @@
    
         jsr SetupMap
         jsr SidePanel
+        jsr ResetMoreVariables
+        jsr MoreLevelData
 
-    .break
-
-        jsr L_a3a0
-        jsr L_a27f
         lda #$1f
         sta $8b
-    L_a0be:
-        jsr L_a3a0
+
+    StartLevel:
+
+        jsr ResetMoreVariables
 
 
    // L_a0c1:
     GameLoop:
-        lda $cf
+
+        lda ZP.GameSpeed
         jsr DelayByA
+
         jsr L_a43d
         jsr L_a536
+
         lda $cd
         bmi L_a0d3
+
         jsr L_abe4
+
     L_a0d3:
+
         jsr L_a72c
         jsr L_a94a
         jsr L_b38b
@@ -71,125 +77,32 @@
 
         jsr $ae81
         bcs L_a0a9
-    L_a10f:
+
+
+    LoseLife:
 
         ldy ZP.NumberLives
         bmi GameOver
 
-        cpy #$04
-        bcs L_a11c
+        cpy #MAX_LIVES_DISPLAY 
+        bcs NoDeleteLifeIcon
         lda #$00
         sta $1e1e,y
-    L_a11c:
+
+    NoDeleteLifeIcon:
         dey 
         sty ZP.NumberLives
-        jmp L_a0be
+        jmp StartLevel
+
     GameOver:
         jsr L_a198
         jsr TurnSoundOff
         jmp ResetGame
 
 
+    #import "system/sidepanel.asm"
 
-    Reset32BytesTo1:
-
-        ldx #31
-        lda #1
-
-    Loop32:
-        sta ZP.Table_50_32Bytes,x
-
-        dex 
-        bpl Loop32
-        rts 
-
-    SetupScoreSidePanel:
-        jsr Reset32BytesTo1
-
-        lda #255
-        sta ZP.NumberLives
-
-        ldx #START_LIVES - 1
-
-    LivesLoop:
-
-        jsr IncreaseLives
-        dex 
-        bpl LivesLoop
-
-    ResetScore:
-
-        ldx #5
-
-    ResetScoreLoop:
-
-        lda #$00
-        sta ZP.Score,x
-        ora #DIGIT_TO_CHAR_MASK
-        sta SCORE_POSITION,x
-        lda #PURPLE
-        sta SCORE_COLOUR_POSITION,x
-        dex 
-        bpl ResetScoreLoop
-
-
-   // L_a157:
-    SidePanel:
-
-        ldx #127
-    ClearDataLoop:
-        lda #255
-        sta CHAR_RAM_MINI_MAP,x
-        cpx #64
-        bcs SkipPage2
-
-        sta TABLE_64_280,x
-
-        lda #0
-        sta TABLE_64_2C0,x
-
-    SkipPage2:
-        dex 
-        bpl ClearDataLoop
-
-        ldy #$ff
-        jsr PlaceMiniMapChars
-
-        jsr ClearAirIndicator
-
-        
-
-    ResetEgg:
-        //nop
-        lda #41
-        sta $80
-
-    L_a179:
-
-        lda $80
-        cmp #65
-        bcs Exit2
-        adc #6
-        sta $80
-        tay 
-        ldx #3
-
-    EggDisplayLoop:
-
-        lda NextEggLookup,y
-        ora #DIGIT_TO_CHAR_MASK
-        sta NEXT_EGG_POSITION,x
-        
-        lda #CYAN
-        sta NEXT_EGG_COLOUR_POS,x
-        dey 
-        dex 
-        bpl EggDisplayLoop
-
-  Exit2:
-
-       rts 
-
+    
 
     L_a198:
       //  nop
@@ -308,47 +221,68 @@
         rts 
 
 
-    L_a27f:
-        lda $1a
+    MoreLevelData:
+
+    CalculateFrameDelay:
+    
+        .break
+        lda ZP.Level
         lsr 
         tay 
-        lda $a335,y
-        sta $cf
+        lda LevelSpeeds,y
+        sta ZP.GameSpeed
+
         lda L_a359,y
         sta $d4
-        lda $1a
-        and #$03
+
+        lda ZP.Level
+        and #%00000011
         tay 
+
         lda L_a331,y
         sta $c8
-        lda $1a
-        and #$0f
+
+        lda ZP.Level
+        and #%00001111
         tay 
+
         lda L_a321,y
         sta $c7
-        lda $a345,y
+
+        lda L_a345,y
         pha 
-        lda $1a
-        and #$0f
+
+
+    CalculateAnotherSpeed:
+
+        lda ZP.Level
+        and #%00001111
         lsr 
         lsr 
         tay 
-        lda L_a355,y
+        lda LevelSpeeds,y
         sta $c9
+
         lda L_a331,y
         sta $d3
-        ldx #$07
-    L_a2b8:
-        lda #$ff
+
+
+        ldx #7
+    SevenLoop:
+        lda #255
         sta $38,x
         sta $f0,x
+
         lda #$00
         sta $9658,x
         dex 
-        bpl L_a2b8
+        bpl SevenLoop
+
+        
         lda #$04
         sta $19
-        ldx #$06
+
+        ldx #6
     L_a2cc:
         jsr L_a369
         lda #$2c
@@ -363,6 +297,7 @@
         inx 
         cpx #$0a
         bne L_a2cc
+
         ldx #$03
     L_a2eb:
         jsr L_a37f
@@ -372,7 +307,9 @@
         cmp #$40
         beq L_a313
         tax 
+
     L_a2f7:
+
         jsr L_a369
         ldy #$01
         jsr L_b438
@@ -387,9 +324,13 @@
         inx 
         cpx #$40
         bne L_a2f7
+
     L_a313:
+
         ldx #$20
+
     L_a315:
+
         jsr L_a369
         lda #$25
         jsr L_b32c
@@ -404,13 +345,18 @@
         .byte $2c,$2a,$28,$26,$24,$22,$20,$1e,$1c,$1a,$18,$16,$14,$12
 
     L_a331:
-        php 
+        .byte $08
+        .byte $04,$02,$01
 
-        .byte $04,$02,$01,$1c,$1a,$18,$10,$0e,$0c,$0a,$09,$08,$07,$06,$05,$04
-        .byte $03,$02,$01,$40,$3c,$34,$34,$30,$30,$30,$30,$2c,$2c,$2c,$2c,$2c
+        .byte $1c,$1a,$18,$10,$0e,$0c,$0a,$09,$08,$07,$06,$05,$04
+        .byte $03,$02,$01
+
+    L_a345:
+
+        .byte $40,$3c,$34,$34,$30,$30,$30,$30,$2c,$2c,$2c,$2c,$2c
         .byte $24,$24,$24
 
-    L_a355:
+    LevelSpeeds:
         .byte $0c
         .byte $0a,$09,$08
 
@@ -452,19 +398,18 @@
         rts 
 
 
-    L_a3a0:
+    ResetMoreVariables:
 
-        lda #$20
-        sta $03
+        lda #START_X
+        sta ZP.TileX
 
-        lda #$18
-        sta $02
+        lda #START_Y
+        sta ZP.TileY
+   
+        lda #Y_UP_ONLY
+        sta ZP.Direction
 
-        lda #$02
-        sta $04
-
-        ldx #$00
-
+        ldx #PLAYER_ID
         jsr Copy_2_4ZP_To_2_4_800X
 
         stx $09
@@ -475,9 +420,9 @@
 
         lda #$1f
         sta $ce
-        jsr L_ac05
 
-   
+        jsr S40_To_CD
+
     ClearAirIndicator:
 
         ldx #$03
@@ -541,38 +486,50 @@
     L_a406:
         lda $02
         cmp #$18
-        bne L_a434
+        bne QuitOut
         lda $03
         cmp #$20
-        bne L_a434
+        bne QuitOut
         ldx $8c
         jsr L_ada0
 
         .byte $a5,$82,$c9,$2b,$90,$09,$a5,$80,$48,$20,$79,$a1,$68,$a8,$2c,$a0
         .byte $11,$c6,$19,$20,$7b,$b2,$a0,$00,$84,$82,$88,$84,$88
 
-    L_a434:
+    QuitOut:
         rts 
 
 
     L_a435:
+    
         lda $04
         eor #$04
         tay 
         jmp MoveLocationByOne
+
     L_a43d:
-        dec $50
-        bne L_a434
-        lda #$10
-        sta $50
+
+        //rts
+       // nop
+        dec ZP.PlayerDisplayTimer
+        bne QuitOut
+        lda #PLAYER_UPDATE_TIME
+        sta ZP.PlayerDisplayTimer
+
+
         lda $1618
         bne L_a44f
         lda #$02
         sta $1618
+
     L_a44f:
+
+
         ldx #$00
         jsr Copy2_4_800X_To_ZP
         jsr L_b325
+
+
         lda #$04
         jsr L_af3b
         lda $18
@@ -583,7 +540,7 @@
         bcc L_a46d
         pla 
         pla 
-        jmp L_a10f
+        jmp LoseLife
     L_a46d:
         lda $900e
         beq L_a47a
@@ -912,12 +869,15 @@
 
     Copy2_4_800X_To_ZP:
 
-        lda $0200,x
-        sta $02
-        lda $0240,x
-        sta $03
-        lda $0280,x
-        sta $04
+        lda TileX,x
+        sta ZP.TileX
+
+        lda TileY,x
+        sta ZP.TileY
+
+        lda Direction,x
+        sta ZP.Direction
+
         rts 
 
 
@@ -1658,7 +1618,8 @@
         sta $900e
         dec $cd
         bpl L_abe3
-    L_ac05:
+
+    S40_To_CD:
         lda #$40
         sta $cd
         rts 
@@ -1838,11 +1799,11 @@
     // l_ad63
     Copy_2_4ZP_To_2_4_800X:
         lda $02
-        sta TABLE_64_200,x
+        sta TileX,x
         lda $03
-        sta TABLE_64_240,x
+        sta TileY,x
         lda $04
-        sta TABLE_64_280,x
+        sta Direction,x
     L_ad72:
         rts 
 
@@ -2781,89 +2742,18 @@
     L_b45b:
          .byte $01,$03,$07,$0f,$1f,$3f,$7f,$ff
 
-       // .byte $03,$15,$83,$28,$03
-      //  .byte $29,$20,$31,$39,$38,$33,$20,$20,$14,$12,$0f,$0e,$09,$18,$00,$a9
-      //  .byte $00,$85,$07,$20,$2b,$a1
-
-    
 
     #import "system/utility.asm"
     #import "system/initialise.asm"
     #import "system/title.asm"
     #import "system/select2.asm"
-
-    * = * "Char Data"
-         
-
-    CopyScorpionChars:
-
-        ldx #63
-
-    CopyLoop2:
-
-        lda ScorpionLogoChars,x
-        sta CHAR_RAM_SCORPION_LOGO,x
-        dex 
-        bpl CopyLoop2
-        rts 
-
-    IconCharIDs:
-
-         .byte $0a,$0e,$0e,$0e,$15,$26,$2c,$22,$2b,$27
-        .byte $25,$02,$1f,$05,$e9,$df,$12,$13,$e9,$df
-        .byte $12,$13
-
-    IconXTable:
-
-        .byte $02,$03,$04
-        .byte $05,$0d,$02,$0d,$02,$0d,$02,$02,$0d,$02,$0d,$01,$14,$01,$14,$01
-        .byte $14,$01,$14
-
-    IconYTable:
-
-        .byte $09, $09, $09, $09, $09,$0b 
-        .byte $0b,$0d,$0e,$0f,$11,$11,$13,$13,$00,$00,$06,$06,$08,$08,$16,$16
-
-    ScorpionCharIDs_Shifted:
-        .byte $38 
-
-    ScorpionCharIDs:
-        .byte $37
-        .byte $36,$35,$34,$33,$32,$31,$30,$00
-
-    L_ba40:
-        ora ($07,x)
-
-        .byte $1f,$07,$01,$00,$00,$00,$18,$3f,$7f,$c7,$83,$80,$80,$00
-
-    L_ba50:
-        sed 
-        inc $fbf7,x
-
-        .byte $ff,$ff,$7e,$7e,$ff,$ff,$ff,$ff,$fe,$f8,$00
-
-    L_ba5f:
-        .byte $00,$00,$00,$80
-        .byte $c0,$80,$00,$38,$7c,$fa,$ce,$8b,$05,$02,$00,$00,$00,$00,$00,$00
-        .byte $01,$07,$0f,$01,$00,$30,$7f,$df,$8f,$83,$40,$00,$00,$00,$00,$3e
-        .byte $ff,$ff,$f9,$ff,$ff,$ff,$ff,$ff,$ff,$fe,$f8,$00,$00,$00,$00,$00
-        .byte $80,$c0,$80,$38,$7c,$fa,$ce,$8b,$05,$02,$00,$00,$00,$00,$00,$00
-        .byte $00,$00,$00,$03,$2f,$7b,$df,$8f,$87,$43,$00,$00,$00,$00,$00,$00
-        .byte $00,$7c,$ff,$fd,$b7,$7d,$f3,$cf,$ff,$fe,$f8,$00,$00,$00,$00,$00
-        .byte $00,$00,$b8,$7c,$ea,$cf,$8b,$04,$02,$00,$00,$00,$00,$00,$00,$00
-        .byte $00,$00,$00,$00,$67,$ff,$9f,$8f,$9f,$5b,$00,$00,$00,$00,$00,$00
-        .byte $00,$00,$00,$7c,$ff,$b7,$7f,$fd,$f3,$cf,$f8,$00,$00,$00,$00,$00
-        .byte $00,$1c,$3a,$ef,$c9,$c4
-
-    L_baf9:
-        .byte $82,$00,$00,$00,$00,$00,$00
-
+    #import "data/char_data_2.asm"
 
       * = * "Chars"
-        CART_CHARSET:
-         .import binary "../assets/chars1.bin" 
-         #import "data/level_data.asm" 
-        #import "data/char_data.asm" 
+    CART_CHARSET:
+    .import binary "../assets/chars1.bin" 
+    #import "data/level_data.asm" 
+    #import "data/char_data.asm" 
  
 
     }

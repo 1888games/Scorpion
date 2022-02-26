@@ -19,11 +19,12 @@
 .label ORANGE_BG=$80
 .label Timer_LSB=$b1
 .label CYAN_BORDER=$3
+.label START_Y=$20
 .label LIGHT_PURPLE_BG=$c0
 .label MAP_LOOKUP_MSB=$380
+.label START_X=$18
 .label CHAR_RAM_SCORPION_LOGO_END=$1dc0
 .label CHAR_RAM_SCORPION_LOGO=$1d80
-.label TABLE_64_240=$240
 .label ZP=$2000 {
   .label Raster_Split_1=$9f
   .label Raster_Split_2=$ca
@@ -35,7 +36,9 @@
   .label JOY_HAND_SWITCH=$1d
   .label DefaultColours=$cc
   .label WaveDigit1=$a5
+  .label TileY=$3
   .label JoystickReadings=$c
+  .label TileX=$2
   .label WaveDigit2=$a6
   .label PlayRealGame=$18
   .label LevelDataPointer_MSB=$a2
@@ -45,6 +48,7 @@
   .label BonusStorage2=$2a
   .label Table_B0=$b0
   .label MapDataPointer_MSB=$a4
+  .label GameSpeed=$cf
   .label Address_MSB=$3
   .label JOY_LEFT_NOW=$c
   .label TempY=$14
@@ -52,16 +56,17 @@
   .label Wave=$1b
   .label JOY_RIGHT_NOW=$e
   .label ScreenCol=$2
-  .label Backup280=$4
   .label Score=$1e
   .label SoundEffectToggle=$5
   .label Level=$1a
   .label GameAnimateTimer=$57
   .label TempData=$5
   .label HighScoreString=$bc
+  .label PlayerDisplayTimer=$50
   .label ColourAddress_MSB=$b
   .label ScreenRow=$3
   .label JOY_UP_NOW=$d
+  .label Direction=$4
   .label NumberLives=$8
   .label CharToUse=$8d
   .label ReturnAddress=$10
@@ -91,6 +96,7 @@
 .label BLACK_BORDER=$0
 .label TIMER_1_MSB=$9127
 .label SCREEN_ROWS=$17
+.label Direction=$280
 .label LEFT_ARROW_CHAR=$12
 .label RIGHT_ARROW_CHAR=$13
 .label VENUS_START=$1d28
@@ -113,20 +119,22 @@
 .label BLACK_BG=$0
 .label LIGHT_BLUE_BG=$e0
 .label NEXT_EGG_COLOUR_POS=$97e0
-.label TABLE_64_200=$200
 .label BLUE_BG=$60
 .label PORT_A_KEYBOARD_ROW=$9121
 .label IRQ_VECTOR_LSB=$314
+.label TileY=$240
+.label TileX=$200
 .label SCREEN_COLS=$16
 .label DRAGON_START=$1d38
 .label WHITE_BG=$10
 .label HORIZONTAL_START_LOCATION=$9000
 .label HOME_CHAR_USE=$1c10
-.label TABLE_64_280=$280
 .label WAVE_NUMBER_POSITION=$1e22
+.label MAX_LIVES_DISPLAY=$4
 .label SCREEN_RAM=$1e00
 .label SCORPION_UP_CHAR=$4
 .label VIC_REGISTER_START=$9000
+.label PLAYER_ID=$0
 .label DEAD_START=$1c08
 .label SCORE_COLOUR_POSITION=$9608
 .label PURPLE_BORDER=$4
@@ -137,6 +145,7 @@
 .label BONUS_SCREEN_POSITION=$1e60
 .label SOUND_VOLUME_AUX_COLOR=$900e
 .label LIFE_INDICATOR_COLOUR_POS=$961e
+.label PLAYER_UPDATE_TIME=$10
 .label WAVE_ARROW_POSITION=$1e24
 .namespace GAME {
   .label L_afab=$afab
@@ -154,6 +163,7 @@
   .label L_b397=$b397
   .label NullTerminate=$b49e
   .label DrawWaveNumberTop=$b998
+  .label QuitOut=$a434
   .label VIC_Defaults=$b562
   .label Loop32=$a12f
   .label L_ab9a=$ab9a
@@ -196,9 +206,9 @@
   .label SkipBlank=$b58f
   .label L_b299=$b299
   .label Row_6_Home=$b66b
+  .label S40_To_CD=$ac05
   .label L_a4c3=$a4c3
   .label DecreaseVolume=$b920
-  .label L_a3a0=$a3a0
   .label L_aa9d=$aa9d
   .label ReadOtherDirections=$b4ce
   .label Reset32BytesTo1=$a12b
@@ -246,7 +256,7 @@
   .label ScreenLoop=$b52b
   .label L_a4cf=$a4cf
   .label FireNotPressed=$b6c8
-  .label L_a2b8=$a2b8
+  .label LevelSpeeds=$a355
   .label L_acaa=$acaa
   .label L_b3a2=$b3a2
   .label SetupSomeValues=$a052
@@ -282,6 +292,7 @@
   .label ResetZPValues=$a3d0
   .label MainVolume=$a3f9
   .label L_b42d=$b42d
+  .label L_a345=$a345
   .label ClearAirLoop=$a3c3
   .label L_b438=$b438
   .label RowLoop2=$b233
@@ -303,9 +314,7 @@
   .label L_ab20=$ab20
   .label L_aa00=$aa00
   .label L_b79d=$b79d
-  .label L_a10f=$a10f
   .label L_a8a0=$a8a0
-  .label L_a355=$a355
   .label SpriteLoop=$b694
   .label L_a230=$a230
   .label TurnSoundOff=$a3ef
@@ -315,7 +324,6 @@
   .label L_b325=$b325
   .label L_aa16=$aa16
   .label L_a9d2=$a9d2
-  .label L_a11c=$a11c
   .label CharAnimEorTable=$b12a
   .label ColourLookup=$bf00
   .label L_a47a=$a47a
@@ -363,6 +371,7 @@
   .label L_a9f0=$a9f0
   .label L_a9f1=$a9f1
   .label L_ad99=$ad99
+  .label CalculateAnotherSpeed=$a2a5
   .label FromDragonFly=$b5eb
   .label L_a8c9=$a8c9
   .label GameAnimateChars=$b183
@@ -389,7 +398,6 @@
   .label LevelLayout_4=$be40
   .label LevelLayout_1=$bc00
   .label LevelLayout_2=$bcc0
-  .label L_a27f=$a27f
   .label L_b7a6=$b7a6
   .label L_b24d=$b24d
   .label L_aa56=$aa56
@@ -481,6 +489,7 @@
   .label ScorpionEorTable=$b147
   .label L_a536=$a536
   .label MapDrawLoop=$b258
+  .label SevenLoop=$a2b8
   .label L_a89f=$a89f
   .label L_a65c=$a65c
   .label SwitchBetween2_3=$b3d1
@@ -500,7 +509,6 @@
   .label L_a666=$a666
   .label L_af3b=$af3b
   .label L_ae45=$ae45
-  .label L_ac05=$ac05
   .label SidePanel=$a157
   .label L_a78b=$a78b
   .label RowLoop=$b57a
@@ -508,7 +516,6 @@
   .label ResetEgg=$a175
   .label Exit2=$a197
   .label L_a313=$a313
-  .label L_a434=$a434
   .label L_b403=$b403
   .label L_ad0c=$ad0c
   .label ScorpionCharIDs_Shifted=$ba36
@@ -563,6 +570,7 @@
   .label X_RIGHT_Y_UP=$3
   .label L_a1b2=$a1b2
   .label L_a1b0=$a1b0
+  .label NoDeleteLifeIcon=$a11c
   .label L_accb=$accb
   .label L_abab=$abab
   .label L_b2a3=$b2a3
@@ -600,6 +608,7 @@
   .label NoWrap1=$b481
   .label L_acec=$acec
   .label L_b3e4=$b3e4
+  .label LoseLife=$a10f
   .label L_a3ff=$a3ff
   .label L_aab9=$aab9
   .label L_a90e=$a90e
@@ -643,16 +652,19 @@
   .label L_a93d=$a93d
   .label DrawBonus=$b92c
   .label StoreX=$b372
-  .label L_a0be=$a0be
   .label Row_5_10=$b663
   .label L_a706=$a706
   .label L_b3ea=$b3ea
+  .label StartLevel=$a0be
   .label L_b2ca=$b2ca
   .label WaitForRaster1=$b6fe
   .label L_a824=$a824
   .label L_a823=$a823
   .label L_a700=$a700
+  .label MoreLevelData=$a27f
+  .label CalculateFrameDelay=$a27f
   .label Row1_75=$b619
+  .label ResetMoreVariables=$a3a0
   .label L_aadf=$aadf
   .label L_a94a=$a94a
   .label L_a830=$a830

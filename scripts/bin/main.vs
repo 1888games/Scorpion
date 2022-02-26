@@ -18,6 +18,7 @@ al C:b397 .L_b397
 al C:b49e .NullTerminate
 al C:b998 .DrawWaveNumberTop
 al C:1fe0 .NEXT_EGG_POSITION
+al C:a434 .QuitOut
 al C:b562 .VIC_Defaults
 al C:a12f .Loop32
 al C:b0 .Table_B0
@@ -67,9 +68,9 @@ al C:b055 .L_b055
 al C:b58f .SkipBlank
 al C:b299 .L_b299
 al C:b66b .Row_6_Home
+al C:ac05 .S40_To_CD
 al C:a4c3 .L_a4c3
 al C:b920 .DecreaseVolume
-al C:a3a0 .L_a3a0
 al C:d0 .LIGHT_GREEN_BG
 al C:aa9d .L_aa9d
 al C:b4ce .ReadOtherDirections
@@ -115,7 +116,6 @@ al C:b493 .PositiveIsChar
 al C:9000 .HORIZONTAL_START_LOCATION
 al C:aedc .L_aedc
 al C:a4cd .L_a4cd
-al C:280 .TABLE_64_280
 al C:b62b .Row2_1000
 al C:bf70 .CharEorTable
 al C:adc8 .L_adc8
@@ -131,13 +131,14 @@ al C:a4cf .L_a4cf
 al C:961e .LIFE_INDICATOR_COLOUR_POS
 al C:b6c8 .FireNotPressed
 al C:8d .CharToUse
-al C:a2b8 .L_a2b8
+al C:a355 .LevelSpeeds
 al C:acaa .L_acaa
 al C:b3a2 .L_b3a2
 al C:10 .ReturnAddress
 al C:a052 .SetupSomeValues
 al C:acab .L_acab
 al C:b432 .WaitRaster128
+al C:10 .PLAYER_UPDATE_TIME
 al C:1e24 .WAVE_ARROW_POSITION
 al C:a4de .L_a4de
 al C:b07f .SetupMap
@@ -187,6 +188,7 @@ al C:a3d0 .ResetZPValues
 al C:0 .EMPTY_TILE
 al C:a3f9 .MainVolume
 al C:b42d .L_b42d
+al C:a345 .L_a345
 al C:4 .START_LIVES
 al C:a3c3 .ClearAirLoop
 al C:b438 .L_b438
@@ -210,15 +212,13 @@ al C:a4 .MapDataPointer_MSB
 al C:a26d .GetRowScreenColourAddressX
 al C:b17f .BallStartByte
 al C:b90e .NotDemo
+al C:cf .GameSpeed
 al C:3 .Address_MSB
 al C:ab20 .L_ab20
 al C:aa00 .L_aa00
 al C:b79d .L_b79d
-al C:a10f .L_a10f
 al C:a8a0 .L_a8a0
-al C:a355 .L_a355
 al C:b694 .SpriteLoop
-al C:240 .TABLE_64_240
 al C:a230 .L_a230
 al C:30 .CYAN_BG
 al C:a3ef .TurnSoundOff
@@ -231,7 +231,6 @@ al C:b325 .L_b325
 al C:aa16 .L_aa16
 al C:a9d2 .L_a9d2
 al C:1d80 .CHAR_RAM_MINI_MAP
-al C:a11c .L_a11c
 al C:b12a .CharAnimEorTable
 al C:0 .BLACK_BORDER
 al C:bf00 .ColourLookup
@@ -241,6 +240,8 @@ al C:ad72 .L_ad72
 al C:b134 .DragonEorTable
 al C:120c .upstartEnd
 al C:ad73 .L_ad73
+al C:4 .Direction__0
+al C:280 .Direction__1
 al C:8 .NumberLives
 al C:ac55 .L_ac55
 al C:b32c .L_b32c
@@ -279,7 +280,6 @@ al C:a37f .L_a37f
 al C:b231 .ClearMainWindow
 al C:b5bc .DrawTitleChars
 al C:ac72 .L_ac72
-al C:200 .TABLE_64_200
 al C:a7b7 .L_a7b7
 al C:ab52 .L_ab52
 al C:b2cd .IncreaseLives
@@ -288,6 +288,7 @@ al C:ab55 .L_ab55
 al C:a9f0 .L_a9f0
 al C:a9f1 .L_a9f1
 al C:ad99 .L_ad99
+al C:a2a5 .CalculateAnotherSpeed
 al C:b5eb .FromDragonFly
 al C:a8c9 .L_a8c9
 al C:b183 .GameAnimateChars
@@ -309,11 +310,12 @@ al C:aa47 .L_aa47
 al C:aa48 .L_aa48
 al C:ab69 .L_ab69
 al C:b0d7 .DoSecondCycle
-al C:4 .Backup280
 al C:af32 .CycleColour
+al C:4 .MAX_LIVES_DISPLAY
 al C:1e00 .SCREEN_RAM
 al C:5 .SoundEffectToggle
 al C:4 .SCORPION_UP_CHAR
+al C:0 .PLAYER_ID
 al C:a7ac .L_a7ac
 al C:b7a1 .L_b7a1
 al C:bd80 .LevelLayout_3
@@ -321,7 +323,6 @@ al C:be40 .LevelLayout_4
 al C:bc00 .LevelLayout_1
 al C:50 .GREEN_BG
 al C:bcc0 .LevelLayout_2
-al C:a27f .L_a27f
 al C:b7a6 .L_b7a6
 al C:b .ColourAddress_MSB
 al C:b24d .L_b24d
@@ -390,9 +391,11 @@ al C:a00c .Entry2
 al C:a3c1 .ClearAirIndicator
 al C:b613 .SkipChar
 al C:14 .TempY
+al C:20 .START_Y
 al C:c0 .LIGHT_PURPLE_BG
 al C:12 .ColourTemp
 al C:b734 .NoWrapTimer4
+al C:18 .START_X
 al C:a86f .L_a86f
 al C:1dc0 .CHAR_RAM_SCORPION_LOGO_END
 al C:e .JOY_RIGHT_NOW
@@ -447,6 +450,7 @@ al C:1d30 .BALL_CHAR_USE
 al C:1c00 .MAP_DATA_END
 al C:a536 .L_a536
 al C:b258 .MapDrawLoop
+al C:a2b8 .SevenLoop
 al C:a89f .L_a89f
 al C:a65c .L_a65c
 al C:b3d1 .SwitchBetween2_3
@@ -475,7 +479,6 @@ al C:af3b .L_af3b
 al C:ae45 .L_ae45
 al C:24 .BonusStorage1
 al C:2a .BonusStorage2
-al C:ac05 .L_ac05
 al C:a157 .SidePanel
 al C:a78b .L_a78b
 al C:b57a .RowLoop
@@ -485,7 +488,6 @@ al C:1c10 .HOME_CHAR_USE
 al C:a175 .ResetEgg
 al C:a197 .Exit2
 al C:a313 .L_a313
-al C:a434 .L_a434
 al C:b403 .L_b403
 al C:ad0c .L_ad0c
 al C:ba36 .ScorpionCharIDs_Shifted
@@ -553,6 +555,7 @@ al C:b2a8 .L_b2a8
 al C:3 .X_RIGHT_Y_UP
 al C:a1b2 .L_a1b2
 al C:a1b0 .L_a1b0
+al C:a11c .NoDeleteLifeIcon
 al C:80 .CHAR_TO_ROM_CHAR_MARK
 al C:accb .L_accb
 al C:abab .L_abab
@@ -603,6 +606,7 @@ al C:b481 .NoWrap1
 al C:acec .L_acec
 al C:b3e4 .L_b3e4
 al C:d .JOY_UP_NOW
+al C:a10f .LoseLife
 al C:a3ff .L_a3ff
 al C:aab9 .L_aab9
 al C:1d28 .VENUS_START
@@ -655,18 +659,25 @@ al C:a93d .L_a93d
 al C:b92c .DrawBonus
 al C:b372 .StoreX
 al C:60 .BLUE_BG
-al C:a0be .L_a0be
 al C:9121 .PORT_A_KEYBOARD_ROW
 al C:b663 .Row_5_10
 al C:a706 .L_a706
 al C:b3ea .L_b3ea
+al C:a0be .StartLevel
 al C:b2ca .L_b2ca
 al C:b6fe .WaitForRaster1
+al C:3 .TileY__0
+al C:240 .TileY__1
+al C:2 .TileX__0
+al C:200 .TileX__1
 al C:a824 .L_a824
 al C:a823 .L_a823
 al C:a700 .L_a700
 al C:10 .WHITE_BG
+al C:a27f .MoreLevelData
+al C:a27f .CalculateFrameDelay
 al C:b619 .Row1_75
+al C:a3a0 .ResetMoreVariables
 al C:aadf .L_aadf
 al C:a94a .L_a94a
 al C:a830 .L_a830
@@ -685,6 +696,7 @@ al C:b608 .LogoLoop
 al C:9001 .VERTICAL_TOP_LOCATION
 al C:1000 .MAP_DATA
 al C:ba0a .IconXTable
+al C:50 .PlayerDisplayTimer
 al C:1 .X_LEFT_Y_UP
 al C:900e .SOUND_VOLUME_AUX_COLOR
 al C:a71b .L_a71b
@@ -721,4 +733,4 @@ al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
 al C:b4de .ProcessRead
-break a0b4 
+break a27f 

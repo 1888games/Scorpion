@@ -13,8 +13,12 @@ ZP: {
 
     .label ScreenCol = $02
     .label ScreenRow = $03
+
+    .label TileX = $02
+    .label TileY = $03
+    .label Direction = $04
     
-    .label Backup280 = $04
+
     .label SoundEffectToggle = $05
     .label TempData = $05
     .label NumChars = $05
@@ -40,7 +44,7 @@ ZP: {
     
 
     .label Level = $1A
-     .label Wave = $1B
+    .label Wave = $1B
     .label JOY_HAND_SWITCH = $1D
     .label Score = $1e
 
@@ -64,6 +68,9 @@ ZP: {
     .label Timer4 = $53
     .label Timer5 = $68
 
+
+    .label PlayerDisplayTimer = $50
+
     .label CharAnimTimer = $5C
 
     .label GameAnimateTimer = $57
@@ -80,8 +87,13 @@ ZP: {
     .label WaveDigit1 = $a5
     .label WaveDigit2 = $a6
 
+    .label GameSpeed = $cf
+
 
 }
+    
+
+.label PLAYER_UPDATE_TIME = 16
 
 .label DIGIT_TO_CHAR_MASK = $b0
 .label CHAR_TO_ROM_CHAR_MARK = $80
@@ -95,9 +107,9 @@ ZP: {
 .label MAP_LOOKUP_MSB = $380
 .label MAP_LOOKUP_LSB = $340
 
-.label TABLE_64_200 = $200
-.label TABLE_64_240 = $240
-.label TABLE_64_280 = $280
+.label TileX = $200
+.label TileY = $240
+.label Direction = $280
 
 .label LOGO_COPY =    $0280
 .label TABLE_64_2C0 = $02c0
@@ -105,6 +117,9 @@ ZP: {
 
 .label RIGHT_ARROW_CHAR = 19
 .label LEFT_ARROW_CHAR = 18
+.label MAX_LIVES_DISPLAY = 4
+.label PLAYER_ID = 0
+
 
 .label RASTER_Y = $9004
 .label INTERRUPT_ENABLE = $911E
@@ -179,6 +194,8 @@ ZP: {
 .label ROWS = 32
 .label MAP_ROWS = 64
 .label MAP_COLUMNS = 48
+.label START_X = MAP_COLUMNS / 2
+.label START_Y = MAP_ROWS / 2
 
 .label SOLID_CHAR = 33
 .label SCORPION_UP_CHAR = 4
