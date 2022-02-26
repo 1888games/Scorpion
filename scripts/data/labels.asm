@@ -8,6 +8,7 @@ ZP: {
 
     .label ScreenAddress = $00
     .label ScreenAddress_MSB = $01
+    .label DataAddress = $00
     .label Address = $02
     .label Address_MSB = $03
 
@@ -22,6 +23,7 @@ ZP: {
     .label SoundEffectToggle = $05
     .label TempData = $05
     .label NumChars = $05
+    .label ObjectType = $06
     .label ScorpionLogoFlag = $07
 
     .label NumberLives = $08
@@ -40,6 +42,7 @@ ZP: {
     .label JOY_DOWN_NOW = $0F
     .label ReturnAddress = $10
     .label ColourTemp = $12
+    .label X_Reg = $13
     .label TempY = $14
     
 
@@ -106,6 +109,9 @@ ZP: {
 .label SCREEN_LSB_LOOKUP = $3C0
 .label MAP_LOOKUP_MSB = $380
 .label MAP_LOOKUP_LSB = $340
+
+.label PLAYER_MINI_MAP = 4
+.label ENEMY_MINI_MAP = 0
 
 .label TileX = $200
 .label TileY = $240

@@ -35,6 +35,7 @@
   .label MapDataPointer=$a3
   .label Difficulty=$d0
   .label LastKeyPressed=$d7
+  .label X_Reg=$13
   .label DirectionToMove=$7
   .label JOY_HAND_SWITCH=$1d
   .label DefaultColours=$cc
@@ -74,6 +75,7 @@
   .label CharToUse=$8d
   .label ReturnAddress=$10
   .label JOYSTICK_MASKS=$b8
+  .label ObjectType=$6
   .label LevelDataPointer=$a1
   .label ScreenAddress=$0
   .label ScorpionLogoFlag=$7
@@ -85,6 +87,7 @@
   .label ScreenAddress_MSB=$1
   .label CharAnimTimer=$5c
   .label Timer2=$51
+  .label DataAddress=$0
   .label Timer1=$50
   .label Timer4=$53
   .label Timer3=$52
@@ -109,6 +112,7 @@
 .label STALKER_START=$1cf8
 .label SOLID_CHAR=$21
 .label PINK_BG=$a0
+.label PLAYER_MINI_MAP=$4
 .label PLAYER_FACING_UP=$4
 .label LIGHT_GREEN_BG=$d0
 .label BLANK_CHAR=$0
@@ -135,6 +139,7 @@
 .label WHITE_BG=$10
 .label HORIZONTAL_START_LOCATION=$9000
 .label HOME_CHAR_USE=$1c10
+.label ENEMY_MINI_MAP=$0
 .label WAVE_NUMBER_POSITION=$1e22
 .label MAX_LIVES_DISPLAY=$4
 .label SCREEN_RAM=$1e00
@@ -276,6 +281,7 @@
   .label CopyrightMessage=$b5a1
   .label ThreeRowLoop=$b18d
   .label L_add1=$add1
+  .label DrawPixel=$af73
   .label SavePositionDirection=$ad63
   .label DrawTitleChars_Jmp=$b712
   .label LevelDataPointers_MSB=$b0c9
@@ -328,7 +334,6 @@
   .label L_a230=$a230
   .label TurnSoundOff=$a3ef
   .label StoreExit=$b996
-  .label L_af8e=$af8e
   .label L_a359=$a359
   .label L_aa16=$aa16
   .label L_a9d2=$a9d2
@@ -386,6 +391,7 @@
   .label CopyCharset=$a015
   .label StartTitleScreen=$a059
   .label InitialiseZP=$b51b
+  .label DrawEnemyMiniMap=$af3e
   .label L_b250=$b250
   .label L_ac7a=$ac7a
   .label ExitThis=$b0c8
@@ -421,6 +427,7 @@
   .label L_ab5b=$ab5b
   .label MoveLocationByA=$b35c
   .label ClearLoop=$b738
+  .label ColumnByteStart=$af96
   .label MoveToData=$b476
   .label L_a6c1=$a6c1
   .label L_b7b5=$b7b5
@@ -512,7 +519,6 @@
   .label L_a789=$a789
   .label NoDataWrap=$b0c3
   .label L_a666=$a666
-  .label L_af3b=$af3b
   .label L_ae45=$ae45
   .label SidePanel=$a157
   .label L_a78b=$a78b
@@ -541,7 +547,6 @@
   .label ColourAnimation=$b0d1
   .label ToggleVolume=$b925
   .label ProcessPlayer=$a43d
-  .label L_af73=$af73
   .label L_b76d=$b76d
   .label L_a687=$a687
   .label Row_5_Egg=$b65a
@@ -561,7 +566,6 @@
   .label L_a9a5=$a9a5
   .label L_b77c=$b77c
   .label ScorpionLogoChars=$bf30
-  .label L_af87=$af87
   .label L_a697=$a697
   .label L_b789=$b789
   .label L_a574=$a574
@@ -624,6 +628,7 @@
   .label L_acf5=$acf5
   .label L_a921=$a921
   .label L_abd7=$abd7
+  .label PixelMaskLookup=$af8e
   .label L_a92f=$a92f
   .label L_acfb=$acfb
   .label LOGO_ROW_2=$7
@@ -694,7 +699,9 @@
   .label L_aaea=$aaea
   .label X_RIGHT_Y_DOWN=$4
   .label L_aaf6=$aaf6
+  .label EnemyColour=$af87
   .label L_a84a=$a84a
+  .label DrawPlayerMiniMap=$af3b
   .label DoACycle=$b0dc
   .label TitleScreenLoop=$b6be
   .label L_aafc=$aafc

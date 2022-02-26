@@ -120,6 +120,7 @@ al C:aedc .L_aedc
 al C:a4cd .L_a4cd
 al C:b62b .Row2_1000
 al C:bf70 .CharEorTable
+al C:0 .ENEMY_MINI_MAP
 al C:adc8 .L_adc8
 al C:a13e .LivesLoop
 al C:11 .HIGH_SCORE_ROW
@@ -152,6 +153,7 @@ al C:22 .RASTER_SPLIT_2
 al C:2d .RASTER_SPLIT_1
 al C:16 .COLUMNS
 al C:add1 .L_add1
+al C:af73 .DrawPixel
 al C:ad63 .SavePositionDirection
 al C:b712 .DrawTitleChars_Jmp
 al C:9004 .RASTER_Y
@@ -185,6 +187,7 @@ al C:2 .Address
 al C:ae70 .L_ae70
 al C:b487 .ChangeColour
 al C:b622 .Row1_300
+al C:13 .X_Reg
 al C:20 .RED_BG
 al C:ae71 .L_ae71
 al C:a3d0 .ResetZPValues
@@ -229,7 +232,6 @@ al C:a3ef .TurnSoundOff
 al C:9120 .PORT_B_OUTPUT
 al C:b996 .StoreExit
 al C:90 .LIGHT_ORANGE_BG
-al C:af8e .L_af8e
 al C:a359 .L_a359
 al C:aa16 .L_aa16
 al C:a9d2 .L_a9d2
@@ -247,6 +249,7 @@ al C:4 .Direction__0
 al C:280 .Direction__1
 al C:8 .NumberLives
 al C:ac55 .L_ac55
+al C:6 .ObjectType
 al C:12 .LEFT_ARROW_CHAR
 al C:a026 .SetInterruptAddress
 al C:a9ba .L_a9ba
@@ -300,6 +303,7 @@ al C:a015 .CopyCharset
 al C:a059 .StartTitleScreen
 al C:5 .NumChars
 al C:b51b .InitialiseZP
+al C:af3e .DrawEnemyMiniMap
 al C:b250 .L_b250
 al C:ac7a .L_ac7a
 al C:b0c8 .ExitThis
@@ -345,6 +349,7 @@ al C:b0 .DIGIT_TO_CHAR_MASK
 al C:b35c .MoveLocationByA
 al C:b738 .ClearLoop
 al C:16 .CharsToMove
+al C:af96 .ColumnByteStart
 al C:b476 .MoveToData
 al C:1 .Timer_MSB
 al C:a6c1 .L_a6c1
@@ -431,6 +436,7 @@ al C:a406 .L_a406
 al C:b1d8 .CharByteLoop
 al C:b4f9 .ZP_Defaults
 al C:b6ec .CharLoop
+al C:4 .PLAYER_MINI_MAP
 al C:a887 .L_a887
 al C:b4d7 .ReadRight
 al C:4 .PLAYER_FACING_UP
@@ -451,6 +457,7 @@ al C:b0ee .DrawAnotherLine
 al C:a015 .CopyLoop
 al C:b147 .ScorpionEorTable
 al C:1d30 .BALL_CHAR_USE
+al C:0 .DataAddress
 al C:1c00 .MAP_DATA_END
 al C:a536 .L_a536
 al C:b258 .MapDrawLoop
@@ -479,7 +486,6 @@ al C:18 .PlayRealGame
 al C:b0c3 .NoDataWrap
 al C:1d38 .DRAGON_START
 al C:a666 .L_a666
-al C:af3b .L_af3b
 al C:ae45 .L_ae45
 al C:24 .BonusStorage1
 al C:2a .BonusStorage2
@@ -518,7 +524,6 @@ al C:b0d1 .ColourAnimation
 al C:b925 .ToggleVolume
 al C:1e60 .BONUS_SCREEN_POSITION
 al C:a43d .ProcessPlayer
-al C:af73 .L_af73
 al C:b8 .JOYSTICK_MASKS
 al C:b76d .L_b76d
 al C:a687 .L_a687
@@ -542,7 +547,6 @@ al C:a56d .L_a56d
 al C:a9a5 .L_a9a5
 al C:b77c .L_b77c
 al C:bf30 .ScorpionLogoChars
-al C:af87 .L_af87
 al C:a697 .L_a697
 al C:b789 .L_b789
 al C:a574 .L_a574
@@ -625,6 +629,7 @@ al C:a0 .PINK_BG
 al C:acf5 .L_acf5
 al C:a921 .L_a921
 al C:abd7 .L_abd7
+al C:af8e .PixelMaskLookup
 al C:f .JOY_DOWN_NOW
 al C:a92f .L_a92f
 al C:a .ColourAddress
@@ -714,8 +719,10 @@ al C:b950 .BonusLookup
 al C:aaea .L_aaea
 al C:4 .X_RIGHT_Y_DOWN
 al C:aaf6 .L_aaf6
+al C:af87 .EnemyColour
 al C:1c00 .CHAR_RAM
 al C:a84a .L_a84a
+al C:af3b .DrawPlayerMiniMap
 al C:bf70 .CHAR_EOR_TABLE
 al C:5 .GREEN_BORDER
 al C:b0dc .DoACycle
@@ -740,5 +747,3 @@ al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
 al C:b4de .ProcessRead
-break a457 
-break af46 

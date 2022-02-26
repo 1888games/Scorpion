@@ -527,10 +527,8 @@
 
         jsr DeleteChar
 
-        .break
-
-        lda #4
-        jsr L_af3b
+        lda #PLAYER_MINI_MAP
+        jsr DrawPlayerMiniMap
 
         lda $18
         beq L_a493
@@ -744,8 +742,9 @@
         jmp GetPositionDirection
     L_a5d2:
         stx $8c
-        lda #$00
-        jsr L_af3b
+
+        lda #ENEMY_MINI_MAP
+        jsr DrawEnemyMiniMap
     L_a5d9:
         clc 
         rts 
@@ -850,8 +849,9 @@
 
 
     L_a6c7:
-        lda #$00
-        jsr L_af3b
+        lda #ENEMY_MINI_MAP
+        jsr DrawEnemyMiniMap
+
         ldx #$03
     L_a6ce:
         lda $97,x
@@ -1165,8 +1165,10 @@
         lda $02c0,x
         bmi L_a89f
         beq L_a8f5
-        lda #$00
-        jsr L_af3b
+
+        lda #ENEMY_MINI_MAP
+        jsr DrawEnemyMiniMap
+
         dec $19
         ldy #$05
         bne L_a8c4
@@ -2021,17 +2023,14 @@
         rts 
 
 
-    L_af3b:
+    DrawPlayerMiniMap:
 
         ldy #0
-        bit $ffa0
-        sty $06
-        stx $13
+        bit DrawEnemyMiniMap: $ffa0  // ldy #255
+        sty ZP.ObjectType
 
+        stx ZP.X_Reg
         sta ZP.TempData
-
-
-        .break
 
         lda ZP.TileX
         clc 
@@ -2044,7 +2043,7 @@
         clc 
         adc ZP.TempData
         tay 
-        lda L_af8e,y
+        lda PixelMaskLookup,y
 
         sta ZP.TempData
 
@@ -2054,45 +2053,50 @@
         lsr 
         lsr 
         tay 
-        lda $af96,y
+        lda ColumnByteStart,y
         tay 
 
         lda ZP.TileY
         lsr 
-        and #$fe
+        and #%11111110  
         tax 
-        jsr L_af73
+
+        jsr DrawPixel
+
         inx 
-        jsr L_af73
-        ldx $13
+        jsr DrawPixel
+
+        ldx ZP.X_Reg
         rts 
 
+    DrawPixel:
 
-    L_af73:
         txa 
-        ora #$80
-        sta $00
-        lda #$1d
-        sta $01
-        lda $05
-        bit $06
-        beq L_af87
-        and ($00),y
-        sta ($00),y
+        ora #<CHAR_RAM_MINI_MAP
+        sta ZP.DataAddress
+
+        lda #>CHAR_RAM_MINI_MAP
+        sta ZP.DataAddress + 1
+
+        lda ZP.TempData
+        bit ZP.ObjectType
+        beq EnemyColour
+        and (ZP.DataAddress),y
+        sta (ZP.DataAddress),y
+        rts 
+
+    EnemyColour:
+
+        eor #%11111111
+        ora (ZP.DataAddress),y
+        sta (ZP.DataAddress),y
         rts 
 
 
-    L_af87:
-        eor #$ff
-        ora ($00),y
-        sta ($00),y
-        rts 
-
-
-
-    L_af8e:
-         .byte $3f,$cf,$f3,$fc,$bf,$ef,$fb
-        .byte $fe,$00,$20,$40,$60
+    PixelMaskLookup:     .byte $3f,$cf,$f3,$fc,$bf,$ef,$fb,$fe
+        
+    ColumnByteStart:     .byte 0, 32, 64, 96
+       
 
     * = * "IRQ"
 

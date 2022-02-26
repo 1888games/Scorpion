@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x621a48e1
+random seed was: 0x621aa9e8
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -191,6 +191,7 @@ Monitor playback command: al C:aedc .L_aedc
 Monitor playback command: al C:a4cd .L_a4cd
 Monitor playback command: al C:b62b .Row2_1000
 Monitor playback command: al C:bf70 .CharEorTable
+Monitor playback command: al C:0 .ENEMY_MINI_MAP
 Monitor playback command: al C:adc8 .L_adc8
 Monitor playback command: al C:a13e .LivesLoop
 Monitor playback command: al C:11 .HIGH_SCORE_ROW
@@ -223,6 +224,7 @@ Monitor playback command: al C:22 .RASTER_SPLIT_2
 Monitor playback command: al C:2d .RASTER_SPLIT_1
 Monitor playback command: al C:16 .COLUMNS
 Monitor playback command: al C:add1 .L_add1
+Monitor playback command: al C:af73 .DrawPixel
 Monitor playback command: al C:ad63 .SavePositionDirection
 Monitor playback command: al C:b712 .DrawTitleChars_Jmp
 Monitor playback command: al C:9004 .RASTER_Y
@@ -256,6 +258,7 @@ Monitor playback command: al C:2 .Address
 Monitor playback command: al C:ae70 .L_ae70
 Monitor playback command: al C:b487 .ChangeColour
 Monitor playback command: al C:b622 .Row1_300
+Monitor playback command: al C:13 .X_Reg
 Monitor playback command: al C:20 .RED_BG
 Monitor playback command: al C:ae71 .L_ae71
 Monitor playback command: al C:a3d0 .ResetZPValues
@@ -300,7 +303,6 @@ Monitor playback command: al C:a3ef .TurnSoundOff
 Monitor playback command: al C:9120 .PORT_B_OUTPUT
 Monitor playback command: al C:b996 .StoreExit
 Monitor playback command: al C:90 .LIGHT_ORANGE_BG
-Monitor playback command: al C:af8e .L_af8e
 Monitor playback command: al C:a359 .L_a359
 Monitor playback command: al C:aa16 .L_aa16
 Monitor playback command: al C:a9d2 .L_a9d2
@@ -318,6 +320,7 @@ Monitor playback command: al C:4 .Direction__0
 Monitor playback command: al C:280 .Direction__1
 Monitor playback command: al C:8 .NumberLives
 Monitor playback command: al C:ac55 .L_ac55
+Monitor playback command: al C:6 .ObjectType
 Monitor playback command: al C:12 .LEFT_ARROW_CHAR
 Monitor playback command: al C:a026 .SetInterruptAddress
 Monitor playback command: al C:a9ba .L_a9ba
@@ -371,6 +374,7 @@ Monitor playback command: al C:a015 .CopyCharset
 Monitor playback command: al C:a059 .StartTitleScreen
 Monitor playback command: al C:5 .NumChars
 Monitor playback command: al C:b51b .InitialiseZP
+Monitor playback command: al C:af3e .DrawEnemyMiniMap
 Monitor playback command: al C:b250 .L_b250
 Monitor playback command: al C:ac7a .L_ac7a
 Monitor playback command: al C:b0c8 .ExitThis
@@ -416,6 +420,7 @@ Monitor playback command: al C:b0 .DIGIT_TO_CHAR_MASK
 Monitor playback command: al C:b35c .MoveLocationByA
 Monitor playback command: al C:b738 .ClearLoop
 Monitor playback command: al C:16 .CharsToMove
+Monitor playback command: al C:af96 .ColumnByteStart
 Monitor playback command: al C:b476 .MoveToData
 Monitor playback command: al C:1 .Timer_MSB
 Monitor playback command: al C:a6c1 .L_a6c1
@@ -502,6 +507,7 @@ Monitor playback command: al C:a406 .L_a406
 Monitor playback command: al C:b1d8 .CharByteLoop
 Monitor playback command: al C:b4f9 .ZP_Defaults
 Monitor playback command: al C:b6ec .CharLoop
+Monitor playback command: al C:4 .PLAYER_MINI_MAP
 Monitor playback command: al C:a887 .L_a887
 Monitor playback command: al C:b4d7 .ReadRight
 Monitor playback command: al C:4 .PLAYER_FACING_UP
@@ -522,6 +528,7 @@ Monitor playback command: al C:b0ee .DrawAnotherLine
 Monitor playback command: al C:a015 .CopyLoop
 Monitor playback command: al C:b147 .ScorpionEorTable
 Monitor playback command: al C:1d30 .BALL_CHAR_USE
+Monitor playback command: al C:0 .DataAddress
 Monitor playback command: al C:1c00 .MAP_DATA_END
 Monitor playback command: al C:a536 .L_a536
 Monitor playback command: al C:b258 .MapDrawLoop
@@ -550,7 +557,6 @@ Monitor playback command: al C:18 .PlayRealGame
 Monitor playback command: al C:b0c3 .NoDataWrap
 Monitor playback command: al C:1d38 .DRAGON_START
 Monitor playback command: al C:a666 .L_a666
-Monitor playback command: al C:af3b .L_af3b
 Monitor playback command: al C:ae45 .L_ae45
 Monitor playback command: al C:24 .BonusStorage1
 Monitor playback command: al C:2a .BonusStorage2
@@ -589,7 +595,6 @@ Monitor playback command: al C:b0d1 .ColourAnimation
 Monitor playback command: al C:b925 .ToggleVolume
 Monitor playback command: al C:1e60 .BONUS_SCREEN_POSITION
 Monitor playback command: al C:a43d .ProcessPlayer
-Monitor playback command: al C:af73 .L_af73
 Monitor playback command: al C:b8 .JOYSTICK_MASKS
 Monitor playback command: al C:b76d .L_b76d
 Monitor playback command: al C:a687 .L_a687
@@ -613,7 +618,6 @@ Monitor playback command: al C:a56d .L_a56d
 Monitor playback command: al C:a9a5 .L_a9a5
 Monitor playback command: al C:b77c .L_b77c
 Monitor playback command: al C:bf30 .ScorpionLogoChars
-Monitor playback command: al C:af87 .L_af87
 Monitor playback command: al C:a697 .L_a697
 Monitor playback command: al C:b789 .L_b789
 Monitor playback command: al C:a574 .L_a574
@@ -696,6 +700,7 @@ Monitor playback command: al C:a0 .PINK_BG
 Monitor playback command: al C:acf5 .L_acf5
 Monitor playback command: al C:a921 .L_a921
 Monitor playback command: al C:abd7 .L_abd7
+Monitor playback command: al C:af8e .PixelMaskLookup
 Monitor playback command: al C:f .JOY_DOWN_NOW
 Monitor playback command: al C:a92f .L_a92f
 Monitor playback command: al C:a .ColourAddress
@@ -785,8 +790,10 @@ Monitor playback command: al C:b950 .BonusLookup
 Monitor playback command: al C:aaea .L_aaea
 Monitor playback command: al C:4 .X_RIGHT_Y_DOWN
 Monitor playback command: al C:aaf6 .L_aaf6
+Monitor playback command: al C:af87 .EnemyColour
 Monitor playback command: al C:1c00 .CHAR_RAM
 Monitor playback command: al C:a84a .L_a84a
+Monitor playback command: al C:af3b .DrawPlayerMiniMap
 Monitor playback command: al C:bf70 .CHAR_EOR_TABLE
 Monitor playback command: al C:5 .GREEN_BORDER
 Monitor playback command: al C:b0dc .DoACycle
@@ -811,8 +818,6 @@ Monitor playback command: al C:a855 .L_a855
 Monitor playback command: al C:a612 .L_a612
 Monitor playback command: al C:a611 .L_a611
 Monitor playback command: al C:b4de .ProcessRead
-Monitor playback command: break a457
-Monitor playback command: break af46
 Closed monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs
 sound (coreaudio_init): Found audio device with no outputs: MacBook Air Microphone
 sound (coreaudio_init): Found output audio device: MacBook Air Speakers (Default)
@@ -832,23 +837,43 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
+Initiating render thread 0 shutdown
+Render thread shutdown
+Joining render thread 0 ...
+Joined render thread 0.
+
+Resources with non default values:
+LogFileName="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt"
+SaveResourcesOnExit=1
+ConfirmOnExit=0
+MonitorXPos=679
+MonitorYPos=25
+MonitorWidth=576
+MonitorHeight=290
+Window0Height=765
+Window0Width=747
+Window0Xpos=929
+Window0Ypos=25
+SoundVolume=0
+RAMBlock1=1
+RAMBlock5=1
+KeySet1North=65362
+KeySet1East=65363
+KeySet1South=65364
+KeySet1West=65361
+KeySet1Fire=122
+JoyDevice1=2
+AutostartBasicLoad=0
+AutostartTapeBasicLoad=0
+AutostartRunWithColon=0
+AutostartPrgMode=1
+
+reconstructed commandline options (might be incomplete):
+-default +confirmonexit -saveres -monitorxpos "679" -monitorypos "25" -monitorwidth "576" -monitorheight "290" -soundvolume "0" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
+
+VICE thread initiating shutdown
+VICE thread is exiting
+VICE thread has been joined.
+Writing configuration file `/Users/nick/.config/vice/vicerc'.
+Sound: Closing device `coreaudio'
+AudioComponentInstanceDispose
