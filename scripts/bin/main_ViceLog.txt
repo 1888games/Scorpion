@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x621bd9c5
+random seed was: 0x621bdcfa
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -140,6 +140,7 @@ Monitor playback command: al C:a19e .L_a19e
 Monitor playback command: al C:7 .ScorpionLogoFlag
 Monitor playback command: al C:1cf8 .STALKER_START
 Monitor playback command: al C:b055 .L_b055
+Monitor playback command: al C:af3b .DrawIntoMiniMap
 Monitor playback command: al C:b58f .SkipBlank
 Monitor playback command: al C:b299 .L_b299
 Monitor playback command: al C:b66b .Row_6_Home
@@ -378,7 +379,6 @@ Monitor playback command: al C:a015 .CopyCharset
 Monitor playback command: al C:a059 .StartTitleScreen
 Monitor playback command: al C:5 .NumChars
 Monitor playback command: al C:b51b .InitialiseZP
-Monitor playback command: al C:af3e .DrawEnemyMiniMap
 Monitor playback command: al C:b250 .L_b250
 Monitor playback command: al C:ac7a .L_ac7a
 Monitor playback command: al C:b0c8 .ExitThis
@@ -730,6 +730,7 @@ Monitor playback command: al C:aac1 .L_aac1
 Monitor playback command: al C:b3da .L_b3da
 Monitor playback command: al C:aac2 .L_aac2
 Monitor playback command: al C:abe3 .L_abe3
+Monitor playback command: al C:af3e .ClearFromMiniMap
 Monitor playback command: al C:a934 .L_a934
 Monitor playback command: al C:abe4 .L_abe4
 Monitor playback command: al C:a932 .L_a932
@@ -798,7 +799,6 @@ Monitor playback command: al C:aaf6 .L_aaf6
 Monitor playback command: al C:af87 .EnemyColour
 Monitor playback command: al C:1c00 .CHAR_RAM
 Monitor playback command: al C:a84a .L_a84a
-Monitor playback command: al C:af3b .DrawPlayerMiniMap
 Monitor playback command: al C:bf70 .CHAR_EOR_TABLE
 Monitor playback command: al C:5 .GREEN_BORDER
 Monitor playback command: al C:b0dc .DoACycle
@@ -842,10 +842,8 @@ AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 Sync reset
 Initiating render thread 0 shutdown
-Render thread shutdown
 Joining render thread 0 ...
 Joined render thread 0.
-Ignoring new render job as render thread 0 has shut down
 
 Resources with non default values:
 LogFileName="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt"

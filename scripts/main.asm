@@ -288,7 +288,7 @@
         lda #$2c
         jsr L_a9d2
         lda #$00
-        jsr $af3e
+        jsr ClearFromMiniMap
         ldy #$05
         jsr L_b438
         clc 
@@ -531,7 +531,7 @@
         jsr DeleteChar
 
         lda #PLAYER_MINI_MAP
-        jsr DrawPlayerMiniMap
+        jsr DrawIntoMiniMap
 
 
     CheckPlayerStatus:
@@ -625,7 +625,7 @@
         adc #$03
         jsr DrawChar
         lda #$04
-        jsr $af3e
+        jsr ClearFromMiniMap
         ldx #$00
         jsr SavePositionDirection
         lda $82
@@ -760,7 +760,7 @@
         stx $8c
 
         lda #ENEMY_MINI_MAP
-        jsr DrawEnemyMiniMap
+        jsr DrawIntoMiniMap
     L_a5d9:
         clc 
         rts 
@@ -866,7 +866,7 @@
 
     L_a6c7:
         lda #ENEMY_MINI_MAP
-        jsr DrawEnemyMiniMap
+        jsr DrawIntoMiniMap
 
         ldx #$03
     L_a6ce:
@@ -1183,7 +1183,7 @@
         beq L_a8f5
 
         lda #ENEMY_MINI_MAP
-        jsr DrawEnemyMiniMap
+        jsr DrawIntoMiniMap
 
         dec $19
         ldy #$05
@@ -2039,10 +2039,10 @@
         rts 
 
 
-    DrawPlayerMiniMap:
+    DrawIntoMiniMap:
 
         ldy #0
-        bit DrawEnemyMiniMap: $ffa0  // ldy #255
+        bit ClearFromMiniMap: $ffa0  // ldy #255
         sty ZP.ObjectType
 
         stx ZP.X_Reg

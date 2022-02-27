@@ -217,6 +217,7 @@
   .label L_b28c=$b28c
   .label L_a19e=$a19e
   .label L_b055=$b055
+  .label DrawIntoMiniMap=$af3b
   .label SkipBlank=$b58f
   .label L_b299=$b299
   .label Row_6_Home=$b66b
@@ -395,7 +396,6 @@
   .label CopyCharset=$a015
   .label StartTitleScreen=$a059
   .label InitialiseZP=$b51b
-  .label DrawEnemyMiniMap=$af3e
   .label L_b250=$b250
   .label L_ac7a=$ac7a
   .label ExitThis=$b0c8
@@ -655,6 +655,7 @@
   .label L_b3da=$b3da
   .label L_aac2=$aac2
   .label L_abe3=$abe3
+  .label ClearFromMiniMap=$af3e
   .label L_a934=$a934
   .label L_abe4=$abe4
   .label L_a932=$a932
@@ -706,7 +707,6 @@
   .label L_aaf6=$aaf6
   .label EnemyColour=$af87
   .label L_a84a=$a84a
-  .label DrawPlayerMiniMap=$af3b
   .label DoACycle=$b0dc
   .label TitleScreenLoop=$b6be
   .label L_aafc=$aafc

@@ -69,6 +69,7 @@ al C:a19e .L_a19e
 al C:7 .ScorpionLogoFlag
 al C:1cf8 .STALKER_START
 al C:b055 .L_b055
+al C:af3b .DrawIntoMiniMap
 al C:b58f .SkipBlank
 al C:b299 .L_b299
 al C:b66b .Row_6_Home
@@ -307,7 +308,6 @@ al C:a015 .CopyCharset
 al C:a059 .StartTitleScreen
 al C:5 .NumChars
 al C:b51b .InitialiseZP
-al C:af3e .DrawEnemyMiniMap
 al C:b250 .L_b250
 al C:ac7a .L_ac7a
 al C:b0c8 .ExitThis
@@ -659,6 +659,7 @@ al C:aac1 .L_aac1
 al C:b3da .L_b3da
 al C:aac2 .L_aac2
 al C:abe3 .L_abe3
+al C:af3e .ClearFromMiniMap
 al C:a934 .L_a934
 al C:abe4 .L_abe4
 al C:a932 .L_a932
@@ -727,7 +728,6 @@ al C:aaf6 .L_aaf6
 al C:af87 .EnemyColour
 al C:1c00 .CHAR_RAM
 al C:a84a .L_a84a
-al C:af3b .DrawPlayerMiniMap
 al C:bf70 .CHAR_EOR_TABLE
 al C:5 .GREEN_BORDER
 al C:b0dc .DoACycle
