@@ -32,7 +32,7 @@ ZP: {
     .label CharsToMove = $16
     .label DirectionToMove = $07
 
-    .label PlayerAirDepletion = $09
+    .label PlayerDeathProgress = $09
 
 
     .label ColourAddress = $0A
@@ -210,6 +210,7 @@ ZP: {
 .label SOLID_CHAR = 33
 .label SCORPION_UP_CHAR = 4
 .label BLANK_CHAR = 0
+.label DEATH_CHAR = 1
 
 .label SCREEN_ROWS = 23
 .label SCREEN_COLS = 22

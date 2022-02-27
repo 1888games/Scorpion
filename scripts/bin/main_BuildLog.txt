@@ -1,34 +1,12 @@
 parsing
 flex pass 1
-flex pass 2
-flex pass 3
-Output pass
-Writing prg file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
+        ldx #PLAYER_ID
+        jsr SavePositionDirection
 
-Memory Map
-----------
-Default-segment:
-  $1201-$120d Basic
-  $a00c-$a0a8 Program Start
-  $a0a9-$af99 Gameplay
-  $af9a-$afb6 IRQ
-  $afb7-$b0d0 Game continued
-  $b0d1-$b129 Do the colour animation
-  $b12a-$b1e8 Animation
-  $b1e9-$b248 Level Select Pt 1
-  $b249-$b462 Game continued
-  $b463-$b4f8 Utility
-  $b4f9-$b571 Initialise
-  $b572-$b7e5 Title Screen
-  $b7e6-$b9e7 Level Select Pt 2
-  $b9e8-$baff Char Data
-  $bb00-$bbff Chars
-  $bc00-$bcbf Layout 1
-  $bcc0-$bd7f Layout 2
-  $bd80-$be3f Layout 3
-  $be40-$beff Layout 4
-  $bf00-$bf7f ColourLookup
-  $bf80-$bfff Chars2
+        stx ZP.PreStartAirDepletion
+               ^
 
-Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs
-Writing Symbol file: main.sym
+Error: Variable 'PreStartAirDepletion' not present on value of type 'LabelValue'
+at line 416, column 16 in main.asm
+
+

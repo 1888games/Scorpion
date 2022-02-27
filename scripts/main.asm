@@ -413,7 +413,7 @@
         ldx #PLAYER_ID
         jsr SavePositionDirection
 
-        stx ZP.PlayerAirDepletion
+        stx ZP.PlayerDeathProgress
         stx $82
         stx $1c
 
@@ -537,12 +537,14 @@
     CheckPlayerStatus:
 
         lda ZP.PlayRealGame
-        beq PlayerNotActivated
+        beq PlayerNotDead
 
-        lda ZP.PlayerAirDepletion
-        beq PlayerNotActivated
+    CheckAirWhileWaiting:
+
+        lda ZP.PlayerDeathProgress
+        beq PlayerNotDead
         cmp #40
-        bcc StillHaveAir
+        bcc StillDoingDeath
 
     RunOutDisableRTS:
 
@@ -550,22 +552,25 @@
         pla 
         jmp LoseLife
 
-    StillHaveAir:
+    StillDoingDeath:
 
         lda SOUND_VOLUME_AUX_COLOR
-        beq L_a47a
+        beq VolumeAlreadyZero
         dec SOUND_VOLUME_AUX_COLOR
         lda #200
         sta SOUND_CHANNEL_4
 
-    L_a47a:
+    VolumeAlreadyZero:
 
-        lda #$01
+        lda #DEATH_CHAR
         jsr DrawChar
-        inc $09
-        lda $09
-        cmp #$10
-        bcs L_a4cf
+
+        inc ZP.PlayerDeathProgress
+        lda ZP.PlayerDeathProgress
+        cmp #16
+
+        bcs ExitPlayer
+
         ldy #$02
         jsr L_b438
         tay 
@@ -573,7 +578,7 @@
         jmp L_a932
 
 
-    PlayerNotActivated:
+    PlayerNotDead:
         lda $cd
         bpl L_a4de
         lda $82
@@ -605,7 +610,7 @@
         jmp L_a4de
     L_a4cd:
         sta $1c
-    L_a4cf:
+    ExitPlayer:
         rts 
 
 
@@ -642,7 +647,7 @@
         jsr CheckFireButton
         bne L_a4cd
         lda $1c
-        beq L_a4cf
+        beq ExitPlayer
     L_a512:
         lda $cd
         bmi L_a519
@@ -668,7 +673,7 @@
         bmi L_a560
     L_a536:
         dec $51
-        bne L_a4cf
+        bne ExitPlayer
         lda #$09
         sta $51
     L_a53e:
