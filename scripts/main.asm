@@ -413,7 +413,7 @@
         ldx #PLAYER_ID
         jsr SavePositionDirection
 
-        stx $09
+        stx ZP.PlayerAirDepletion
         stx $82
         stx $1c
 
@@ -516,11 +516,14 @@
         sta ZP.PlayerDisplayTimer
         
         lda MAP_HOME_POSITION
-        bne HomeNotBlank
+        bne UpdateMiniMap
+
+    AwayFromHome:
+
         lda #HOME_TILE
         sta MAP_HOME_POSITION
 
-    HomeNotBlank:
+    UpdateMiniMap:
 
         ldx #PLAYER_ID
         jsr GetPositionDirection
@@ -530,22 +533,33 @@
         lda #PLAYER_MINI_MAP
         jsr DrawPlayerMiniMap
 
-        lda $18
-        beq L_a493
-        lda $09
-        beq L_a493
-        cmp #$28
-        bcc L_a46d
+
+    CheckPlayerStatus:
+
+        lda ZP.PlayRealGame
+        beq PlayerNotActivated
+
+        lda ZP.PlayerAirDepletion
+        beq PlayerNotActivated
+        cmp #40
+        bcc StillHaveAir
+
+    RunOutDisableRTS:
+
         pla 
         pla 
         jmp LoseLife
-    L_a46d:
-        lda $900e
+
+    StillHaveAir:
+
+        lda SOUND_VOLUME_AUX_COLOR
         beq L_a47a
-        dec $900e
-        lda #$c8
-        sta $900d
+        dec SOUND_VOLUME_AUX_COLOR
+        lda #200
+        sta SOUND_CHANNEL_4
+
     L_a47a:
+
         lda #$01
         jsr DrawChar
         inc $09
@@ -557,7 +571,9 @@
         tay 
         jsr MoveLocationByOne
         jmp L_a932
-    L_a493:
+
+
+    PlayerNotActivated:
         lda $cd
         bpl L_a4de
         lda $82

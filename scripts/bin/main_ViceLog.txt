@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x621aa9e8
+random seed was: 0x621bd9c5
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -97,6 +97,7 @@ Monitor playback command: al C:b0 .Table_B0
 Monitor playback command: al C:ab9a .L_ab9a
 Monitor playback command: al C:b2e3 .NextEggLookup
 Monitor playback command: al C:b896 .SettingsLoop
+Monitor playback command: al C:9 .PlayerAirDepletion
 Monitor playback command: al C:a5c7 .L_a5c7
 Monitor playback command: al C:380 .MAP_LOOKUP_MSB
 Monitor playback command: al C:a7ea .L_a7ea
@@ -125,6 +126,7 @@ Monitor playback command: al C:b064 .L_b064
 Monitor playback command: al C:af9a .IRQ
 Monitor playback command: al C:a5d9 .L_a5d9
 Monitor playback command: al C:b374 .CheckY
+Monitor playback command: al C:a468 .RunOutDisableRTS
 Monitor playback command: al C:a4b4 .L_a4b4
 Monitor playback command: al C:b7e5 .L_b7e4
 Monitor playback command: al C:b9bb .HighScoreLoop
@@ -181,6 +183,7 @@ Monitor playback command: al C:a144 .ResetScore
 Monitor playback command: al C:b36d .DecX
 Monitor playback command: al C:b383 .DecY
 Monitor playback command: al C:a5 .WaveDigit1
+Monitor playback command: al C:a493 .PlayerNotActivated
 Monitor playback command: al C:c .JoystickReadings
 Monitor playback command: al C:a6 .WaveDigit2
 Monitor playback command: al C:a4be .L_a4be
@@ -195,6 +198,7 @@ Monitor playback command: al C:0 .ENEMY_MINI_MAP
 Monitor playback command: al C:adc8 .L_adc8
 Monitor playback command: al C:a13e .LivesLoop
 Monitor playback command: al C:11 .HIGH_SCORE_ROW
+Monitor playback command: al C:a45c .CheckPlayerStatus
 Monitor playback command: al C:9000 .VIC_REGISTER_START
 Monitor playback command: al C:b1a4 .SevenRowLoop
 Monitor playback command: al C:aca0 .L_aca0
@@ -237,6 +241,7 @@ Monitor playback command: al C:900b .SOUND_CHANNEL_2
 Monitor playback command: al C:900a .SOUND_CHANNEL_1
 Monitor playback command: al C:b675 .Row_6_150
 Monitor playback command: al C:a186 .EggDisplayLoop
+Monitor playback command: al C:a44a .AwayFromHome
 Monitor playback command: al C:b648 .Row_4_Worm
 Monitor playback command: al C:acbc .L_acbc
 Monitor playback command: al C:adde .L_adde
@@ -282,7 +287,6 @@ Monitor playback command: al C:b1 .Timer_LSB
 Monitor playback command: al C:a58f .L_a58f
 Monitor playback command: al C:aa07 .L_aa07
 Monitor playback command: al C:b167 .HomeCharLookup
-Monitor playback command: al C:a46d .L_a46d
 Monitor playback command: al C:a9c3 .L_a9c3
 Monitor playback command: al C:aa09 .L_aa09
 Monitor playback command: al C:a4 .MapDataPointer_MSB
@@ -295,6 +299,7 @@ Monitor playback command: al C:ab20 .L_ab20
 Monitor playback command: al C:aa00 .L_aa00
 Monitor playback command: al C:b79d .L_b79d
 Monitor playback command: al C:a8a0 .L_a8a0
+Monitor playback command: al C:a46d .StillHaveAir
 Monitor playback command: al C:a355 .L_a355
 Monitor playback command: al C:b694 .SpriteLoop
 Monitor playback command: al C:a230 .L_a230
@@ -344,7 +349,6 @@ Monitor playback command: al C:a7a1 .L_a7a1
 Monitor playback command: al C:b51d .InitialiseLoop
 Monitor playback command: al C:a256 .L_a256
 Monitor playback command: al C:1c38 .BALL_CHAR_SOURCE
-Monitor playback command: al C:a493 .L_a493
 Monitor playback command: al C:a135 .SetupScoreSidePanel
 Monitor playback command: al C:ac4a .L_ac4a
 Monitor playback command: al C:1c18 .SCORPION_START
@@ -392,6 +396,7 @@ Monitor playback command: al C:1e00 .SCREEN_RAM
 Monitor playback command: al C:5 .SoundEffectToggle
 Monitor playback command: al C:4 .SCORPION_UP_CHAR
 Monitor playback command: al C:0 .PLAYER_ID
+Monitor playback command: al C:a44f .UpdateMiniMap
 Monitor playback command: al C:a7ac .L_a7ac
 Monitor playback command: al C:b7a1 .L_b7a1
 Monitor playback command: al C:bd80 .LevelLayout_3
@@ -813,7 +818,6 @@ Monitor playback command: al C:b715 .ThisDoesNothing
 Monitor playback command: al C:b9e8 .CopyScorpionChars
 Monitor playback command: al C:b688 .Row_3_3200
 Monitor playback command: al C:a979 .L_a979
-Monitor playback command: al C:a44f .HomeNotBlank
 Monitor playback command: al C:a855 .L_a855
 Monitor playback command: al C:a612 .L_a612
 Monitor playback command: al C:a611 .L_a611
@@ -841,6 +845,7 @@ Initiating render thread 0 shutdown
 Render thread shutdown
 Joining render thread 0 ...
 Joined render thread 0.
+Ignoring new render job as render thread 0 has shut down
 
 Resources with non default values:
 LogFileName="/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt"
@@ -850,11 +855,11 @@ MonitorXPos=679
 MonitorYPos=25
 MonitorWidth=576
 MonitorHeight=290
-Window0Height=765
-Window0Width=747
-Window0Xpos=929
+Window0Height=1227
+Window0Width=1992
+Window0Xpos=56
 Window0Ypos=25
-SoundVolume=0
+SoundVolume=20
 RAMBlock1=1
 RAMBlock5=1
 KeySet1North=65362
@@ -869,7 +874,7 @@ AutostartRunWithColon=0
 AutostartPrgMode=1
 
 reconstructed commandline options (might be incomplete):
--default +confirmonexit -saveres -monitorxpos "679" -monitorypos "25" -monitorwidth "576" -monitorheight "290" -soundvolume "0" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
+-default +confirmonexit -saveres -monitorxpos "679" -monitorypos "25" -monitorwidth "576" -monitorheight "290" -soundvolume "20" -joydev1 "2" +basicload +tapebasicload +autostartwithcolon -autostartprgmode "1"
 
 VICE thread initiating shutdown
 VICE thread is exiting

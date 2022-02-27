@@ -56,6 +56,7 @@
   .label Address_MSB=$3
   .label JOY_LEFT_NOW=$c
   .label TempY=$14
+  .label PlayerAirDepletion=$9
   .label ColourTemp=$12
   .label Wave=$1b
   .label JOY_RIGHT_NOW=$e
@@ -206,6 +207,7 @@
   .label IRQ=$af9a
   .label L_a5d9=$a5d9
   .label CheckY=$b374
+  .label RunOutDisableRTS=$a468
   .label L_a4b4=$a4b4
   .label L_b7e4=$b7e5
   .label HighScoreLoop=$b9bb
@@ -252,6 +254,7 @@
   .label ResetScore=$a144
   .label DecX=$b36d
   .label DecY=$b383
+  .label PlayerNotActivated=$a493
   .label L_a4be=$a4be
   .label L_afff=$afff
   .label PositiveIsChar=$b493
@@ -262,6 +265,7 @@
   .label L_adc8=$adc8
   .label LivesLoop=$a13e
   .label HIGH_SCORE_ROW=$11
+  .label CheckPlayerStatus=$a45c
   .label SevenRowLoop=$b1a4
   .label L_aca0=$aca0
   .label YDirection=$b351
@@ -288,6 +292,7 @@
   .label Y_DOWN_ONLY=$6
   .label Row_6_150=$b675
   .label EggDisplayLoop=$a186
+  .label AwayFromHome=$a44a
   .label Row_4_Worm=$b648
   .label L_acbc=$acbc
   .label L_adde=$adde
@@ -319,7 +324,6 @@
   .label L_a58f=$a58f
   .label L_aa07=$aa07
   .label HomeCharLookup=$b167
-  .label L_a46d=$a46d
   .label L_a9c3=$a9c3
   .label L_aa09=$aa09
   .label GetRowScreenColourAddressX=$a26d
@@ -329,6 +333,7 @@
   .label L_aa00=$aa00
   .label L_b79d=$b79d
   .label L_a8a0=$a8a0
+  .label StillHaveAir=$a46d
   .label L_a355=$a355
   .label SpriteLoop=$b694
   .label L_a230=$a230
@@ -365,7 +370,6 @@
   .label L_a7a1=$a7a1
   .label InitialiseLoop=$b51d
   .label L_a256=$a256
-  .label L_a493=$a493
   .label SetupScoreSidePanel=$a135
   .label L_ac4a=$ac4a
   .label L_ab2a=$ab2a
@@ -404,6 +408,7 @@
   .label L_ab69=$ab69
   .label DoSecondCycle=$b0d7
   .label CycleColour=$af32
+  .label UpdateMiniMap=$a44f
   .label L_a7ac=$a7ac
   .label L_b7a1=$b7a1
   .label LevelLayout_3=$bd80
@@ -717,7 +722,6 @@
   .label CopyScorpionChars=$b9e8
   .label Row_3_3200=$b688
   .label L_a979=$a979
-  .label HomeNotBlank=$a44f
   .label L_a855=$a855
   .label L_a612=$a612
   .label L_a611=$a611

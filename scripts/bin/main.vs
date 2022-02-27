@@ -26,6 +26,7 @@ al C:b0 .Table_B0
 al C:ab9a .L_ab9a
 al C:b2e3 .NextEggLookup
 al C:b896 .SettingsLoop
+al C:9 .PlayerAirDepletion
 al C:a5c7 .L_a5c7
 al C:380 .MAP_LOOKUP_MSB
 al C:a7ea .L_a7ea
@@ -54,6 +55,7 @@ al C:b064 .L_b064
 al C:af9a .IRQ
 al C:a5d9 .L_a5d9
 al C:b374 .CheckY
+al C:a468 .RunOutDisableRTS
 al C:a4b4 .L_a4b4
 al C:b7e5 .L_b7e4
 al C:b9bb .HighScoreLoop
@@ -110,6 +112,7 @@ al C:a144 .ResetScore
 al C:b36d .DecX
 al C:b383 .DecY
 al C:a5 .WaveDigit1
+al C:a493 .PlayerNotActivated
 al C:c .JoystickReadings
 al C:a6 .WaveDigit2
 al C:a4be .L_a4be
@@ -124,6 +127,7 @@ al C:0 .ENEMY_MINI_MAP
 al C:adc8 .L_adc8
 al C:a13e .LivesLoop
 al C:11 .HIGH_SCORE_ROW
+al C:a45c .CheckPlayerStatus
 al C:9000 .VIC_REGISTER_START
 al C:b1a4 .SevenRowLoop
 al C:aca0 .L_aca0
@@ -166,6 +170,7 @@ al C:900b .SOUND_CHANNEL_2
 al C:900a .SOUND_CHANNEL_1
 al C:b675 .Row_6_150
 al C:a186 .EggDisplayLoop
+al C:a44a .AwayFromHome
 al C:b648 .Row_4_Worm
 al C:acbc .L_acbc
 al C:adde .L_adde
@@ -211,7 +216,6 @@ al C:b1 .Timer_LSB
 al C:a58f .L_a58f
 al C:aa07 .L_aa07
 al C:b167 .HomeCharLookup
-al C:a46d .L_a46d
 al C:a9c3 .L_a9c3
 al C:aa09 .L_aa09
 al C:a4 .MapDataPointer_MSB
@@ -224,6 +228,7 @@ al C:ab20 .L_ab20
 al C:aa00 .L_aa00
 al C:b79d .L_b79d
 al C:a8a0 .L_a8a0
+al C:a46d .StillHaveAir
 al C:a355 .L_a355
 al C:b694 .SpriteLoop
 al C:a230 .L_a230
@@ -273,7 +278,6 @@ al C:a7a1 .L_a7a1
 al C:b51d .InitialiseLoop
 al C:a256 .L_a256
 al C:1c38 .BALL_CHAR_SOURCE
-al C:a493 .L_a493
 al C:a135 .SetupScoreSidePanel
 al C:ac4a .L_ac4a
 al C:1c18 .SCORPION_START
@@ -321,6 +325,7 @@ al C:1e00 .SCREEN_RAM
 al C:5 .SoundEffectToggle
 al C:4 .SCORPION_UP_CHAR
 al C:0 .PLAYER_ID
+al C:a44f .UpdateMiniMap
 al C:a7ac .L_a7ac
 al C:b7a1 .L_b7a1
 al C:bd80 .LevelLayout_3
@@ -742,7 +747,6 @@ al C:b715 .ThisDoesNothing
 al C:b9e8 .CopyScorpionChars
 al C:b688 .Row_3_3200
 al C:a979 .L_a979
-al C:a44f .HomeNotBlank
 al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611

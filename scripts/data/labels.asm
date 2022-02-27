@@ -32,6 +32,8 @@ ZP: {
     .label CharsToMove = $16
     .label DirectionToMove = $07
 
+    .label PlayerAirDepletion = $09
+
 
     .label ColourAddress = $0A
     .label ColourAddress_MSB = $0B
