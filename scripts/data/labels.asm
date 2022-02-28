@@ -77,6 +77,7 @@ ZP: {
     .label PlayerDisplayTimer = $50
 
     .label CharAnimTimer = $5C
+    .label WaitingSoundTimer = $5D
 
     .label GameAnimateTimer = $57
 
@@ -94,9 +95,23 @@ ZP: {
 
     .label GameSpeed = $cf
 
+    .label ParticleX = $38
+    .label ParticleY = $40
+    .label ParticleDirection = $48
+
+
+    .label RandomRegister3 = $B3
+    .label RandomRegister2 = $B2
+    .label RandomRegister1 = $B1
+    .label RandomRegister0 = $B0
+
+    .label PlayerWaitingFire = $CD
 
 }
-    
+
+.label DEATH_ANIMATION_TIME = 40
+.label DEATH_PARTICLE_TIME = 16
+
 
 .label PLAYER_UPDATE_TIME = 16
 
@@ -119,7 +134,7 @@ ZP: {
 .label TileY = $240
 .label Direction = $280
 
-.label LOGO_COPY =    $0280
+.label LOGO_COPY =    Direction
 .label TABLE_64_2C0 = $02c0
 
 
@@ -180,6 +195,7 @@ ZP: {
 .label WAVE_NUMBER_BOTTOM = $1fc6
 
 .label MAP_HOME_POSITION = $1618
+.label HOME_COLOUR_POSITION = $973c
 
 
 .label CHAR_RAM = $1C00
@@ -255,6 +271,15 @@ ZP: {
 .label PLAYER_FACING_LEFT = 3
 .label PLAYER_FACING_RIGHT = 5
 
+.label RANDOM_0_1 = 0
+.label RANDOM_0_3 = 1
+.label RANDOM_0_7 = 2
+.label RANDOM_0_15 = 3
+.label RANDOM_0_31 = 4
+.label RANDOM_0_63 = 5
+.label RANDOM_0_127 = 6
+.label RANDOM_0_255 = 7
 
+.label MAX_PARTICLES = 7
 
 

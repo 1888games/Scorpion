@@ -46,12 +46,12 @@
         jsr ProcessPlayer
         jsr L_a536
 
-        lda $cd
-        bmi L_a0d3
+        lda ZP.PlayerWaitingFire
+        bmi PlayerCanMove
 
-        jsr L_abe4
+        jsr UpdateWaiting
 
-    L_a0d3:
+    PlayerCanMove:
 
         jsr L_a72c
         jsr L_a94a
@@ -269,6 +269,7 @@
 
         ldx #7
     SevenLoop:
+
         lda #255
         sta $38,x
         sta $f0,x
@@ -290,7 +291,7 @@
         lda #$00
         jsr ClearFromMiniMap
         ldy #$05
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc #$20
         sta $02c0,x
@@ -312,7 +313,7 @@
 
         jsr L_a369
         ldy #$01
-        jsr L_b438
+        jsr GetRandomNumber
         sta $04
         lda #$ff
         sta $02c0,x
@@ -368,11 +369,11 @@
     L_a369:
         ldy #$05
     L_a36b:
-        jsr L_b438
+        jsr GetRandomNumber
         cmp #$30
         bcs L_a36b
         sta $02
-        jsr L_b438
+        jsr GetRandomNumber
         sta $03
         jsr L_a700
         bne L_a369
@@ -389,7 +390,7 @@
         lda #$2b
         jsr DrawChar
         ldy #$03
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc #$10
         sta $97,x
@@ -422,7 +423,7 @@
         lda #$1f
         sta $ce
 
-        jsr S40_To_CD
+        jsr ResetWaitingSound
 
     ClearAirIndicator:
 
@@ -543,7 +544,7 @@
 
         lda ZP.PlayerDeathProgress
         beq PlayerNotDead
-        cmp #40
+        cmp #DEATH_ANIMATION_TIME
         bcc StillDoingDeath
 
     RunOutDisableRTS:
@@ -567,20 +568,26 @@
 
         inc ZP.PlayerDeathProgress
         lda ZP.PlayerDeathProgress
-        cmp #16
+        cmp #DEATH_PARTICLE_TIME
 
         bcs ExitPlayer
 
-        ldy #$02
-        jsr L_b438
+        ldy #RANDOM_0_7
+        jsr GetRandomNumber
         tay 
+
         jsr MoveLocationByOne
-        jmp L_a932
+        jmp SpawnParticle
 
 
     PlayerNotDead:
-        lda $cd
+
+
+        lda ZP.PlayerWaitingFire
         bpl L_a4de
+
+    PlayerAllowedMove:
+
         lda $82
         beq L_a4b4
         jsr L_a435
@@ -620,9 +627,10 @@
         sta $04
         ldy $82
         bne L_a4db
-        sta $0280
+        sta Direction
     L_a4db:
         jsr L_a58f
+
     L_a4de:
         lda $04
         lsr 
@@ -657,7 +665,7 @@
         jsr GetPositionDirection
         ldx #$23
     L_a520:
-        lda $0280,x
+        lda Direction,x
         bmi L_a52b
         dex 
         cpx #$1f
@@ -745,12 +753,12 @@
         sta $8a
         ldx #$0d
     L_a5b4:
-        lda $0280,x
+        lda Direction,x
         bmi L_a5c7
-        lda $0200,x
+        lda TileX,x
         cmp $02
         bne L_a5c7
-        lda $0240,x
+        lda TileY,x
         cmp $03
         beq L_a5d2
     L_a5c7:
@@ -777,13 +785,13 @@
         jsr L_a58f
         bcc L_a611
         ldy #$00
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc $06
         tay 
         lda L_aa4b + $4,y
         sta $04
-        sta $0280
+        sta Direction
         jsr L_a58f
         bcc L_a611
         jsr L_a3ff
@@ -794,7 +802,7 @@
         jsr L_a58f
         bcc L_a611
         lda $06
-        sta $0280
+        sta Direction
     L_a611:
         rts 
 
@@ -931,11 +939,11 @@
         .byte $a0,$02,$2c,$a0,$06,$60
 
     L_a71b:
-        lda $0240
+        lda TileY
         sec 
         sbc $03
         sta $84
-        lda $0200
+        lda TileX
         sec 
         sbc $02
         sta $83
@@ -1145,13 +1153,13 @@
     L_a885:
         ldx #$02
     L_a887:
-        lda $0280,x
+        lda Direction,x
         bmi L_a89a
         lda $02
-        cmp $0200,x
+        cmp TileX,x
         bne L_a89a
         lda $03
-        cmp $0240,x
+        cmp TileY,x
         beq L_a8a0
     L_a89a:
         inx 
@@ -1195,7 +1203,7 @@
         bne L_a8c4
     L_a8f5:
         ldy #$05
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc #$10
         eor #$ff
@@ -1219,29 +1227,41 @@
     L_a921:
         sty $05
         jsr DeleteChar
-        jsr L_a932
+        jsr SpawnParticle
         ldy $05
     L_a92b:
         lda #$f0
         sta $88
     L_a92f:
         jmp L_b27b
-    L_a932:
-        ldx #$07
-    L_a934:
-        lda $38,x
-        bmi L_a93d
+
+
+    SpawnParticle:
+
+        ldx #MAX_PARTICLES
+
+    FindFreeEntry:
+
+        lda ZP.ParticleX,x
+        bmi FoundFreeItem
+
         dex 
-        bpl L_a934
-        bmi L_a949
-    L_a93d:
-        lda $02
-        sta $38,x
-        lda $03
-        sta $40,x
-        lda #$00
-        sta $48,x
-    L_a949:
+        bpl FindFreeEntry
+
+        bmi ExitParticleSpawn
+
+    FoundFreeItem:
+
+        lda ZP.TileX
+        sta ZP.ParticleX,x
+
+        lda ZP.TileY
+        sta ZP.ParticleY,x
+
+        lda #0
+        sta ZP.ParticleDirection,x
+
+    ExitParticleSpawn:
         rts 
 
 
@@ -1262,11 +1282,11 @@
         tay 
         dec $8f,x
         lda $a8,x
-        sta $0200,y
+        sta TileX,y
         lda $ac,x
-        sta $0240,y
+        sta TileY,y
         lda L_aa56 + $1,x
-        sta $0280,y
+        sta Direction,y
         txa 
         sta $02c0,y
     L_a979:
@@ -1315,7 +1335,7 @@
         jsr L_a9c3
     L_a9c3:
         dex 
-        lda $0280,x
+        lda Direction,x
         bmi L_a9bf
     L_a9c9:
         dex 
@@ -1329,12 +1349,12 @@
         jsr SavePositionDirection
     L_a9d8:
         lda $02
-        cmp $0200
+        cmp TileX
         bne L_a9f0
         lda $03
-        cmp $0240
+        cmp TileY
         bne L_a9f0
-        lda $cd
+        lda ZP.PlayerWaitingFire
         bpl L_a9f0
         lda $09
         bne L_a9f0
@@ -1365,13 +1385,13 @@
         bcc L_a9bf
     L_aa16:
         ldy #$00
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc $06
         tay 
         lda L_aa4b + $4,y
         sta $04
-        sta $0280,x
+        sta Direction,x
         jsr L_aa39
         bcc L_a9bf
         jsr L_a3ff
@@ -1524,7 +1544,7 @@
         jsr L_afb7
         bcs L_ab55
         ldy #$01
-        jsr L_b438
+        jsr GetRandomNumber
         bne L_ab52
         lda #$80
         sta $a0
@@ -1563,7 +1583,7 @@
         cmp #$07
         bcs L_ab97
         ldy #$02
-        jsr L_b438
+        jsr GetRandomNumber
         clc 
         adc #$04
         sta $30,x
@@ -1592,7 +1612,7 @@
 
     L_abab:
         dec $5b
-        bne L_abe3
+        bne Exit3
         lda #$08
         sta $5b
         ldx #$07
@@ -1622,29 +1642,39 @@
     L_abe0:
         dex 
         bpl L_abb5
-    L_abe3:
+    Exit3:
         rts 
 
 
-    L_abe4:
-        jsr CycleColour
-        sta $973c
-        dec $5d
-        bne L_abe3
-        lda #$10
-        sta $5d
-        lda $cd
-        ora #$80
-        sta $900c
-        sta $900b
-        lda #$0a
-        sta $900e
-        dec $cd
-        bpl L_abe3
+    UpdateWaiting:
 
-    S40_To_CD:
-        lda #$40
-        sta $cd
+        jsr CycleColour
+        sta HOME_COLOUR_POSITION
+
+        dec ZP.WaitingSoundTimer
+        bne Exit3
+
+    ChangeWaitingSound:
+
+        lda #16
+        sta ZP.WaitingSoundTimer
+
+        lda ZP.PlayerWaitingFire
+        ora #%10000000
+        sta SOUND_CHANNEL_3
+        sta SOUND_CHANNEL_4
+
+        lda #10
+        sta SOUND_VOLUME_AUX_COLOR
+
+        dec ZP.PlayerWaitingFire
+        bpl Exit3
+
+    ResetWaitingSound:
+
+        lda #64
+        sta ZP.PlayerWaitingFire
+
         rts 
 
 
@@ -1710,7 +1740,7 @@
         .byte $1a,$29,$0f,$c9,$03,$90,$e7,$a2,$05
 
     L_aca0:
-        lda $0280,x
+        lda Direction,x
         bmi L_acab
         dex 
         cpx #$01
@@ -1724,7 +1754,7 @@
         jsr L_afb7
         bcc L_acab
         ldy #$00
-        jsr L_b438
+        jsr GetRandomNumber
         beq L_acbc
         lda #$04
     L_acbc:
@@ -1741,7 +1771,7 @@
         bmi L_acfe
         jsr DeleteChar
         ldy #$01
-        jsr L_b438
+        jsr GetRandomNumber
         beq L_acec
         jsr L_a71b
         jsr L_a711
@@ -1779,7 +1809,7 @@
 
     L_ad11:
         ldx #$0e
-        lda $0280,x
+        lda Direction,x
         bpl L_ad72
         lda $1a
         and #$0f
@@ -1795,18 +1825,18 @@
         dec $16
         beq L_ad72
         ldy #$03
-        jsr L_b438
+        jsr GetRandomNumber
         tay 
         lda L_adfa,y
         clc 
-        adc $0200
+        adc TileX
         sta $02
         ldy #$03
-        jsr L_b438
+        jsr GetRandomNumber
         tay 
         lda L_adfa,y
         clc 
-        adc $0240
+        adc TileY
         sta $03
         jsr L_a6f4
         bcs L_ad2c
@@ -1814,7 +1844,7 @@
         lda #$fb
         sta $02c0,x
         ldy #$05
-        jsr L_b438
+        jsr GetRandomNumber
         sta $62
         sta $04
     //SavePositionDirection:
@@ -1854,7 +1884,7 @@
         bne L_ada6
     L_ada0:
         lda #$ff
-        sta $0280,x
+        sta Direction,x
         rts 
 
 
@@ -1886,7 +1916,7 @@
         sta $02c0,x
     L_add1:
         ldy #$02
-        jsr L_b438
+        jsr GetRandomNumber
         tay 
         jsr L_a6f1
         bcs L_adde
@@ -1935,10 +1965,10 @@
     L_ae45:
         pha 
         ldy #$02
-        jsr L_b438
+        jsr GetRandomNumber
         tax 
         ldy #$02
-        jsr L_b438
+        jsr GetRandomNumber
         tay 
         lda L_ae78 + $1,y
         eor $1cf0,x
@@ -2752,31 +2782,40 @@
         rts 
 
 
-    L_b438:
+    GetRandomNumber:
+
         clc 
-        lda $b3
-        adc $b2
-        sta $b2
-        adc $b1
-        sta $b1
-        adc $b0
-        sta $b0
-        inc $b3
-        bne L_b455
-        inc $b2
-        bne L_b455
-        inc $b1
-        bne L_b455
-        inc $b0
-    L_b455:
-        lda $b0
-        and L_b45b,y
+        lda ZP.RandomRegister3
+        adc ZP.RandomRegister2
+        sta ZP.RandomRegister2
+
+        adc ZP.RandomRegister1
+        sta ZP.RandomRegister1
+
+        adc ZP.RandomRegister0
+        sta ZP.RandomRegister0
+
+        inc ZP.RandomRegister3
+        bne ReturnNumber
+
+        inc ZP.RandomRegister2
+        bne ReturnNumber
+
+        inc ZP.RandomRegister1
+        bne ReturnNumber
+
+        inc ZP.RandomRegister0
+
+    ReturnNumber:
+
+        lda ZP.RandomRegister0
+        and RandomMaskLookup,y
         rts 
 
 
 
-    L_b45b:
-         .byte $01,$03,$07,$0f,$1f,$3f,$7f,$ff
+    RandomMaskLookup:  .byte %00000001, %00000011, %00000111, %00001111, %00011111, %00111111, %01111111, %11111111
+       
 
 
     #import "system/utility.asm"
