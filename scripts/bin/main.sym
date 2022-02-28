@@ -19,6 +19,7 @@
 .label SCREEN_LSB_LOOKUP=$3c0
 .label LIFE_INDICATOR_POSITION=$1e1e
 .label LIGHT_CYAN_BG=$b0
+.label EnemyType=$2c0
 .label NEXT_EGG_POSITION=$1fe0
 .label ORANGE_BG=$80
 .label Timer_LSB=$b1
@@ -54,6 +55,7 @@
   .label BonusStorage2=$2a
   .label Table_B0=$b0
   .label MapDataPointer_MSB=$a4
+  .label CarriedID=$8c
   .label GameSpeed=$cf
   .label Address_MSB=$3
   .label JOY_LEFT_NOW=$c
@@ -90,6 +92,7 @@
   .label WaitingSoundTimer=$5d
   .label CharsToMove=$16
   .label Timer5=$68
+  .label CarriedCharID=$82
   .label JOY_DOWN_NOW=$f
   .label ColourAddress=$a
   .label AnimCounter=$69
@@ -186,6 +189,7 @@
   .label ScorpionCharIDs=$ba37
   .label L_b7c7=$b7c7
   .label L_ab97=$ab97
+  .label NotCarrying2=$a505
   .label L_a5b4=$a5b4
   .label L_a7f6=$a7f6
   .label IncreaseLevel=$b981
@@ -231,7 +235,6 @@
   .label L_a5d9=$a5d9
   .label CheckY=$b374
   .label RunOutDisableRTS=$a468
-  .label L_a4b4=$a4b4
   .label L_b7e4=$b7e5
   .label HighScoreLoop=$b9bb
   .label L_a6da=$a6da
@@ -242,6 +245,7 @@
   .label L_b055=$b055
   .label DrawIntoMiniMap=$af3b
   .label SkipBlank=$b58f
+  .label StillCarrying=$a4ac
   .label L_b299=$b299
   .label Row_6_Home=$b66b
   .label L_a4c3=$a4c3
@@ -262,7 +266,6 @@
   .label ResetLoop=$b512
   .label L_ada0=$ada0
   .label L_a6ef=$a6ef
-  .label L_a4ac=$a4ac
   .label L_afe4=$afe4
   .label L_adaf=$adaf
   .label ProcessByte=$b0a1
@@ -478,7 +481,6 @@
   .label DelayByA=$b4ed
   .label ReturnNumber=$b455
   .label CheckFireButton=$b4e7
-  .label L_a505=$a505
   .label L_a746=$a746
   .label L_b71a=$b71a
   .label Entry2=$a00c
@@ -566,7 +568,6 @@
   .label DoneALine=$b127
   .label L_a315=$a315
   .label L_ae2a=$ae2a
-  .label L_a435=$a435
   .label SelectCharLoop=$b1f0
   .label L_a67d=$a67d
   .label L_b40e=$b40e
@@ -634,6 +635,7 @@
   .label L_ace9=$ace9
   .label L_a2cc=$a2cc
   .label L_a1aa=$a1aa
+  .label MoveScreenPointerCarried=$a435
   .label ExitCharMove=$b38a
   .label L_b3bc=$b3bc
   .label RecalcBonus=$b8c3
@@ -721,6 +723,7 @@
   .label X_LEFT_Y_UP=$1
   .label L_a71b=$a71b
   .label Row_7_Life=$b67e
+  .label NotCarryingAnything=$a4b4
   .label PlaceMiniMapChars=$b249
   .label FirePressed=$b6e9
   .label BonusLookup=$b950

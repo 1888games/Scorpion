@@ -105,6 +105,9 @@ ZP: {
     .label RandomRegister1 = $B1
     .label RandomRegister0 = $B0
 
+    .label CarriedCharID = $82
+    .label CarriedID = $8C
+
     .label PlayerWaitingFire = $CD
 
 }
@@ -133,6 +136,7 @@ ZP: {
 .label TileX = $200
 .label TileY = $240
 .label Direction = $280
+.label EnemyType = $2C0
 
 .label LOGO_COPY =    Direction
 .label TABLE_64_2C0 = $02c0

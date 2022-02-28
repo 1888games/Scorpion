@@ -414,7 +414,7 @@
         jsr SavePositionDirection
 
         stx ZP.PlayerDeathProgress
-        stx $82
+        stx ZP.CarriedCharID
         stx $1c
 
         jsr ResetEgg
@@ -491,7 +491,7 @@
         lda $03
         cmp #$20
         bne QuitOut
-        ldx $8c
+        ldx $8C
         jsr L_ada0
 
         .byte $a5,$82,$c9,$2b,$90,$09,$a5,$80,$48,$20,$79,$a1,$68,$a8,$2c,$a0
@@ -501,10 +501,10 @@
         rts 
 
 
-    L_a435:
+    MoveScreenPointerCarried:
     
-        lda $04
-        eor #$04
+        lda ZP.Direction
+        eor #%00000100
         tay 
         jmp MoveLocationByOne
 
@@ -587,20 +587,30 @@
 
     PlayerAllowedMove:
 
-        lda $82
-        beq L_a4b4
-        jsr L_a435
+
+        lda ZP.CarriedCharID    
+        beq NotCarryingAnything
+
+        jsr MoveScreenPointerCarried
+
         jsr DeleteChar
+
         ldx $8c
-        lda $02c0,x
-        bne L_a4ac
-        sta $82
-        beq L_a4b4
-    L_a4ac:
-        ldx #$00
+
+        lda EnemyType,x
+        bne StillCarrying
+
+        sta ZP.CarriedCharID
+        beq NotCarryingAnything
+
+    StillCarrying:
+
+        ldx #PLAYER_ID
         jsr GetPositionDirection
         jsr L_a406
-    L_a4b4:
+
+    NotCarryingAnything:
+
         lda $18
         bne L_a4be
         jsr L_a5db
@@ -624,7 +634,7 @@
         txa 
         asl 
         sta $04
-        ldy $82
+        ldy ZP.CarriedCharID
         bne L_a4db
         sta Direction
     L_a4db:
@@ -640,15 +650,21 @@
         jsr ClearFromMiniMap
         ldx #$00
         jsr SavePositionDirection
-        lda $82
-        beq L_a505
-        jsr L_a435
-        ldx $8c
+
+        lda ZP.CarriedCharID
+        beq NotCarrying2
+
+        jsr MoveScreenPointerCarried
+
+        ldx ZP.CarriedID
+
         jsr L_a3ff
         jsr SavePositionDirection
-        lda $82
+        lda ZP.CarriedCharID
         jsr DrawChar
-    L_a505:
+
+    NotCarrying2:
+
         lda $18
         beq L_a512
         jsr CheckFireButton
@@ -743,15 +759,18 @@
         beq L_a5cc
         cmp #$2b
         beq L_a5cc
-        ldy $82
+        ldy ZP.CarriedCharID
         bne L_a5cc
-        sta $82
+
+        sta ZP.CarriedCharID
+
         lda #$02
         sta $89
         lda #$80
         sta $8a
         ldx #$0d
     L_a5b4:
+
         lda Direction,x
         bmi L_a5c7
         lda TileX,x
@@ -769,7 +788,8 @@
         sec 
         jmp GetPositionDirection
     L_a5d2:
-        stx $8c
+    
+        stx $8C
 
         lda #ENEMY_MINI_MAP
         jsr DrawIntoMiniMap

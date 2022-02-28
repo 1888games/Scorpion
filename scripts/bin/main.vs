@@ -31,7 +31,6 @@ al C:aead .L_aead
 al C:a6f1 .L_a6f1
 al C:b064 .L_b064
 al C:b374 .CheckY
-al C:a4b4 .L_a4b4
 al C:b7e5 .L_b7e4
 al C:b9bb .HighScoreLoop
 al C:13 .RIGHT_ARROW_CHAR
@@ -41,6 +40,7 @@ al C:a19e .L_a19e
 al C:1cf8 .STALKER_START
 al C:b055 .L_b055
 al C:b58f .SkipBlank
+al C:a4ac .StillCarrying
 al C:b299 .L_b299
 al C:a4c3 .L_a4c3
 al C:b920 .DecreaseVolume
@@ -53,7 +53,6 @@ al C:900f .COLOUR_REG
 al C:ba5f .L_ba5f
 al C:b512 .ResetLoop
 al C:a6ef .L_a6ef
-al C:a4ac .L_a4ac
 al C:a4d0 .L_a4d0
 al C:b48b .MoveToNextData
 al C:aed7 .L_aed7
@@ -135,6 +134,7 @@ al C:8 .NumberLives
 al C:12 .LEFT_ARROW_CHAR
 al C:b9ca .DifficultyText
 al C:a369 .L_a369
+al C:82 .CarriedCharID
 al C:a36b .L_a36b
 al C:a382 .L_a382
 al C:0 .BLANK_CHAR
@@ -206,7 +206,6 @@ al C:b9b1 .LevelExit
 al C:a982 .L_a982
 al C:b4ed .DelayByA
 al C:b4e7 .CheckFireButton
-al C:a505 .L_a505
 al C:a746 .L_a746
 al C:b613 .SkipChar
 al C:14 .TempY
@@ -380,6 +379,7 @@ al C:ac05 .ResetWaitingSound
 al C:a979 .L_a979
 al C:b4de .ProcessRead
 al C:afab .L_afab
+al C:a505 .NotCarrying2
 al C:a5b4 .L_a5b4
 al C:a7f6 .L_a7f6
 al C:2 .HOME_TILE
@@ -390,6 +390,7 @@ al C:b397 .L_b397
 al C:b998 .DrawWaveNumberTop
 al C:a434 .QuitOut
 al C:b0 .Table_B0
+al C:8c .CarriedID
 al C:a5c7 .L_a5c7
 al C:a7ea .L_a7ea
 al C:afc8 .L_afc8
@@ -579,6 +580,7 @@ al C:b96e .CheckLevelChange
 al C:b4ab .GetScreen_Col2_Row3
 al C:1618 .MAP_HOME_POSITION
 al C:b455 .ReturnNumber
+al C:2c0 .EnemyType
 al C:a2 .LevelDataPointer_MSB
 al C:b71a .L_b71a
 al C:a00c .Entry2
@@ -644,7 +646,6 @@ al C:1c08 .DEAD_START
 al C:b127 .DoneALine
 al C:96c2 .AIR_INDICATOR_COLOUR_POS
 al C:ae2a .L_ae2a
-al C:a435 .L_a435
 al C:b1f0 .SelectCharLoop
 al C:a67d .L_a67d
 al C:ac17 .L_ac17
@@ -691,6 +692,7 @@ al C:a0a9 .L_a0a9
 al C:1b .Wave
 al C:ace9 .L_ace9
 al C:a2cc .L_a2cc
+al C:a435 .MoveScreenPointerCarried
 al C:1a .Level
 al C:1c90 .CHAR_EDIT_ADDRESS
 al C:b3bc .L_b3bc
@@ -751,6 +753,7 @@ al C:b652 .Row_4_50
 al C:4 .PURPLE_BORDER
 al C:a832 .L_a832
 al C:1000 .MAP_DATA
+al C:a4b4 .NotCarryingAnything
 al C:b6e9 .FirePressed
 al C:aaea .L_aaea
 al C:4 .X_RIGHT_Y_DOWN
