@@ -1,0 +1,13 @@
+parsing
+flex pass 1
+flex pass 2
+Output pass
+Writing prg file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg
+
+Memory Map
+----------
+Default-segment:
+  $1000-$1ff9 Base Address
+
+Writing Vice symbol file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.vs
+Writing Symbol file: tfe.sym

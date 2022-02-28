@@ -23,7 +23,6 @@
         and #%00000011
         tax 
 
-   
         jsr SetupMap
         jsr SidePanel
         jsr ResetMoreVariables

@@ -1,0 +1,336 @@
+Opening monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.vs
+ 
+*** VICE Version 3.5 ***
+ 
+Welcome to xvic, the free portable VIC20 Emulator.
+ 
+Current VICE team members:
+Martin Pottendorfer, Marco van den Heuvel, Fabrizio Gennari, Groepaz, 
+Errol Smith, Ingo Korb, Olaf Seibert, Marcus Sutton, Kajtar Zsolt, AreaScout, 
+Bas Wassink, Michael C. Martin, Christopher Phillips, David Hogan, 
+Empathic Qubit, Roberto Muscedere.
+ 
+This is free software with ABSOLUTELY NO WARRANTY.
+See the "About VICE" command for more info.
+ 
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/chargen'.
+VIC20 kernal patched to 901486-07.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803'.
+Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/mps803.vpl'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10-cbm'.
+Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/nl10.vpl'.
+NL10: Printer driver initialized.
+Palette: Loading palette `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/PRINTER/1520.vpl'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1540'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1541'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/d1541II'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1570'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1571'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1581'.
+DriveROM: Error - 2000 ROM image not found. Hardware-level 2000 emulation is not available.
+DriveROM: Error - 4000 ROM image not found. Hardware-level 4000 emulation is not available.
+DriveROM: Error - CMDHD ROM image not found. Hardware-level CMDHD emulation is not available.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2031'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos2040'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos3040'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos4040'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos1001'.
+Loading system file `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/DRIVES/dos9000'.
+Drive: Finished loading ROM images.
+using GTK3 backend: OpenGL
+Created render thread 0
+Render thread initialised
+Sound: Available sound devices: coreaudio dummy fs dump wav voc iff aiff mp3 flac ogg soundmovie
+mac_joy: loaded HID device list with IOHIDManager. found 0 devices
+mac_joy: (auto) found 0 HID devices. HID A='' B=''
+mac_joy: (auto) done
+Keyboard: Loading keymap `/private/var/folders/k8/gx1v71zd18q9z93xl5mlt6h40000gn/T/AppTranslocation/171094BA-358D-4EFB-95A1-57CFD5DBE2EB/d/VICE.app/Contents/Resources/bin/../share/vice/VIC20/gtk3_sym.vkm'.
+Keyboard: Warning - gtk3_sym.vkm: !LCBM !VCBM !LCTRL !VCTRL !SHIFTL not defined.
+AUTOSTART: Autodetecting image type of `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 32.
+Filesystem Image: Unknown disk image `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg'.
+Tape: Error - Cannot open file `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg'
+AUTOSTART: Loading PRG file `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg' with direct RAM injection.
+AUTOSTART: Resetting the machine to autostart '*'
+AUTOSTART: Turning Warp mode on
+AUTOSTART: `/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.prg' recognized as program/p00 file.
+Main CPU: starting at ($FFFC).
+Main CPU: RESET.
+Unit 8: RESET.
+Monitor playback command: al C:10f7 .L_10f7
+Monitor playback command: al C:127d .L_127d
+Monitor playback command: al C:139e .L_139e
+Monitor playback command: al C:1609 .L_1609
+Monitor playback command: al C:16b0 .L_16b0
+Monitor playback command: al C:18f3 .L_18f3
+Monitor playback command: al C:16b5 .L_16b5
+Monitor playback command: al C:16b9 .L_16b9
+Monitor playback command: al C:17d7 .L_17d7
+Monitor playback command: al C:18f9 .L_18f9
+Monitor playback command: al C:1297 .L_1297
+Monitor playback command: al C:1056 .L_1056
+Monitor playback command: al C:1611 .L_1611
+Monitor playback command: al C:16ae .L_16ae
+Monitor playback command: al C:1857 .L_1857
+Monitor playback command: al C:1616 .L_1616
+Monitor playback command: al C:1979 .L_1979
+Monitor playback command: al C:17e1 .L_17e1
+Monitor playback command: al C:196e .L_196e
+Monitor playback command: al C:1062 .L_1062
+Monitor playback command: al C:10fd .L_10fd
+Monitor playback command: al C:1620 .L_1620
+Monitor playback command: al C:1862 .L_1862
+Monitor playback command: al C:1984 .L_1984
+Monitor playback command: al C:18ff .L_18ff
+Monitor playback command: al C:1502 .L_1502
+Monitor playback command: al C:1868 .L_1868
+Monitor playback command: al C:16d2 .L_16d2
+Monitor playback command: al C:173a .L_173a
+Monitor playback command: al C:17f4 .L_17f4
+Monitor playback command: al C:16d6 .L_16d6
+Monitor playback command: al C:15b3 .L_15b3
+Monitor playback command: al C:17f5 .L_17f5
+Monitor playback command: al C:15b4 .L_15b4
+Monitor playback command: al C:161f .L_161f
+Monitor playback command: al C:1075 .L_1075
+Monitor playback command: al C:1631 .L_1631
+Monitor playback command: al C:1873 .L_1873
+Monitor playback command: al C:1994 .L_1994
+Monitor playback command: al C:16cb .L_16cb
+Monitor playback command: al C:17ea .L_17ea
+Monitor playback command: al C:1636 .L_1636
+Monitor playback command: al C:1757 .L_1757
+Monitor playback command: al C:15ab .L_15ab
+Monitor playback command: al C:16cd .L_16cd
+Monitor playback command: al C:106c .L_106c
+Monitor playback command: al C:118e .L_118e
+Monitor playback command: al C:174f .L_174f
+Monitor playback command: al C:1e04 .L_1e04
+Monitor playback command: al C:162b .L_162b
+Monitor playback command: al C:15ba .L_15ba
+Monitor playback command: al C:17fd .L_17fd
+Monitor playback command: al C:1761 .L_1761
+Monitor playback command: al C:1520 .L_1520
+Monitor playback command: al C:1526 .L_1526
+Monitor playback command: al C:1766 .L_1766
+Monitor playback command: al C:17ff .L_17ff
+Monitor playback command: al C:1887 .L_1887
+Monitor playback command: al C:107c .L_107c
+Monitor playback command: al C:1406 .L_1406
+Monitor playback command: al C:14b6 .L_14b6
+Monitor playback command: al C:16f8 .L_16f8
+Monitor playback command: al C:175f .L_175f
+Monitor playback command: al C:16f6 .L_16f6
+Monitor playback command: al C:14b5 .L_14b5
+Monitor playback command: al C:1096 .L_1096
+Monitor playback command: al C:1a8d .L_1a8d
+Monitor playback command: al C:151f .L_151f
+Monitor playback command: al C:1e16 .L_1e16
+Monitor playback command: al C:1a8b .L_1a8b
+Monitor playback command: al C:1774 .L_1774
+Monitor playback command: al C:1895 .L_1895
+Monitor playback command: al C:15cf .L_15cf
+Monitor playback command: al C:1655 .L_1655
+Monitor playback command: al C:1897 .L_1897
+Monitor playback command: al C:108e .L_108e
+Monitor playback command: al C:1538 .L_1538
+Monitor playback command: al C:13a3 .L_13a3
+Monitor playback command: al C:176a .L_176a
+Monitor playback command: al C:164a .L_164a
+Monitor playback command: al C:15e8 .L_15e8
+Monitor playback command: al C:13a4 .L_13a4
+Monitor playback command: al C:188f .L_188f
+Monitor playback command: al C:140c .L_140c
+Monitor playback command: al C:1301 .L_1301
+Monitor playback command: al C:1422 .L_1422
+Monitor playback command: al C:1664 .L_1664
+Monitor playback command: al C:16fd .L_16fd
+Monitor playback command: al C:109e .L_109e
+Monitor playback command: al C:165d .L_165d
+Monitor playback command: al C:177e .L_177e
+Monitor playback command: al C:1e30 .L_1e30
+Monitor playback command: al C:15f4 .L_15f4
+Monitor playback command: al C:1d16 .L_1d16
+Monitor playback command: al C:141c .L_141c
+Monitor playback command: al C:1e39 .L_1e39
+Monitor playback command: al C:1434 .L_1434
+Monitor playback command: al C:14cd .L_14cd
+Monitor playback command: al C:15ee .L_15ee
+Monitor playback command: al C:14ca .L_14ca
+Monitor playback command: al C:1795 .L_1795
+Monitor playback command: al C:1679 .L_1679
+Monitor playback command: al C:1e2e .L_1e2e
+Monitor playback command: al C:14e1 .L_14e1
+Monitor playback command: al C:12a0 .L_12a0
+Monitor playback command: al C:178b .L_178b
+Monitor playback command: al C:14e6 .L_14e6
+Monitor playback command: al C:13c2 .L_13c2
+Monitor playback command: al C:166b .L_166b
+Monitor playback command: al C:13c6 .L_13c6
+Monitor playback command: al C:142d .L_142d
+Monitor playback command: al C:166f .L_166f
+Monitor playback command: al C:12a9 .L_12a9
+Monitor playback command: al C:1444 .L_1444
+Monitor playback command: al C:1686 .L_1686
+Monitor playback command: al C:1e3b .L_1e3b
+Monitor playback command: al C:1566 .L_1566
+Monitor playback command: al C:13bb .L_13bb
+Monitor playback command: al C:1206 .L_1206
+Monitor playback command: al C:1448 .L_1448
+Monitor playback command: al C:179b .L_179b
+Monitor playback command: al C:13d0 .L_13d0
+Monitor playback command: al C:400 .SCREEN_BUFFER_0
+Monitor playback command: al C:12b5 .L_12b5
+Monitor playback command: al C:143a .L_143a
+Monitor playback command: al C:167d .L_167d
+Monitor playback command: al C:12b7 .L_12b7
+Monitor playback command: al C:143f .L_143f
+Monitor playback command: al C:1690 .L_1690
+Monitor playback command: al C:1c18 .L_1c18
+Monitor playback command: al C:14eb .L_14eb
+Monitor playback command: al C:1692 .L_1692
+Monitor playback command: al C:1697 .L_1697
+Monitor playback command: al C:13ce .L_13ce
+Monitor playback command: al C:12aa .L_12aa
+Monitor playback command: al C:1574 .L_1574
+Monitor playback command: al C:1217 .L_1217
+Monitor playback command: al C:1219 .L_1219
+Monitor playback command: al C:13e1 .L_13e1
+Monitor playback command: al C:12c6 .L_12c6
+Monitor playback command: al C:1b00 .L_1b00
+Monitor playback command: al C:132e .L_132e
+Monitor playback command: al C:19a5 .L_19a5
+Monitor playback command: al C:1220 .L_1220
+Monitor playback command: al C:19a8 .L_19a8
+Monitor playback command: al C:1100 .L_1100
+Monitor playback command: al C:1229 .L_1229
+Monitor playback command: al C:1347 .L_1347
+Monitor playback command: al C:1903 .L_1903
+Monitor playback command: al C:11b2 .L_11b2
+Monitor playback command: al C:133a .L_133a
+Monitor playback command: al C:13f1 .L_13f1
+Monitor playback command: al C:11b0 .L_11b0
+Monitor playback command: al C:12d1 .L_12d1
+Monitor playback command: al C:169b .L_169b
+Monitor playback command: al C:1e71 .L_1e71
+Monitor playback command: al C:169e .L_169e
+Monitor playback command: al C:12d9 .L_12d9
+Monitor playback command: al C:1470 .L_1470
+Monitor playback command: al C:1595 .L_1595
+Monitor playback command: al C:12cf .L_12cf
+Monitor playback command: al C:1e6f .L_1e6f
+Monitor playback command: al C:1596 .L_1596
+Monitor playback command: al C:1116 .L_1116
+Monitor playback command: al C:1358 .L_1358
+Monitor playback command: al C:1dfb .L_1dfb
+Monitor playback command: al C:1919 .L_1919
+Monitor playback command: al C:1916 .L_1916
+Monitor playback command: al C:158b .L_158b
+Monitor playback command: al C:12e8 .L_12e8
+Monitor playback command: al C:10a3 .L_10a3
+Monitor playback command: al C:18a5 .L_18a5
+Monitor playback command: al C:190d .L_190d
+Monitor playback command: al C:1000 .L_1000
+Monitor playback command: al C:18a9 .L_18a9
+Monitor playback command: al C:13fa .L_13fa
+Monitor playback command: al C:1120 .L_1120
+Monitor playback command: al C:1367 .L_1367
+Monitor playback command: al C:12dd .L_12dd
+Monitor playback command: al C:1487 .L_1487
+Monitor playback command: al C:1006 .L_1006
+Monitor playback command: al C:1804 .L_1804
+Monitor playback command: al C:1808 .L_1808
+Monitor playback command: al C:10b0 .L_10b0
+Monitor playback command: al C:12f2 .L_12f2
+Monitor playback command: al C:147b .L_147b
+Monitor playback command: al C:10b7 .L_10b7
+Monitor playback command: al C:1d78 .L_1d78
+Monitor playback command: al C:123c .L_123c
+Monitor playback command: al C:12f6 .L_12f6
+Monitor playback command: al C:123d .L_123d
+Monitor playback command: al C:18b1 .L_18b1
+Monitor playback command: al C:1491 .L_1491
+Monitor playback command: al C:1492 .L_1492
+Monitor playback command: al C:19d8 .L_19d8
+Monitor playback command: al C:1251 .L_1251
+Monitor playback command: al C:12ea .L_12ea
+Monitor playback command: al C:1372 .L_1372
+Monitor playback command: al C:18b9 .L_18b9
+Monitor playback command: al C:1136 .L_1136
+Monitor playback command: al C:11ce .L_11ce
+Monitor playback command: al C:1256 .L_1256
+Monitor playback command: al C:1812 .L_1812
+Monitor playback command: al C:1018 .L_1018
+Monitor playback command: al C:1d80 .L_1d80
+Monitor playback command: al C:11e4 .L_11e4
+Monitor playback command: al C:112b .L_112b
+Monitor playback command: al C:10c1 .L_10c1
+Monitor playback command: al C:11e2 .L_11e2
+Monitor playback command: al C:1d88 .L_1d88
+Monitor playback command: al C:17a6 .L_17a6
+Monitor playback command: al C:18c8 .L_18c8
+Monitor playback command: al C:1386 .L_1386
+Monitor playback command: al C:10bf .L_10bf
+Monitor playback command: al C:11de .L_11de
+Monitor playback command: al C:1267 .L_1267
+Monitor playback command: al C:1701 .L_1701
+Monitor playback command: al C:19dc .L_19dc
+Monitor playback command: al C:1944 .L_1944
+Monitor playback command: al C:18ba .L_18ba
+Monitor playback command: al C:1942 .L_1942
+Monitor playback command: al C:1d91 .L_1d91
+Monitor playback command: al C:137a .L_137a
+Monitor playback command: al C:125c .L_125c
+Monitor playback command: al C:181e .L_181e
+Monitor playback command: al C:18d6 .L_18d6
+Monitor playback command: al C:18d7 .L_18d7
+Monitor playback command: al C:19f8 .L_19f8
+Monitor playback command: al C:1397 .L_1397
+Monitor playback command: al C:1710 .L_1710
+Monitor playback command: al C:1716 .L_1716
+Monitor playback command: al C:18cf .L_18cf
+Monitor playback command: al C:1957 .L_1957
+Monitor playback command: al C:18e5 .L_18e5
+Monitor playback command: al C:1282 .L_1282
+Monitor playback command: al C:17c8 .L_17c8
+Monitor playback command: al C:194f .L_194f
+Monitor playback command: al C:11fe .L_11fe
+Monitor playback command: al C:11fc .L_11fc
+Monitor playback command: al C:1284 .L_1284
+Monitor playback command: al C:1043 .L_1043
+Monitor playback command: al C:1049 .L_1049
+Monitor playback command: al C:17bd .L_17bd
+Monitor playback command: al C:19ff .L_19ff
+Monitor playback command: al C:1728 .L_1728
+Closed monitor command playback file: /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/other/bin/tfe.vs
+sound (coreaudio_init): Found audio device with no outputs: Built-in Microphone
+sound (coreaudio_init): Found output audio device: Built-in Output (Default)
+sound (coreaudio_init): Found output audio device: DisplayPort
+sound (coreaudio_init): Found output audio device: Record It Audio Device
+sound (coreaudio_init): Found output audio device: AirBeamTV Audio
+sound (coreaudio_init): Using output audio device: Built-in Output
+sound (coreaudio_init): audio frame buffer size in samples min: 14.000000 max: 4096.000000 fragment size: 128, chosen: 128
+sound (coreaudio_start): Started
+Sound: Opened device `coreaudio', speed 44100Hz, fragment size 2.90ms, buffer size 26.12ms
+Copybuffer increase to 256 bytes
+reSID: MOS6581, filter on, sampling rate 44100Hz - resampling, pass to 19845Hz
+Unit 8: RESET.
+AUTOSTART: Injecting program data at $1000 (size $0ffa)
+AUTOSTART: Ready
+AUTOSTART: Turning Warp mode off
+AUTOSTART: Starting program.
+AUTOSTART: Restoring FileSystemDevice8 to 1.
+AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Done.
+Initiating render thread 0 shutdown
+Joining render thread 0 ...
+Render thread shutdown
+Joined render thread 0.
+VICE thread initiating shutdown
+VICE thread is exiting
+VICE thread has been joined.
+Writing configuration file `/Users/nick/.config/vice/vicerc'.
+Sound: Closing device `coreaudio'
+AudioComponentInstanceDispose
