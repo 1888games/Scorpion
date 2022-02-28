@@ -1,1 +1,1 @@
-WIP Disassembly of the VIC 20 game Scorpion
+WIP Reverse Engineered source code of the VIC 20 game Scorpion
