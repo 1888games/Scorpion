@@ -131,16 +131,6 @@
         and #%00100000
         rts 
 
-    DelayByA:
-        sec 
-    DelayLoop1:
-        pha 
-    DelayLoop2:
-        sbc #1
-        bne DelayLoop2
-        pla 
-        sbc #1
-        bne DelayLoop1
-        rts 
+
 
   }

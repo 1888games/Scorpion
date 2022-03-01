@@ -19,6 +19,7 @@
 
     L_a0a9:
 
+        .break
         lda ZP.Level
         and #%00000011
         tax 
@@ -73,8 +74,10 @@
         lda $19
         bne GameLoop
 
+        .break
 
         jsr $ae81
+        .break
         bcs L_a0a9
 
 
@@ -1681,7 +1684,9 @@
         lda ZP.PlayerWaitingFire
         ora #%10000000
         sta SOUND_CHANNEL_3
-        sta SOUND_CHANNEL_4
+        sta SOUND_CHANNEL_2
+
+        * = * "Sss"
 
         lda #10
         sta SOUND_VOLUME_AUX_COLOR
@@ -2015,18 +2020,25 @@
 
     L_ae78:
         .byte $33,$80
-        .byte $40,$20,$10,$08,$04,$02,$01,$20,$ef,$a3,$20,$30,$a8,$20,$ff,$af
+
+        .byte $40
+
+        .byte $20,$10,$08,$04,$02,$01,$20,$ef,$a3,$20,$30,$a8,$20,$ff,$af
         .byte $20,$8b,$b1,$20,$3e,$a5,$a9,$70,$20,$04,$b5,$20,$4a,$ac,$a5,$ce
         .byte $f0,$11,$a9,$e8,$8d,$0c,$90,$a0,$05,$20,$7b,$b2,$a9,$70,$20,$04
         .byte $b5,$f0,$d4
 
     L_aead:
+        
+        .break
         jsr L_ac4a
+        .break
         jsr ClearMainWindow
         ldy #$00
         jsr PlaceMiniMapChars
         jsr Reset32BytesTo1
-        lda #$3c
+
+        lda #$3c7
         sta $02
         lda #$28
         sta $03
@@ -2846,6 +2858,7 @@
       * = * "Chars"
     CART_CHARSET:
     .import binary "../assets/chars1.bin" 
+
     #import "data/level_data.asm" 
     #import "data/char_data.asm" 
  

@@ -1,0 +1,19 @@
+parsing
+Got 17 errors while executing:
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/anim.asm 38:13) Unknown symbol 'ZP'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/anim.asm 41:13) Unknown symbol 'ZP'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/anim.asm 50:13) Unknown symbol 'VENUS_START'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/anim.asm 51:13) Unknown symbol 'VENUS_START'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/system/anim.asm 54:13) Unknown symbol 'STALKER_START'
+  ...
+
+         
+    GameAnimateChars: 
+
+        dec ZP.GameAnimateTimer 
+            ^
+
+Error: Unknown symbol 'ZP'
+at line 38, column 13 in anim.asm
+
+

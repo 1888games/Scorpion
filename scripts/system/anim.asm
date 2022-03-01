@@ -31,6 +31,7 @@
          .byte $07,$0f,$17,$0f
 
 
+    * = * "sjsj"
          
     GameAnimateChars: 
 

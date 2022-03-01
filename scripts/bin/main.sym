@@ -434,7 +434,7 @@
   .label LevelLayout_3=$bd80
   .label LevelLayout_4=$be40
   .label LevelLayout_1=$bc00
-  .label LevelLayout_2=$bcc0
+  .label LevelLayout_2=$bcbf
   .label L_b7a6=$b7a6
   .label L_b24d=$b24d
   .label L_aa56=$aa56
@@ -462,8 +462,8 @@
   .label FoundFreeItem=$a93d
   .label L_b7b1=$b7b1
   .label LOGO_START_COL=$4
-  .label DelayLoop1=$b4ee
-  .label DelayLoop2=$b4ef
+  .label DelayLoop1=$b505
+  .label DelayLoop2=$b506
   .label L_a179=$a179
   .label L_sb4c6=$b4c6
   .label DrawLine=$b10d
@@ -478,7 +478,7 @@
   .label L_a982=$a982
   .label CheckLevelChange=$b96e
   .label GetScreen_Col2_Row3=$b4ab
-  .label DelayByA=$b4ed
+  .label DelayByA=$b504
   .label ReturnNumber=$b455
   .label CheckFireButton=$b4e7
   .label L_a746=$a746
@@ -509,7 +509,7 @@
   .label CART_CHARSET_2=$bf80
   .label L_a406=$a406
   .label CharByteLoop=$b1d8
-  .label ZP_Defaults=$b4f9
+  .label ZP_Defaults=$b4ed
   .label CharLoop=$b6ec
   .label L_a887=$a887
   .label ReadRight=$b4d7

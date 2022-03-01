@@ -1,6 +1,8 @@
 .namespace GAME {
 
 	* = * "Initialise"
+
+
 	
 	ZP_Defaults:
         .byte $a1,$45,$f7
@@ -11,6 +13,20 @@
         .byte $30,$30,$20,$20
 
        .text  @"arl"
+
+    
+
+    DelayByA:
+        sec 
+    DelayLoop1:
+        pha 
+    DelayLoop2:
+        sbc #1
+        bne DelayLoop2
+        pla 
+        sbc #1
+        bne DelayLoop1
+        rts 
 
     InitialiseRegistersLookups: 
 

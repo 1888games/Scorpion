@@ -29,9 +29,9 @@
         lda #>IRQ
         sta IRQ_VECTOR_MSB
 
-        lda Timer_LSB
+        lda #Timer_LSB
         sta TIMER_1_LSB
-        lda Timer_MSB
+        lda #Timer_MSB
         sta TIMER_1_MSB
 
         lda #RASTER_SPLIT_1

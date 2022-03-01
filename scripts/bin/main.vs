@@ -168,7 +168,7 @@ al C:b7a1 .L_b7a1
 al C:bd80 .LevelLayout_3
 al C:be40 .LevelLayout_4
 al C:bc00 .LevelLayout_1
-al C:bcc0 .LevelLayout_2
+al C:bcbf .LevelLayout_2
 al C:b7a6 .L_b7a6
 al C:b24d .L_b24d
 al C:a8f5 .L_a8f5
@@ -186,8 +186,8 @@ al C:b7b5 .L_b7b5
 al C:b635 .Row2_400_
 al C:a6c7 .L_a6c7
 al C:b7b1 .L_b7b1
-al C:b4ee .DelayLoop1
-al C:b4ef .DelayLoop2
+al C:b505 .DelayLoop1
+al C:b506 .DelayLoop2
 al C:a179 .L_a179
 al C:b4c6 .L_sb4c6
 al C:b10d .DrawLine
@@ -204,7 +204,7 @@ al C:9126 .TIMER_1_LSB
 al C:1fd1 .DIFFICULTY_POSITION
 al C:b9b1 .LevelExit
 al C:a982 .L_a982
-al C:b4ed .DelayByA
+al C:b504 .DelayByA
 al C:b4e7 .CheckFireButton
 al C:a746 .L_a746
 al C:b613 .SkipChar
@@ -604,7 +604,7 @@ al C:38 .ParticleX
 al C:21 .SOLID_CHAR
 al C:a406 .L_a406
 al C:b1d8 .CharByteLoop
-al C:b4f9 .ZP_Defaults
+al C:b4ed .ZP_Defaults
 al C:b6ec .CharLoop
 al C:a887 .L_a887
 al C:4 .PLAYER_FACING_UP
@@ -779,3 +779,8 @@ al C:b688 .Row_3_3200
 al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
+break a0a9 
+break a10a 
+break a10d 
+break aead 
+break aeb0 
