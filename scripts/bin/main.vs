@@ -42,7 +42,6 @@ al C:b055 .L_b055
 al C:b58f .SkipBlank
 al C:a4ac .StillCarrying
 al C:b299 .L_b299
-al C:a4c3 .L_a4c3
 al C:b920 .DecreaseVolume
 al C:b4ce .ReadOtherDirections
 al C:a12b .Reset32BytesTo1
@@ -53,17 +52,14 @@ al C:900f .COLOUR_REG
 al C:ba5f .L_ba5f
 al C:b512 .ResetLoop
 al C:a6ef .L_a6ef
-al C:a4d0 .L_a4d0
 al C:b48b .MoveToNextData
 al C:aed7 .L_aed7
 al C:b36d .DecX
 al C:b383 .DecY
 al C:c .JoystickReadings
-al C:a4be .L_a4be
 al C:b493 .PositiveIsChar
 al C:9000 .HORIZONTAL_START_LOCATION
 al C:aedc .L_aedc
-al C:a4cd .L_a4cd
 al C:bf70 .CharEorTable
 al C:0 .ENEMY_MINI_MAP
 al C:a13e .LivesLoop
@@ -77,10 +73,9 @@ al C:acaa .L_acaa
 al C:b3a2 .L_b3a2
 al C:acab .L_acab
 al C:b432 .WaitRaster128
-al C:a4de .L_a4de
+al C:80 .EggBonusLookup
 al C:b07f .SetupMap
 al C:b911 .PulseSound
-al C:a4db .L_a4db
 al C:16 .COLUMNS
 al C:af73 .DrawPixel
 al C:b712 .DrawTitleChars_Jmp
@@ -98,6 +93,7 @@ al C:50 .Timer1__0
 al C:b6cc .Timer1__1
 al C:53 .Timer4
 al C:52 .Timer3
+al C:6 .DIGITS_IN_SCORE
 al C:b80b .MoveOver3Pixels
 al C:6 .RANDOM_0_127
 al C:13 .X_Reg
@@ -122,6 +118,7 @@ al C:a8a0 .L_a8a0
 al C:a355 .L_a355
 al C:30 .CYAN_BG
 al C:9120 .PORT_B_OUTPUT
+al C:a4de .SkipControls
 al C:b996 .StoreExit
 al C:90 .LIGHT_ORANGE_BG
 al C:a359 .L_a359
@@ -184,11 +181,11 @@ al C:b476 .MoveToData
 al C:a6c1 .L_a6c1
 al C:b7b5 .L_b7b5
 al C:b635 .Row2_400_
+al C:a412 .PlayerAtHome
 al C:a6c7 .L_a6c7
 al C:b7b1 .L_b7b1
 al C:b505 .DelayLoop1
 al C:b506 .DelayLoop2
-al C:a179 .L_a179
 al C:b4c6 .L_sb4c6
 al C:b10d .DrawLine
 al C:70 .YELLOW_BG
@@ -206,6 +203,7 @@ al C:b9b1 .LevelExit
 al C:a982 .L_a982
 al C:b504 .DelayByA
 al C:b4e7 .CheckFireButton
+al C:a5db .HandleDemoMode
 al C:a746 .L_a746
 al C:b613 .SkipChar
 al C:14 .TempY
@@ -214,34 +212,33 @@ al C:12 .ColourTemp
 al C:1dc0 .CHAR_RAM_SCORPION_LOGO_END
 al C:af0b .L_af0b
 al C:1d80 .CHAR_RAM_SCORPION_LOGO
-al C:a519 .L_a519
 al C:b111 .DrawChar2
 al C:a759 .L_a759
 al C:57 .GameAnimateTimer
 al C:baf9 .L_baf9
 al C:b525 .SetupScreenLookup
-al C:a512 .L_a512
 al C:a75a .L_a75a
 al C:a99a .L_a99a
 al C:2 .Y_UP_ONLY
 al C:a16a .SkipPage2
-al C:a520 .L_a520
 al C:af1c .L_af1c
 al C:bf80 .CART_CHARSET_2
 al C:9122 .DATA_DIRECTION_REG_B
 al C:4 .PLAYER_MINI_MAP
 al C:b4d7 .ReadRight
-al C:a52b .L_a52b
+al C:a4f5 .DrawThingCarrying
 al C:a76c .L_a76c
 al C:ad04 .L_ad04
 al C:a122 .GameOver
 al C:b8b6 .F3Pressed
 al C:69 .AnimCounter
 al C:b0af .IsEmptyTile
+al C:2f .FIRST_EGG_BONUS_ID
 al C:b147 .ScorpionEorTable
 al C:9 .PlayerDeathProgress
 al C:a536 .L_a536
 al C:b258 .MapDrawLoop
+al C:8 .BULLET_TILE
 al C:a77c .L_a77c
 al C:b8a2 .LogoCharLoop
 al C:a53e .L_a53e
@@ -296,12 +293,14 @@ al C:a0d3 .PlayerCanMove
 al C:b2a8 .L_b2a8
 al C:a1b2 .L_a1b2
 al C:a1b0 .L_a1b0
+al C:a426 .IsFrog
 al C:a11c .NoDeleteLifeIcon
 al C:a493 .PlayerNotDead
 al C:abab .L_abab
 al C:b2a3 .L_b2a3
 al C:b334 .ConvertTileToScreen
 al C:3 .PLAYER_FACING_LEFT
+al C:a179 .UpdateEggBonus
 al C:b18b .AnimateChars
 al C:abb5 .L_abb5
 al C:b0cd .LevelDataPointers_LSB
@@ -320,11 +319,11 @@ al C:b2c0 .L_b2c0
 al C:b4a8 .NoWrap2
 al C:b481 .NoWrap1
 al C:a10f .LoseLife
-al C:a3ff .L_a3ff
 al C:1d28 .VENUS_START
 al C:a90e .L_a90e
 al C:a921 .L_a921
 al C:abd7 .L_abd7
+al C:ada0 .DeleteEnemy
 al C:a92f .L_a92f
 al C:a .ColourAddress
 al C:a92b .L_a92b
@@ -366,6 +365,7 @@ al C:ba0a .IconXTable
 al C:50 .PlayerDisplayTimer
 al C:1 .X_LEFT_Y_UP
 al C:900e .SOUND_VOLUME_AUX_COLOR
+al C:a519 .NotWaiting
 al C:a71b .L_a71b
 al C:b67e .Row_7_Life
 al C:a1 .LevelDataPointer
@@ -424,7 +424,6 @@ al C:ada6 .L_ada6
 al C:7 .X_LEFT_Y_DOWN
 al C:aa8e .L_aa8e
 al C:9111 .PORT_A_OUTPUT
-al C:ada0 .L_ada0
 al C:afe4 .L_afe4
 al C:adaf .L_adaf
 al C:b0a1 .ProcessByte
@@ -432,7 +431,6 @@ al C:b35a .MoveLocationByOne
 al C:a159 .ClearDataLoop
 al C:afea .L_afea
 al C:adb5 .L_adb5
-al C:a5db .L_a5db
 al C:a144 .ResetScore
 al C:a5 .WaveDigit1
 al C:a6 .WaveDigit2
@@ -457,6 +455,7 @@ al C:add1 .L_add1
 al C:ad63 .SavePositionDirection
 al C:5d .WaitingSoundTimer
 al C:9004 .RASTER_Y
+al C:a4db .CarryingSomethingMoved
 al C:b0c9 .LevelDataPointers_MSB
 al C:900d .SOUND_CHANNEL_4
 al C:900c .SOUND_CHANNEL_3
@@ -465,6 +464,7 @@ al C:900a .SOUND_CHANNEL_1
 al C:adde .L_adde
 al C:7 .LOGO_X
 al C:1fc6 .WAVE_NUMBER_BOTTOM
+al C:23 .MAX_BULLET_ID
 al C:1e08 .SCORE_POSITION
 al C:ade1 .L_ade1
 al C:ae78 .L_ae78
@@ -487,6 +487,7 @@ al C:aa09 .L_aa09
 al C:a4 .MapDataPointer_MSB
 al C:a26d .GetRowScreenColourAddressX
 al C:3 .Address_MSB
+al C:4 .EGG_BONUS_DIGITS
 al C:aa00 .L_aa00
 al C:b79d .L_b79d
 al C:b694 .SpriteLoop
@@ -520,6 +521,7 @@ al C:a256 .L_a256
 al C:1c38 .BALL_CHAR_SOURCE
 al C:a135 .SetupScoreSidePanel
 al C:ac4a .L_ac4a
+al C:2b .EGG_CHAR
 al C:aa39 .L_aa39
 al C:b231 .ClearMainWindow
 al C:b5bc .DrawTitleChars
@@ -531,6 +533,7 @@ al C:a7b4 .L_a7b4
 al C:2 .RANDOM_0_7
 al C:a9f0 .L_a9f0
 al C:a9f1 .L_a9f1
+al C:a4cd .NotFired
 al C:b5eb .FromDragonFly
 al C:b183 .GameAnimateChars
 al C:ac5f .L_ac5f
@@ -570,9 +573,11 @@ al C:40 .MAP_ROWS
 al C:5c .CharAnimTimer
 al C:a93d .FoundFreeItem
 al C:4 .LOGO_START_COL
+al C:a4be .IsNotDemoMode
 al C:aa4b .L_aa4b
 al C:a7cf .L_a7cf
 al C:bb00 .CART_CHARSET
+al C:4 .START_EGGS
 al C:a61e .L_a61e
 al C:1d .JOY_HAND_SWITCH
 al C:40 .PURPLE_BG
@@ -581,6 +586,7 @@ al C:b4ab .GetScreen_Col2_Row3
 al C:1618 .MAP_HOME_POSITION
 al C:b455 .ReturnNumber
 al C:2c0 .EnemyType
+al C:41 .MAX_EGG_BONUS_ID
 al C:a2 .LevelDataPointer_MSB
 al C:b71a .L_b71a
 al C:a00c .Entry2
@@ -598,16 +604,16 @@ al C:9127 .TIMER_1_MSB
 al C:17 .SCREEN_ROWS
 al C:b4af .GetScreenAddressCol_A_Row_Y
 al C:40 .ParticleY
-al C:a401 .L_a401
 al C:a885 .L_a885
 al C:38 .ParticleX
+al C:1c .FireLastFrame
 al C:21 .SOLID_CHAR
-al C:a406 .L_a406
 al C:b1d8 .CharByteLoop
 al C:b4ed .ZP_Defaults
 al C:b6ec .CharLoop
 al C:a887 .L_a887
 al C:4 .PLAYER_FACING_UP
+al C:a41d .IsEgg
 al C:b8bf .NoF3
 al C:b734 .Clear96BytesLogo
 al C:ae0a .L_ae0a
@@ -619,6 +625,8 @@ al C:a015 .CopyLoop
 al C:1d30 .BALL_CHAR_USE
 al C:0 .DataAddress
 al C:1c00 .MAP_DATA_END
+al C:a52b .FireBullet
+al C:19 .EggsRemaining
 al C:a2b8 .SevenLoop
 al C:a89f .L_a89f
 al C:a65c .L_a65c
@@ -631,9 +639,11 @@ al C:b0ec .StillLayersToDraw
 al C:b98a .LevelDown
 al C:b750 .L_b750
 al C:4 .RANDOM_0_31
+al C:a401 .Eor_4
 al C:18 .PlayRealGame
 al C:a666 .L_a666
 al C:ae45 .L_ae45
+al C:a4d0 .JoystickDirection
 al C:a47a .VolumeAlreadyZero
 al C:1c10 .HOME_CHAR_USE
 al C:a175 .ResetEgg
@@ -649,7 +659,9 @@ al C:ae2a .L_ae2a
 al C:b1f0 .SelectCharLoop
 al C:a67d .L_a67d
 al C:ac17 .L_ac17
+al C:a406 .CheckEggDraggedHome
 al C:a43d .ProcessPlayer
+al C:20 .MIN_BULLET_ID
 al C:b76d .L_b76d
 al C:a687 .L_a687
 al C:a200 .L_a200
@@ -672,6 +684,8 @@ al C:a215 .L_a215
 al C:bf80 .CHAR_SET_P2
 al C:7 .YELLOW_BORDER
 al C:3 .X_RIGHT_Y_UP
+al C:a512 .IsDemoMode
+al C:3 .SCORPION_START_CHAR
 al C:80 .CHAR_TO_ROM_CHAR_MARK
 al C:accb .L_accb
 al C:bb00 .CHAR_SET_P1
@@ -703,6 +717,7 @@ al C:2c0 .TABLE_64_2C0
 al C:b5d4 .TronixPresents
 al C:3 .ScreenRow
 al C:a3f1 .SoundOffLoop
+al C:a4c3 .JoyDirectionLoop
 al C:acec .L_acec
 al C:b3e4 .L_b3e4
 al C:d .JOY_UP_NOW
@@ -720,6 +735,7 @@ al C:7 .LOGO_ROW_2
 al C:a80b .L_a80b
 al C:acfe .L_acfe
 al C:a2eb .L_a2eb
+al C:a520 .CheckBulletLoop
 al C:a815 .L_a815
 al C:aac1 .L_aac1
 al C:b3da .L_b3da
@@ -753,6 +769,7 @@ al C:b652 .Row_4_50
 al C:4 .PURPLE_BORDER
 al C:a832 .L_a832
 al C:1000 .MAP_DATA
+al C:a3ff .ReverseDirection
 al C:a4b4 .NotCarryingAnything
 al C:b6e9 .FirePressed
 al C:aaea .L_aaea
@@ -779,8 +796,5 @@ al C:b688 .Row_3_3200
 al C:a855 .L_a855
 al C:a612 .L_a612
 al C:a611 .L_a611
-break a0a9 
-break a10a 
-break a10d 
 break aead 
 break aeb0 

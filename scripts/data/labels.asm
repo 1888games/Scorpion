@@ -6,26 +6,22 @@ ZP: {
     .label DefaultColours = $CC
     .label Table_B0 = $B0
 
-    .label ScreenAddress = $00
-    .label ScreenAddress_MSB = $01
-    .label DataAddress = $00
-    .label Address = $02
-    .label Address_MSB = $03
-
-    .label ScreenCol = $02
-    .label ScreenRow = $03
-
-    .label TileX = $02
-    .label TileY = $03
-    .label Direction = $04
-    
+    .label ScreenAddress =      $00
+    .label ScreenAddress_MSB =  $01
+    .label DataAddress =        $00
+    .label Address =            $02
+    .label Address_MSB =        $03
+    .label ScreenCol =          $02
+    .label ScreenRow =          $03
+    .label TileX =              $02
+    .label TileY =              $03
+    .label Direction =          $04
 
     .label SoundEffectToggle = $05
-    .label TempData = $05
+    .label TempData =           $05
     .label NumChars = $05
     .label ObjectType = $06
     .label ScorpionLogoFlag = $07
-
     .label NumberLives = $08
 
 
@@ -50,10 +46,12 @@ ZP: {
 
     .label Level = $1A
     .label Wave = $1B
+    .label FireLastFrame = $1C
     .label JOY_HAND_SWITCH = $1D
     .label Score = $1e
 
     .label PlayRealGame = $18
+    .label EggsRemaining = $19
 
     .label HighScoreString = $bc
 
@@ -72,6 +70,8 @@ ZP: {
     .label Timer3 = $52
     .label Timer4 = $53
     .label Timer5 = $68
+
+    .label EggBonusLookup = $80
 
 
     .label PlayerDisplayTimer = $50
@@ -110,10 +110,16 @@ ZP: {
 
     .label PlayerWaitingFire = $CD
 
-}
 
+
+}
+    
+.label START_EGGS = 4
 .label DEATH_ANIMATION_TIME = 40
 .label DEATH_PARTICLE_TIME = 16
+
+.label MAX_BULLET_ID = 35
+.label MIN_BULLET_ID = 32
 
 
 .label PLAYER_UPDATE_TIME = 16
@@ -122,6 +128,12 @@ ZP: {
 .label CHAR_TO_ROM_CHAR_MARK = $80
 .label CHAR_SET_P1 = $BB00
 .label CHAR_SET_P2 = $BF80
+
+.label FIRST_EGG_BONUS_ID = 47
+.label MAX_EGG_BONUS_ID = 65
+.label DIGITS_IN_SCORE = 6
+.label EGG_BONUS_DIGITS = 4
+
 
 .label IRQ_VECTOR_MSB = $315
 .label IRQ_VECTOR_LSB = $314
@@ -231,6 +243,8 @@ ZP: {
 .label SCORPION_UP_CHAR = 4
 .label BLANK_CHAR = 0
 .label DEATH_CHAR = 1
+.label EGG_CHAR = 43
+.label SCORPION_START_CHAR = 3
 
 .label SCREEN_ROWS = 23
 .label SCREEN_COLS = 22
@@ -269,6 +283,7 @@ ZP: {
 .label WALL_TILE = 30
 .label EMPTY_TILE = 0
 .label HOME_TILE = 2
+.label BULLET_TILE = 8
 
 .label PLAYER_FACING_UP = 4
 .label PLAYER_FACING_DOWN = 6

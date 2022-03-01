@@ -10,7 +10,8 @@ Memory Map
 Default-segment:
   $1201-$120d Basic
   $a00c-$a0a8 Program Start
-  $a0a9-$abfb Gameplay
+  $a0a9-$a405 Gameplay
+  $a406-$abfb Player
   $abfc-$af99 Sss
   $af9a-$afb6 IRQ
   $afb7-$b0d0 Game continued

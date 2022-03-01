@@ -19,7 +19,7 @@
 
     L_a0a9:
 
-        .break
+    
         lda ZP.Level
         and #%00000011
         tax 
@@ -74,10 +74,7 @@
         lda $19
         bne GameLoop
 
-        .break
-
         jsr $ae81
-        .break
         bcs L_a0a9
 
 
@@ -108,7 +105,7 @@
 
     L_a198:
       //  nop
-      lda $18
+      lda ZP.PlayRealGame
       beq L_a1af
         ldx #$00
     L_a19e:
@@ -282,8 +279,8 @@
         bpl SevenLoop
 
         
-        lda #$04
-        sta $19
+        lda #START_EGGS 
+        sta ZP.EggsRemaining
 
         ldx #6
     L_a2cc:
@@ -418,7 +415,7 @@
 
         stx ZP.PlayerDeathProgress
         stx ZP.CarriedCharID
-        stx $1c
+        stx ZP.FireLastFrame 
 
         jsr ResetEgg
 
@@ -479,277 +476,23 @@
         sta SOUND_VOLUME_AUX_COLOR
         rts 
 
-    L_a3ff:
-        lda $04
-    L_a401:
-        eor #$04
-        sta $04
-        rts 
+    ReverseDirection:
 
-
-    L_a406:
-        lda $02
-        cmp #$18
-        bne QuitOut
-        lda $03
-        cmp #$20
-        bne QuitOut
-        ldx $8C
-        jsr L_ada0
-
-        .byte $a5,$82,$c9,$2b,$90,$09,$a5,$80,$48,$20,$79,$a1,$68,$a8,$2c,$a0
-        .byte $11,$c6,$19,$20,$7b,$b2,$a0,$00,$84,$82,$88,$84,$88
-
-    QuitOut:
-        rts 
-
-
-    MoveScreenPointerCarried:
-    
         lda ZP.Direction
+
+    Eor_4:
+    
         eor #%00000100
-        tay 
-        jmp MoveLocationByOne
-
-    ProcessPlayer:
-
-        dec ZP.PlayerDisplayTimer
-        bne QuitOut
-        lda #PLAYER_UPDATE_TIME
-        sta ZP.PlayerDisplayTimer
-        
-        lda MAP_HOME_POSITION
-        bne UpdateMiniMap
-
-    AwayFromHome:
-
-        lda #HOME_TILE
-        sta MAP_HOME_POSITION
-
-    UpdateMiniMap:
-
-        ldx #PLAYER_ID
-        jsr GetPositionDirection
-
-        jsr DeleteChar
-
-        lda #PLAYER_MINI_MAP
-        jsr DrawIntoMiniMap
-
-
-    CheckPlayerStatus:
-
-        lda ZP.PlayRealGame
-        beq PlayerNotDead
-
-    CheckAirWhileWaiting:
-
-        lda ZP.PlayerDeathProgress
-        beq PlayerNotDead
-        cmp #DEATH_ANIMATION_TIME
-        bcc StillDoingDeath
-
-    RunOutDisableRTS:
-
-        pla 
-        pla 
-        jmp LoseLife
-
-    StillDoingDeath:
-
-        lda SOUND_VOLUME_AUX_COLOR
-        beq VolumeAlreadyZero
-        dec SOUND_VOLUME_AUX_COLOR
-        lda #200
-        sta SOUND_CHANNEL_4
-
-    VolumeAlreadyZero:
-
-        lda #DEATH_CHAR
-        jsr DrawChar
-
-        inc ZP.PlayerDeathProgress
-        lda ZP.PlayerDeathProgress
-        cmp #DEATH_PARTICLE_TIME
-
-        bcs ExitPlayer
-
-        ldy #RANDOM_0_7
-        jsr GetRandomNumber
-        tay 
-
-        jsr MoveLocationByOne
-        jmp SpawnParticle
-
-
-    PlayerNotDead:
-
-
-        lda ZP.PlayerWaitingFire
-        bpl L_a4de
-
-    PlayerAllowedMove:
-
-
-        lda ZP.CarriedCharID    
-        beq NotCarryingAnything
-
-        jsr MoveScreenPointerCarried
-
-        jsr DeleteChar
-
-        ldx $8c
-
-        lda EnemyType,x
-        bne StillCarrying
-
-        sta ZP.CarriedCharID
-        beq NotCarryingAnything
-
-    StillCarrying:
-
-        ldx #PLAYER_ID
-        jsr GetPositionDirection
-        jsr L_a406
-
-    NotCarryingAnything:
-
-        lda $18
-        bne L_a4be
-        jsr L_a5db
-        jmp L_a4de
-    L_a4be:
-        jsr ReadJoystick
-        ldx #$03
-    L_a4c3:
-        lda $0c,x
-        beq L_a4d0
-        dex 
-        bpl L_a4c3
-        jmp L_a4de
-    L_a4cd:
-        sta $1c
-    ExitPlayer:
+        sta ZP.Direction
         rts 
 
 
-    L_a4d0:
-        txa 
-        asl 
-        sta $04
-        ldy ZP.CarriedCharID
-        bne L_a4db
-        sta Direction
-    L_a4db:
-        jsr L_a58f
-
-    L_a4de:
-        lda $04
-        lsr 
-        clc 
-        adc #$03
-        jsr DrawChar
-        lda #$04
-        jsr ClearFromMiniMap
-        ldx #$00
-        jsr SavePositionDirection
-
-        lda ZP.CarriedCharID
-        beq NotCarrying2
-
-        jsr MoveScreenPointerCarried
-
-        ldx ZP.CarriedID
-
-        jsr L_a3ff
-        jsr SavePositionDirection
-        lda ZP.CarriedCharID
-        jsr DrawChar
-
-    NotCarrying2:
-
-        lda $18
-        beq L_a512
-        jsr CheckFireButton
-        bne L_a4cd
-        lda $1c
-        beq ExitPlayer
-    L_a512:
-        lda $cd
-        bmi L_a519
-        jsr L_ac5f
-    L_a519:
-        ldx #$00
-        jsr GetPositionDirection
-        ldx #$23
-    L_a520:
-        lda Direction,x
-        bmi L_a52b
-        dex 
-        cpx #$1f
-        bne L_a520
-        rts 
+     #import "gameplay/player.asm"
 
 
-    L_a52b:
-        lda #$08
-        sta $02c0,x
-        lda #$ff
-        sta $85
-        bmi L_a560
-    L_a536:
-        dec $51
-        bne ExitPlayer
-        lda #$09
-        sta $51
-    L_a53e:
-        ldx #$20
-    L_a540:
-        jsr GetPositionDirection
-        bmi L_a589
-        jsr L_a700
-        cmp #$23
-        beq L_a558
-        cmp #$1c
-        beq L_a558
-        cmp #$1d
-        beq L_a558
-        cmp #$07
-        bcs L_a56d
-    L_a558:
-        jsr DeleteChar
-        dec $02c0,x
-        beq L_a574
-    L_a560:
-        jsr L_a6ef
-        bcs L_a574
-        cmp #$23
-        beq L_a579
-        cmp #$07
-        bcc L_a579
-    L_a56d:
-        stx $16
-        jsr L_a87b
-        ldx $16
-    L_a574:
-        jsr L_ada0
-        bmi L_a589
-    L_a579:
-        ldy #$1c
-        lda $04
-        and #$02
-        beq L_a582
-        iny 
-    L_a582:
-        tya 
-        jsr DrawChar
-        jsr SavePositionDirection
-    L_a589:
-        inx 
-        cpx #$24
-        bne L_a540
-        rts 
+   
 
+   
 
     L_a58f:
         jsr L_a6ef
@@ -801,7 +544,8 @@
         rts 
 
 
-    L_a5db:
+    HandleDemoMode:
+
         lda $04
         sta $06
         jsr L_a58f
@@ -816,11 +560,11 @@
         sta Direction
         jsr L_a58f
         bcc L_a611
-        jsr L_a3ff
+        jsr ReverseDirection
         jsr L_a58f
         bcc L_a611
         lda $06
-        jsr L_a401
+        jsr Eor_4
         jsr L_a58f
         bcc L_a611
         lda $06
@@ -1198,7 +942,7 @@
         .byte $23,$d0,$05,$a0,$05,$2c,$a0,$17
 
     L_a8c4:
-        jsr L_ada0
+        jsr DeleteEnemy
         bmi L_a921
     L_a8c9:
         lda $02c0,x
@@ -1416,11 +1160,11 @@
         sta Direction,x
         jsr L_aa39
         bcc L_a9bf
-        jsr L_a3ff
+        jsr ReverseDirection
         jsr L_aa39
         bcc L_a9bf
         lda $06
-        jsr L_a401
+        jsr Eor_4
     L_aa39:
         jsr L_a6ef
         bcs L_aa48
@@ -1466,7 +1210,7 @@
         sta $97,x
         ldx L_aa4b,y
     L_aa83:
-        jsr L_ada0
+        jsr DeleteEnemy
         dex 
         cpx $8e
         bne L_aa83
@@ -1812,7 +1556,7 @@
         bcc L_acfb
     L_acf5:
         jsr GetPositionDirection
-        jsr L_a3ff
+        jsr ReverseDirection
     L_acfb:
         jsr L_ad04
     L_acfe:
@@ -1906,8 +1650,10 @@
         lda $02c0,x
         cmp #$04
         bne L_ada6
-    L_ada0:
-        lda #$ff
+
+    DeleteEnemy:
+
+        lda #255
         sta Direction,x
         rts 
 
@@ -2529,10 +2275,13 @@
 
 
     L_b27b:
-        stx $13
+
+        stx ZP.X_Reg
         clc 
         ldx #$05
+
     L_b280:
+
         lda NextEggLookup,y
         adc $1e,x
         cmp #$0a
@@ -2557,6 +2306,7 @@
         inx 
         cpx #$06
         bne L_b299
+
     L_b2a8:
         jsr IncreaseLives
         jsr ResetZPValues
@@ -2578,7 +2328,7 @@
         dex 
         bpl L_b2b5
     L_b2ca:
-        ldx $13
+        ldx ZP.X_Reg
         rts 
 
 

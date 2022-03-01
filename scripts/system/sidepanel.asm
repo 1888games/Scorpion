@@ -69,18 +69,20 @@
 
     ResetEgg:
         //nop
-        lda #41
-        sta $80
+        lda #FIRST_EGG_BONUS_ID - 6
+        sta ZP.EggBonusLookup
 
-    L_a179:
+    UpdateEggBonus:
 
-        lda $80
-        cmp #65
+        lda ZP.EggBonusLookup
+        cmp #MAX_EGG_BONUS_ID
         bcs Exit2
-        adc #6
-        sta $80
+
+        adc #DIGITS_IN_SCORE
+        sta ZP.EggBonusLookup
         tay 
-        ldx #3
+
+        ldx #EGG_BONUS_DIGITS - 1
 
     EggDisplayLoop:
 
