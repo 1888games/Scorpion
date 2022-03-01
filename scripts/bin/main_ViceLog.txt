@@ -13,7 +13,7 @@ Empathic Qubit, Roberto Muscedere, June Tate-Gans, Pablo Roldan.
 This is free software with ABSOLUTELY NO WARRANTY.
 See the "About VICE" command for more info.
  
-random seed was: 0x621dffd7
+random seed was: 0x621e0324
 command line was: /Applications/Vice/VICE.app/Contents/Resources/bin/xvic -logfile /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main_ViceLog.txt -moncommands /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.vs /Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/bin/main.prg
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/kernal'.
 Loading system file `/Applications/Vice/VICE.app/Contents/Resources/bin/../share/vice/VIC20/basic'.
@@ -102,7 +102,7 @@ Monitor playback command: al C:aead .L_aead
 Monitor playback command: al C:a6f1 .L_a6f1
 Monitor playback command: al C:b064 .L_b064
 Monitor playback command: al C:b374 .CheckY
-Monitor playback command: al C:b7e5 .L_b7e4
+Monitor playback command: al C:b7e4 .L_b7e4
 Monitor playback command: al C:b9bb .HighScoreLoop
 Monitor playback command: al C:13 .RIGHT_ARROW_CHAR
 Monitor playback command: al C:a6da .L_a6da
@@ -712,7 +712,7 @@ Monitor playback command: al C:a197 .Exit2
 Monitor playback command: al C:abe3 .Exit3
 Monitor playback command: al C:ba36 .ScorpionCharIDs_Shifted
 Monitor playback command: al C:b4c6 .ReadJoystick
-Monitor playback command: al C:b7e6 .CompleteSettingsScreen
+Monitor playback command: al C:b7e5 .CompleteSettingsScreen
 Monitor playback command: al C:1c08 .DEAD_START
 Monitor playback command: al C:b127 .DoneALine
 Monitor playback command: al C:96c2 .AIR_INDICATOR_COLOUR_POS
@@ -874,22 +874,12 @@ AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
 AUTOSTART: Restoring FSDeviceLongNames to 0.
 AUTOSTART: Done.
 Sync reset
-Sound: Warning - Buffer full during suspend
 sound (coreaudio_start): Started
 Sync reset
 Sound: Warning - Buffer full during suspend
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
-sound (coreaudio_start): Started
-Sync reset
 Initiating render thread 0 shutdown
 Joining render thread 0 ...
+Render thread shutdown
 Joined render thread 0.
 
 Resources with non default values:
@@ -902,8 +892,8 @@ MonitorWidth=576
 MonitorHeight=290
 Window0Height=897
 Window0Width=1027
-Window0Xpos=380
-Window0Ypos=87
+Window0Xpos=379
+Window0Ypos=25
 SoundVolume=0
 RAMBlock1=1
 RAMBlock5=1

@@ -5,9 +5,11 @@
 
 CompleteSettingsScreen:
 
-        adc $d120 // #$2A from kernal rom????
-        bcs PixelRowLoop
-        and ($B2), y
+        lda #$6D
+        jsr ColourAnimation
+        jsr ClearMainWindow // #$2A from kernal rom????
+      //  bcs PixelRowLoop
+      //  and ($B2), y
         ldy #0
         jsr PlaceMiniMapChars
         jsr CopyScorpionChars

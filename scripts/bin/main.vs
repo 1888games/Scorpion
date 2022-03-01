@@ -31,7 +31,7 @@ al C:aead .L_aead
 al C:a6f1 .L_a6f1
 al C:b064 .L_b064
 al C:b374 .CheckY
-al C:b7e5 .L_b7e4
+al C:b7e4 .L_b7e4
 al C:b9bb .HighScoreLoop
 al C:13 .RIGHT_ARROW_CHAR
 al C:a6da .L_a6da
@@ -641,7 +641,7 @@ al C:a197 .Exit2
 al C:abe3 .Exit3
 al C:ba36 .ScorpionCharIDs_Shifted
 al C:b4c6 .ReadJoystick
-al C:b7e6 .CompleteSettingsScreen
+al C:b7e5 .CompleteSettingsScreen
 al C:1c08 .DEAD_START
 al C:b127 .DoneALine
 al C:96c2 .AIR_INDICATOR_COLOUR_POS

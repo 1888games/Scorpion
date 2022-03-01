@@ -21,8 +21,10 @@ Default-segment:
   $b249-$b462 Game continued
   $b463-$b4ec Utility
   $b4ed-$b571 Initialise
-  $b572-$b7e5 Title Screen
-  $b7e6-$b9e7 Level Select Pt 2
+  $b572-$b7dd Title Screen
+  $b7de-$b7e3 ssjaj
+  $b7e4-$b7e4 ssjaj
+  $b7e5-$b9e7 Level Select Pt 2
   $b9e8-$baff Char Data
   $bb00-$bbff Chars
   $bc00-$bcbe Layout 1

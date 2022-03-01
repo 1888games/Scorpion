@@ -471,16 +471,19 @@ DrawTitleScreen:
         .byte $01,$02,$03,$16,$17,$18,$19,$2c,$2d,$2e,$2f,$30,$33,$36,$39,$31
         .byte $34,$37,$3a,$32,$35,$38
 
+     * = * "ssjaj"
     L_b7de:
         .byte $3b
 
     LookupTimer5:
 
         .byte $00,$30,$60
-        .byte $90,$60,$30
+        .byte $90,$60
+
+    * = * "ssjaj"
 
     L_b7e4:
-        .byte $a9
+        .byte $30
 
 
         

@@ -235,7 +235,7 @@
   .label L_a5d9=$a5d9
   .label CheckY=$b374
   .label RunOutDisableRTS=$a468
-  .label L_b7e4=$b7e5
+  .label L_b7e4=$b7e4
   .label HighScoreLoop=$b9bb
   .label L_a6da=$a6da
   .label DrawChar=$b32c
@@ -563,7 +563,7 @@
   .label LOGO_ROW=$3
   .label EditTwoChars=$b6ea
   .label ResetScoreLoop=$a146
-  .label CompleteSettingsScreen=$b7e6
+  .label CompleteSettingsScreen=$b7e5
   .label L_a558=$a558
   .label DoneALine=$b127
   .label L_a315=$a315
