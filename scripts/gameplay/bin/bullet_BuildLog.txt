@@ -1,0 +1,19 @@
+parsing
+Got 20 errors while executing:
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/gameplay/bullet.asm 44:14) Syntax error
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/gameplay/bullet.asm 7:14) Unknown symbol 'BULLET_TILE'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/gameplay/bullet.asm 8:13) Unknown symbol 'EnemyType'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/gameplay/bullet.asm 18:13) Unknown symbol 'ZP'
+  (/Users/nick/Dropbox/C64/Projects/Scorpion VIC20/scripts/gameplay/bullet.asm 19:13) Unknown symbol 'ExitPlayer'
+  ...
+
+        cmp #BULLET_VERTI_CHAR
+        beq NotEnemy
+
+        cmp #
+             ^
+
+Error: Syntax error
+at line 44, column 14 in bullet.asm
+
+

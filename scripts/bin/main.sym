@@ -32,6 +32,7 @@
 .label LIGHT_PURPLE_BG=$c0
 .label MAP_LOOKUP_MSB=$380
 .label START_X=$18
+.label FIRST_ENEMY_CHAR=$7
 .label CHAR_RAM_SCORPION_LOGO_END=$1dc0
 .label CHAR_RAM_SCORPION_LOGO=$1d80
 .label ZP=$2000 {
@@ -73,6 +74,7 @@
   .label Level=$1a
   .label GameAnimateTimer=$57
   .label TempData=$5
+  .label BulletTimer=$51
   .label HighScoreString=$bc
   .label RandomRegister3=$b3
   .label RandomRegister2=$b2
@@ -118,6 +120,7 @@
 .label PORT_B_OUTPUT=$9120
 .label LIGHT_ORANGE_BG=$90
 .label CHAR_EDIT_ADDRESS=$1c90
+.label BULLET_VERTI_CHAR=$1d
 .label PLAYER_FACING_RIGHT=$5
 .label CHAR_RAM_MINI_MAP=$1d80
 .label TABLE_64_2C0=$2c0
@@ -134,6 +137,7 @@
 .label STALKER_START=$1cf8
 .label SOLID_CHAR=$21
 .label PINK_BG=$a0
+.label BULLET_HORIZ_CHAR=$1c
 .label PLAYER_MINI_MAP=$4
 .label PLAYER_FACING_UP=$4
 .label LIGHT_GREEN_BG=$d0
@@ -170,6 +174,7 @@
 .label RANDOM_0_31=$4
 .label DRAGON_START=$1d38
 .label WHITE_BG=$10
+.label BALL_CHAR=$23
 .label HORIZONTAL_START_LOCATION=$9000
 .label HOME_CHAR_USE=$1c10
 .label ENEMY_MINI_MAP=$0
@@ -188,6 +193,7 @@
 .label MAP_DATA=$1000
 .label GREEN_BG=$50
 .label BONUS_SCREEN_POSITION=$1e60
+.label BULLET_UPDATE_TIME=$9
 .label SOUND_VOLUME_AUX_COLOR=$900e
 .label LIFE_INDICATOR_COLOUR_POS=$961e
 .label MIN_BULLET_ID=$20
@@ -259,7 +265,9 @@
   .label StillCarrying=$a4ac
   .label L_b299=$b299
   .label Row_6_Home=$b66b
+  .label HitEnemy=$a56d
   .label DecreaseVolume=$b920
+  .label GetCharFromMap=$a700
   .label L_aa9d=$aa9d
   .label ReadOtherDirections=$b4ce
   .label Reset32BytesTo1=$a12b
@@ -326,6 +334,7 @@
   .label L_adde=$adde
   .label LOGO_X=$7
   .label DisableNMI=$a00c
+  .label NotEnemy=$a558
   .label L_ade1=$ade1
   .label L_acc1=$acc1
   .label Timer1=$b6cc
@@ -345,7 +354,6 @@
   .label IncreaseVolume=$b915
   .label L_a582=$a582
   .label L_b794=$b794
-  .label L_a589=$a589
   .label Exit=$b1e8
   .label L_a9c0=$a9c0
   .label L_a58f=$a58f
@@ -384,6 +392,7 @@
   .label InitialiseRegistersLookups=$b510
   .label DifficultyText=$b9ca
   .label FindFreeEntry=$a934
+  .label CheckIfHitting=$a545
   .label L_a369=$a369
   .label L_a24d=$a24d
   .label ExitVolume=$b91f
@@ -472,6 +481,7 @@
   .label DelayLoop1=$b505
   .label DelayLoop2=$b506
   .label L_sb4c6=$b4c6
+  .label ContinueBullet=$a560
   .label DrawLine=$b10d
   .label IsNotDemoMode=$a4be
   .label L_aa4b=$aa4b
@@ -531,7 +541,6 @@
   .label CopyLoop=$a015
   .label ScorpionEorTable=$b147
   .label FireBullet=$a52b
-  .label L_a536=$a536
   .label MapDrawLoop=$b258
   .label SevenLoop=$a2b8
   .label L_a89f=$a89f
@@ -541,7 +550,6 @@
   .label LogoCharLoop=$b8a2
   .label L_a89a=$a89a
   .label StillLayersToDraw=$b0ec
-  .label L_a53e=$a53e
   .label L_ad11=$ad11
   .label DigitLoop=$b931
   .label L_a540=$a540
@@ -563,15 +571,15 @@
   .label Exit2=$a197
   .label L_a313=$a313
   .label L_b403=$b403
-  .label Exit3=$abe3
+  .label Exit3=$a706
   .label L_ad0c=$ad0c
   .label ScorpionCharIDs_Shifted=$ba36
+  .label Exit4=$abe3
   .label ReadJoystick=$b4c6
   .label LOGO_ROW=$3
   .label EditTwoChars=$b6ea
   .label ResetScoreLoop=$a146
   .label CompleteSettingsScreen=$b7e5
-  .label L_a558=$a558
   .label DoneALine=$b127
   .label L_a315=$a315
   .label L_ae2a=$ae2a
@@ -589,7 +597,6 @@
   .label L_a200=$a200
   .label L_a321=$a321
   .label SetupNewLevel=$af2a
-  .label L_a560=$a560
   .label L_a681=$a681
   .label ExitLives=$b2e2
   .label L_a680=$a680
@@ -598,7 +605,6 @@
   .label NotAnimYet=$b8ea
   .label L_ae67=$ae67
   .label L_b41e=$b41e
-  .label L_a56d=$a56d
   .label L_a9a5=$a9a5
   .label L_b77c=$b77c
   .label ScorpionLogoChars=$bf30
@@ -655,6 +661,7 @@
   .label L_b3e9=$b3e9
   .label L_a2f7=$a2f7
   .label TronixPresents=$b5d4
+  .label ProcessBullets=$a536
   .label L_abe0=$abe0
   .label SoundOffLoop=$a3f1
   .label JoyDirectionLoop=$a4c3
@@ -706,14 +713,12 @@
   .label StoreX=$b372
   .label CheckAirWhileWaiting=$a460
   .label Row_5_10=$b663
-  .label L_a706=$a706
   .label L_b3ea=$b3ea
   .label StartLevel=$a0be
   .label L_b2ca=$b2ca
   .label WaitForRaster1=$b6fe
   .label L_a824=$a824
   .label L_a823=$a823
-  .label L_a700=$a700
   .label MoreLevelData=$a27f
   .label CalculateFrameDelay=$a27f
   .label Row1_75=$b619
@@ -739,6 +744,7 @@
   .label L_a71b=$a71b
   .label Row_7_Life=$b67e
   .label NotCarryingAnything=$a4b4
+  .label EndBulletLoop=$a589
   .label PlaceMiniMapChars=$b249
   .label FirePressed=$b6e9
   .label BonusLookup=$b950

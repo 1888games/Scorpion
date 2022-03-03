@@ -71,10 +71,13 @@ ZP: {
     .label Timer4 = $53
     .label Timer5 = $68
 
+
     .label EggBonusLookup = $80
 
 
     .label PlayerDisplayTimer = $50
+      .label BulletTimer = $51
+
 
     .label CharAnimTimer = $5C
     .label WaitingSoundTimer = $5D
@@ -122,6 +125,8 @@ ZP: {
 .label MIN_BULLET_ID = 32
 
 
+
+.label BULLET_UPDATE_TIME = 9
 .label PLAYER_UPDATE_TIME = 16
 
 .label DIGIT_TO_CHAR_MASK = $b0
@@ -284,6 +289,11 @@ ZP: {
 .label EMPTY_TILE = 0
 .label HOME_TILE = 2
 .label BULLET_TILE = 8
+
+.label BALL_CHAR = 35
+.label BULLET_HORIZ_CHAR = 28
+.label BULLET_VERTI_CHAR = 29
+.label FIRST_ENEMY_CHAR = 7
 
 .label PLAYER_FACING_UP = 4
 .label PLAYER_FACING_DOWN = 6

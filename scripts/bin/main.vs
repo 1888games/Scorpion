@@ -42,7 +42,9 @@ al C:b055 .L_b055
 al C:b58f .SkipBlank
 al C:a4ac .StillCarrying
 al C:b299 .L_b299
+al C:a56d .HitEnemy
 al C:b920 .DecreaseVolume
+al C:a700 .GetCharFromMap
 al C:b4ce .ReadOtherDirections
 al C:a12b .Reset32BytesTo1
 al C:97d1 .DIFFICULTY_COLOUR_POS
@@ -58,6 +60,7 @@ al C:b36d .DecX
 al C:b383 .DecY
 al C:c .JoystickReadings
 al C:b493 .PositiveIsChar
+al C:23 .BALL_CHAR
 al C:9000 .HORIZONTAL_START_LOCATION
 al C:aedc .L_aedc
 al C:bf70 .CharEorTable
@@ -106,7 +109,6 @@ al C:a3c3 .ClearAirLoop
 al C:b915 .IncreaseVolume
 al C:a582 .L_a582
 al C:1e1e .LIFE_INDICATOR_POSITION
-al C:a589 .L_a589
 al C:b1 .Timer_LSB
 al C:a58f .L_a58f
 al C:b167 .HomeCharLookup
@@ -167,6 +169,7 @@ al C:be40 .LevelLayout_4
 al C:bc00 .LevelLayout_1
 al C:bcbf .LevelLayout_2
 al C:b7a6 .L_b7a6
+al C:9 .BULLET_UPDATE_TIME
 al C:b24d .L_b24d
 al C:a8f5 .L_a8f5
 al C:b63f .Row3_200
@@ -209,6 +212,7 @@ al C:b613 .SkipChar
 al C:14 .TempY
 al C:c0 .LIGHT_PURPLE_BG
 al C:12 .ColourTemp
+al C:7 .FIRST_ENEMY_CHAR
 al C:1dc0 .CHAR_RAM_SCORPION_LOGO_END
 al C:af0b .L_af0b
 al C:1d80 .CHAR_RAM_SCORPION_LOGO
@@ -217,6 +221,7 @@ al C:a759 .L_a759
 al C:57 .GameAnimateTimer
 al C:baf9 .L_baf9
 al C:b525 .SetupScreenLookup
+al C:1d .BULLET_VERTI_CHAR
 al C:a75a .L_a75a
 al C:a99a .L_a99a
 al C:2 .Y_UP_ONLY
@@ -236,12 +241,10 @@ al C:b0af .IsEmptyTile
 al C:2f .FIRST_EGG_BONUS_ID
 al C:b147 .ScorpionEorTable
 al C:9 .PlayerDeathProgress
-al C:a536 .L_a536
 al C:b258 .MapDrawLoop
 al C:8 .BULLET_TILE
 al C:a77c .L_a77c
 al C:b8a2 .LogoCharLoop
-al C:a53e .L_a53e
 al C:ad11 .L_ad11
 al C:b931 .DigitLoop
 al C:cc .DefaultColours
@@ -268,7 +271,7 @@ al C:3 .LOGO_ROW
 al C:b6ea .EditTwoChars
 al C:a146 .ResetScoreLoop
 al C:9608 .SCORE_COLOUR_POSITION
-al C:a558 .L_a558
+al C:51 .BulletTimer
 al C:a315 .L_a315
 al C:b40e .L_b40e
 al C:b0d1 .ColourAnimation
@@ -278,12 +281,10 @@ al C:b8 .JOYSTICK_MASKS
 al C:b65a .Row_5_Egg
 al C:a321 .L_a321
 al C:af2a .SetupNewLevel
-al C:a560 .L_a560
 al C:b2e2 .ExitLives
 al C:b8ea .NotAnimYet
 al C:b41e .L_b41e
 al C:3e0 .SCREEN_MSB_LOOKUP
-al C:a56d .L_a56d
 al C:a574 .L_a574
 al C:a331 .L_a331
 al C:8 .INVERTED
@@ -314,6 +315,7 @@ al C:2000 .ZP
 al C:b38a .ExitCharMove
 al C:a1af .L_a1af
 al C:b6d7 .NotTimer1
+al C:a536 .ProcessBullets
 al C:abe0 .L_abe0
 al C:b2c0 .L_b2c0
 al C:b4a8 .NoWrap2
@@ -346,10 +348,8 @@ al C:7 .DirectionToMove
 al C:b92c .DrawBonus
 al C:b372 .StoreX
 al C:b663 .Row_5_10
-al C:a706 .L_a706
 al C:b2ca .L_b2ca
 al C:b6fe .WaitForRaster1
-al C:a700 .L_a700
 al C:b619 .Row1_75
 al C:a94a .L_a94a
 al C:5 .X_RIGHT_ONLY
@@ -368,6 +368,7 @@ al C:900e .SOUND_VOLUME_AUX_COLOR
 al C:a519 .NotWaiting
 al C:a71b .L_a71b
 al C:b67e .Row_7_Life
+al C:a589 .EndBulletLoop
 al C:a1 .LevelDataPointer
 al C:b249 .PlaceMiniMapChars
 al C:b950 .BonusLookup
@@ -464,6 +465,7 @@ al C:900a .SOUND_CHANNEL_1
 al C:adde .L_adde
 al C:7 .LOGO_X
 al C:1fc6 .WAVE_NUMBER_BOTTOM
+al C:a558 .NotEnemy
 al C:23 .MAX_BULLET_ID
 al C:1e08 .SCORE_POSITION
 al C:ade1 .L_ade1
@@ -510,6 +512,7 @@ al C:a9bf .L_a9bf
 al C:a9c9 .L_a9c9
 al C:b510 .InitialiseRegistersLookups
 al C:a934 .FindFreeEntry
+al C:a545 .CheckIfHitting
 al C:a24d .L_a24d
 al C:b91f .ExitVolume
 al C:7 .RANDOM_0_255
@@ -573,6 +576,7 @@ al C:40 .MAP_ROWS
 al C:5c .CharAnimTimer
 al C:a93d .FoundFreeItem
 al C:4 .LOGO_START_COL
+al C:a560 .ContinueBullet
 al C:a4be .IsNotDemoMode
 al C:aa4b .L_aa4b
 al C:a7cf .L_a7cf
@@ -648,8 +652,9 @@ al C:a47a .VolumeAlreadyZero
 al C:1c10 .HOME_CHAR_USE
 al C:a175 .ResetEgg
 al C:a197 .Exit2
-al C:abe3 .Exit3
+al C:a706 .Exit3
 al C:ba36 .ScorpionCharIDs_Shifted
+al C:abe3 .Exit4
 al C:b4c6 .ReadJoystick
 al C:b7e5 .CompleteSettingsScreen
 al C:1c08 .DEAD_START
@@ -727,6 +732,7 @@ al C:8 .NO_MOVEMENT
 al C:aab1 .L_aab1
 al C:b9ea .CopyLoop2
 al C:a0 .PINK_BG
+al C:1c .BULLET_HORIZ_CHAR
 al C:acf5 .L_acf5
 al C:af8e .PixelMaskLookup
 al C:f .JOY_DOWN_NOW

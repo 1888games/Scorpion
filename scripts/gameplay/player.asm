@@ -165,7 +165,7 @@
     IsNotDemoMode:
 
         jsr ReadJoystick
-        
+
         ldx #3
 
     JoyDirectionLoop:
@@ -260,69 +260,6 @@
         bne CheckBulletLoop
         rts 
 
-    FireBullet:
-
-        lda #BULLET_TILE
-        sta EnemyType,x
-
-        lda #$ff
-        sta $85
-
-        bmi L_a560
-    L_a536:
-        dec $51
-        bne ExitPlayer
-        lda #$09
-        sta $51
-    L_a53e:
-        ldx #$20
-    L_a540:
-        jsr GetPositionDirection
-        bmi L_a589
-        jsr L_a700
-        cmp #$23
-        beq L_a558
-        cmp #$1c
-        beq L_a558
-        cmp #$1d
-        beq L_a558
-        cmp #$07
-        bcs L_a56d
-    L_a558:
-        jsr DeleteChar
-        dec $02c0,x
-        beq L_a574
-    L_a560:
-        jsr L_a6ef
-        bcs L_a574
-        cmp #$23
-        beq L_a579
-        cmp #$07
-        bcc L_a579
-    L_a56d:
-        stx $16
-        jsr L_a87b
-        ldx $16
-    L_a574:
-        jsr DeleteEnemy
-        bmi L_a589
-    L_a579:
-        ldy #$1c
-        lda $04
-        and #$02
-        beq L_a582
-        iny 
-    L_a582:
-        tya 
-        jsr DrawChar
-        jsr SavePositionDirection
-    L_a589:
-        inx 
-        cpx #$24
-        bne L_a540
-        rts 
-
-
-
+    
 
   }

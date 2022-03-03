@@ -44,7 +44,7 @@
         jsr DelayByA
 
         jsr ProcessPlayer
-        jsr L_a536
+        jsr ProcessBullets
 
         lda ZP.PlayerWaitingFire
         bmi PlayerCanMove
@@ -267,6 +267,7 @@
 
 
         ldx #7
+
     SevenLoop:
 
         lda #255
@@ -277,7 +278,6 @@
         sta $9658,x
         dex 
         bpl SevenLoop
-
         
         lda #START_EGGS 
         sta ZP.EggsRemaining
@@ -374,7 +374,7 @@
         sta $02
         jsr GetRandomNumber
         sta $03
-        jsr L_a700
+        jsr GetCharFromMap
         bne L_a369
         rts 
 
@@ -481,18 +481,15 @@
         lda ZP.Direction
 
     Eor_4:
-    
+
         eor #%00000100
         sta ZP.Direction
         rts 
 
 
      #import "gameplay/player.asm"
+     #import "gameplay/bullet.asm"
 
-
-   
-
-   
 
     L_a58f:
         jsr L_a6ef
@@ -683,15 +680,18 @@
     L_a6f4:
         lda $03
         cmp #$40
-        bcs L_a706
+        bcs GetCharFromMap
         lda $02
         cmp #$30
-        bcs L_a706
-    L_a700:
+        bcs Exit3
+
+    GetCharFromMap:
+
         jsr ConvertTileToScreen
-        lda ($00),y
+        lda (ZP.ScreenAddress),y
         clc 
-    L_a706:
+
+    Exit3:
         rts 
 
 
@@ -1378,7 +1378,7 @@
 
     L_abab:
         dec $5b
-        bne Exit3
+        bne Exit4
         lda #$08
         sta $5b
         ldx #$07
@@ -1408,7 +1408,7 @@
     L_abe0:
         dex 
         bpl L_abb5
-    Exit3:
+    Exit4:
         rts 
 
 
@@ -1418,7 +1418,7 @@
         sta HOME_COLOUR_POSITION
 
         dec ZP.WaitingSoundTimer
-        bne Exit3
+        bne Exit4
 
     ChangeWaitingSound:
 
@@ -1436,7 +1436,7 @@
         sta SOUND_VOLUME_AUX_COLOR
 
         dec ZP.PlayerWaitingFire
-        bpl Exit3
+        bpl Exit4
 
     ResetWaitingSound:
 

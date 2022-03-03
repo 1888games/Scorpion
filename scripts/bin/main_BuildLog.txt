@@ -11,7 +11,8 @@ Default-segment:
   $1201-$120d Basic
   $a00c-$a0a8 Program Start
   $a0a9-$a405 Gameplay
-  $a406-$abfb Player
+  $a406-$a52a Player
+  $a52b-$abfb Bullet
   $abfc-$af99 Sss
   $af9a-$afb6 IRQ
   $afb7-$b0d0 Game continued
